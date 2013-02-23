@@ -7,7 +7,7 @@ class CoffeeAdmin(admin.ModelAdmin):
 
     fieldsets = [
         ('Coffee',               {'fields': ['name', 'finca', 'grower', 'varietal', 'altitude', 'notes']}),
-        ('Roaster',               {'fields': ['roaster', 'amount']}),
+        ('Roaster',               {'fields': ['roaster', 'amount', 'date_roast']}),
         ('Purchase', {'fields': ['date_purch', 'purch_location'], 'classes': ['collapse']})
         ]
 
