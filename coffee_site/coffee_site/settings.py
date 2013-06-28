@@ -1,10 +1,11 @@
+
 # Django settings for coffee_site project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Kenneth Daily', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -162,3 +163,6 @@ LOGGING = {
         },
     }
 }
+
+# URL of the login page.
+LOGIN_URL = '/login/'
