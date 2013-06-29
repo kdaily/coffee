@@ -10,7 +10,8 @@ urlpatterns = patterns('',
                            # url(r'^$', 'coffee_site.views.home', name='home'),
                        # url(r'^coffee_site/', include('coffee_site.foo.urls')),
                        
-                       url(r'^login/$', 'django.contrib.auth.views.login'),
+                       # url(r'^login/$', 'django.contrib.auth.views.login'),
+                       url(r'^login/$', 'coffee_journal.views.login_user'),
                        url(r'^coffee_journal/login/$', 'coffee_journal.views.login_user'),
                        url(r'^logout/$', 'django.contrib.auth.views.logout'),
                        

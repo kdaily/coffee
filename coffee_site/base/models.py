@@ -2,9 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class CoffeeUser(models.Model):
-    user = models.OneToOneField(User)
-
 class Coffee(models.Model):
     """DB model for coffee.
 
@@ -22,11 +19,8 @@ class Coffee(models.Model):
     altitude = models.IntegerField(blank=True)
     notes = models.TextField(blank=True)
 
-    # users = models.ForeignKey(CoffeeUser)
+    user = models.ManyToManyField(User)
     
     def __unicode__(self):
         return "%s, %s" % (self.name, self.roaster)
 
-class UsersCoffees(models.Model):
-    user = models.ForeignKey(CoffeeUser)
-    coffee = models.ForeignKey(Coffee)

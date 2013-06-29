@@ -132,7 +132,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'base',
     'coffee_journal',
-    'coffee_ratio'
+    # 'coffee_ratio'
 )
 
 # A sample logging configuration. The only tangible logging

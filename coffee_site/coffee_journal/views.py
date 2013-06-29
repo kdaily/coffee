@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from base.models import Coffee
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 
@@ -20,6 +20,8 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 state = "You're successfully logged in!"
+                return HttpResponseRedirect("/coffee_journal/coffees/")
+
             else:
                 state = "Your account is not active, please contact the site admin."
         else:
@@ -55,7 +57,8 @@ def logout_page(request):
 
 @login_required
 def index(request):
-    latest_coffee_list = Coffee.objects.all().order_by('-date_purch')
+    latest_coffee_list = Coffee.objects.filter(user__id=request.user.id).order_by('-date_purch')
+    ## latest_coffee_list = Coffee.objects.all().order_by('-date_purch')
     output = ', '.join([p.name for p in latest_coffee_list])
 
     t = loader.get_template('coffee_journal/index.html')
