@@ -27,8 +27,11 @@ urlpatterns = patterns('',
                        url(r'^logout/$', 'coffee_journal.views.logout'),
 
                        url(r'^coffees/$', 'coffee_journal.views.coffees_paginated'),
-                       url(r'^carousel/$', 'coffee_journal.views.coffee_carousel'),
+                       url(r'^purchased_coffees/$', 'coffee_journal.views.purchased_coffees_paginated'),
+                       # url(r'^carousel/$', 'coffee_journal.views.coffee_carousel'),
+
                        url(r'^coffee/(?P<coffee_id>\d+)/$', 'coffee_journal.views.coffee_detail'),
+                       url(r'^purchased_coffee/(?P<coffee_id>\d+)/$', 'coffee_journal.views.purchased_coffee_detail'),
                        url(r'^add/$', 'coffee_journal.views.coffee_add'),
                        
                        # url(r'^coffee_journal/login/$', 'coffee_journal.views.login'),                       
