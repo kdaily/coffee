@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+      <script src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>
+      <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+  </body>
+</html>
