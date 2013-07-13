@@ -46,12 +46,12 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/dailykm/projects/media/'
+MEDIA_ROOT = '/mnt/terabyte/shared/Projects/coffee/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/home/dailykm/projects/media/'
+MEDIA_URL = '/mnt/terabyte/shared/Projects/coffee/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -113,7 +113,7 @@ ROOT_URLCONF = 'coffee_site.urls'
 WSGI_APPLICATION = 'coffee_site.wsgi.application'
 
 TEMPLATE_DIRS = (
-    "/home/dailykm/Projects/django_templates/"
+    "/mnt/terabyte/shared/Projects/coffee/vessy/coffee/coffee_site/django_templates/"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
