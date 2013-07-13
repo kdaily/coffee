@@ -45,11 +45,16 @@ class Coffee(models.Model):
     def __unicode__(self):
         return "%s" % (self.name)
 
-class CoffeeBag(models.Model):
+class PurchasedCoffeeBag(models.Model):
 
     purch_location = models.CharField(max_length=500)
-
     date_purch = models.DateField('Purchase Date', blank=True)
+
+    user = models.ManyToManyField(User)
+    coffeebag = models.ForeignKey(CoffeeBag)
+
+class CoffeeBag(models.Model):
+
     date_roast = models.DateField('Roast Date', blank=True, null=True)
     
     amount = models.FloatField(blank=True, null=True)
@@ -57,8 +62,6 @@ class CoffeeBag(models.Model):
 
     rating = RatingField(range=5)
     thumb = ImageField(upload_to='/media/img/', blank=True)
-
-    user = models.ManyToManyField(User)
 
     roaster = models.ForeignKey(Roaster)
     store = models.ForeignKey(Store)
