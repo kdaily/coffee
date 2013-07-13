@@ -7,21 +7,27 @@ from sorl.thumbnail import ImageField
 
 class Roaster(models.Model):
     name = models.CharField(max_length=500)
-    city = models.CharField(max_length=500)
-    state = models.CharField(max_length=500)
-    address = models.CharField(max_length=500)
+    city = models.CharField(max_length=500, blank=True, null=True)
+    state = models.CharField(max_length=500, blank=True, null=True)
+    address = models.CharField(max_length=500, blank=True, null=True)
     zipcode = models.IntegerField(blank=True, null=True)
-    website = models.CharField(max_length=500)
+    website = models.CharField(max_length=500, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
+
+    def __unicode__(self):
+        return "%s" % (self.name)
 
 class Store(models.Model):
     name = models.CharField(max_length=500)
-    city = models.CharField(max_length=500)
-    state = models.CharField(max_length=500)
-    address = models.CharField(max_length=500)
+    city = models.CharField(max_length=500, blank=True, null=True)
+    state = models.CharField(max_length=500, blank=True, null=True)
+    address = models.CharField(max_length=500, blank=True, null=True)
     zipcode = models.IntegerField(blank=True, null=True)
-    website = models.CharField(max_length=500)
+    website = models.CharField(max_length=500, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
+
+    def __unicode__(self):
+        return "%s" % (self.name)
 
 # Create your models here.
 class Coffee(models.Model):
@@ -58,15 +64,23 @@ class CoffeeBag(models.Model):
     store = models.ForeignKey(Store)
     coffee = models.ForeignKey(Coffee)
 
+    def __unicode__(self):
+        return "%s, %s, %s" % (self.coffee.name, self.roaster.name, self.store.name)
+
+
 class PurchasedCoffeeBag(models.Model):
 
-    purch_location = models.CharField(max_length=500)
+    # purch_location = models.CharField(max_length=500)
     date_purch = models.DateField('Purchase Date', blank=True)
 
     rating = RatingField(range=5)
 
     user = models.ManyToManyField(User)
+    store = models.ForeignKey(Store)
     coffeebag = models.ForeignKey(CoffeeBag)
+
+    def __unicode__(self):
+        return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.coffeebag.store.name)
 
 
 def make_custom_datefield(f):
@@ -83,6 +97,23 @@ class CoffeeForm(forms.ModelForm):
     
     class Meta:
         model = Coffee
+        exclude = ('user',)
+
+class CoffeeBagForm(forms.ModelForm):
+
+    formfield_callback = make_custom_datefield
+    
+    class Meta:
+        model = CoffeeBag
+        exclude = ('user',)
+
+
+class PurchasedCoffeeBagForm(forms.ModelForm):
+
+    formfield_callback = make_custom_datefield
+    
+    class Meta:
+        model = PurchasedCoffeeBag
         exclude = ('user',)
 
 
