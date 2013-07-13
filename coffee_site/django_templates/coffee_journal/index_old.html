@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    
+    <title>Coffees in Coffee Journal</title>
+  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style2.css" />
+  </head>
+
+  <body class="demos ">
+    
+    <nav id="site-nav">
+      <h1><a href="/coffees/">Coffee Journal</a></h1>
+      <h1><a href="/add/">Add a Coffee</a></h1>
+      <h1><a href="/logout/">Logout</a></h1>
+      
+      <!--   <h2>Links</h2> -->
+      <!--   <ul> -->
+      <!--   <li>Foo</li> -->
+      <!--   <li>Bar</li> -->
+      <!--   </ul> -->
+      
+    </nav> 
+    <!--- #site-nav  --->
+    
+    <section id="content">
+      
+      <h1>{{ user.first_name }} {{ user.last_name }}'s Coffees</h1>
+      
+      {% if latest_coffee_list %}
+      
+      <div id="container" class="clearfix">
+	
+	{% for coffee in latest_coffee_list %}
+	
+	<div class="box col2 img">
+	  <p>
+	    <a href="/coffee/{{ coffee.id }}/" border=0>
+	      {{ coffee.name }}<br />
+	    <img src="{{ STATIC_URL }}img/{{ coffee.id }}.jpg">
+	    Purchased on {{ coffee.date_purch }}<br />
+	    
+	    </a>
+	  </p>
+	</div>
+
+	{% endfor %}
+      </div>
+            
+      {% else %}
+      <p>No coffee available.</p>
+      {% endif %}
+      
+      <script src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>
+      <script src="{{ STATIC_URL }}js/jquery.masonry.min.js"></script>
+  
+      <script>
+
+	var $container = $('#container');
+	$container.imagesLoaded(function(){
+	$container.masonry({
+	itemSelector : '.item',
+	columnWidth : 240
+	});
+	});	
+
+	<!-- $(function(){ -->
+	<!-- $('#container').masonry({ -->
+	<!-- // options -->
+	<!-- itemSelector : '.item', -->
+	<!-- columnWidth : 240 -->
+	<!-- }); -->
+	<!-- }); -->
+	
+      </script>
+      
+      
+      <footer id="site-footer">
+	Footer here
+      </footer>
+      
+    </section> <!-- #content -->  
+  </body>
+</html>

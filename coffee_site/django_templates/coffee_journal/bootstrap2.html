@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Coffee Journal{% endblock %}
+{% block loggedinstatus %}Logged in as <a href="#" class="navbar-link">{{ user.first_name }} {{ user.last_name }}</a>{% endblock %}
+
+{% block content %}
+
+<div class="span10">
+  
+  <div class="hero-unit">
+    <h1>Coffee Journal!</h1>
+    <p>This is a template for the coffee journal.</p>
+    <!-- <p><a href="#" class="btn btn-primary">Learn more &raquo;</a></p> -->
+  </div>
+  
+  <div class="row-fluid">
+    <div class="span8">
+      <h2>Heading</h2>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div><!--/span-->
+  </div>
+  
+  <div class="row-fluid">
+    <div class="span8">
+      <h2>Heading</h2>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div><!--/span-->
+  </div>
+  
+  <div class="row-fluid">
+    <div class="span8">
+      <h2>Heading</h2>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <p><a class="btn" href="#">View details &raquo;</a></p>
+    </div><!--/span-->
+  </div>
+  
+</div>
+
+{% endblock %}
