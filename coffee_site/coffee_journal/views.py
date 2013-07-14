@@ -4,8 +4,9 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from base.models import Coffee, CoffeeBag, PurchasedCoffeeBag
-from base.models import CoffeeForm, CoffeeBagForm, PurchasedCoffeeBagForm
+from base.models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
+
+from .models import PurchasedCoffeeBag, PurchasedCoffeeBagForm
 
 from django.http import HttpResponse, HttpResponseRedirect
 
