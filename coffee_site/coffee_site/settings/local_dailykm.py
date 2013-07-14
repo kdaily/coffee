@@ -5,7 +5,7 @@
 from .base import *
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+TEMPLATE_DEBUG = True #DEBUG
 
 DATABASES = {
     'default': {
