@@ -12,6 +12,8 @@ MEDIA_ROOT = PROJECT_ROOT.child("media")
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 STATIC_ROOT = PROJECT_ROOT.child("static")
 
+STATIC_URL = PROJECT_ROOT.child("static")
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     PROJECT_ROOT.child("static"),
