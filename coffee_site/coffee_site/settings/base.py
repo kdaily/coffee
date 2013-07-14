@@ -11,7 +11,6 @@ MEDIA_ROOT = PROJECT_ROOT.child("media")
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 STATIC_ROOT = PROJECT_ROOT.child("static")
-
 STATIC_URL = PROJECT_ROOT.child("static")
 
 # Additional locations of static files
@@ -77,9 +76,6 @@ USE_TZ = True
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = ''
 
 # List of finder classes that know how to find static files in
 # various locations.
