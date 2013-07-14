@@ -109,13 +109,19 @@ def purchased_coffees_paginated(request):
     
     return HttpResponse(t.render(c))
 
-def coffee_detail(request, coffee_id):
-    coffee = Coffee.objects.get(pk=coffee_id)
+from django.views.generic import DetailView
 
-    t = loader.get_template('coffee_journal/coffee_detail.html')
-    c = RequestContext(request, {'coffee': coffee})
+class CoffeeDetailView(DetailView):
+    model = Coffee
+    template_name = 'base/coffee_detail.html'
 
-    return HttpResponse(t.render(c))
+class CoffeeBagDetailView(DetailView):
+    model = CoffeeBag
+    template_name = 'base/coffeebag_detail.html'
+
+class PurchasedCoffeeBagDetailView(DetailView):
+    model = PurchasedCoffeeBag
+    template_name = 'coffee_journal/purchasedcoffeebag_detail.html'
 
 def purchased_coffee_detail(request, coffee_id):
     coffee = PurchasedCoffeeBag.objects.get(pk=coffee_id)
