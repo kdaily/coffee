@@ -10,7 +10,15 @@
 
     <h1>{{ coffeebag.coffee.name }}</h1>
 
-    <h2>Roaster information</h2>
+    <h2>Coffee</h2>
+    <ul>
+      <li>Finca: {{ coffeebag.coffee.finca }}</li>
+      <li>Grower/Farmer: {{ coffeebag.coffee.grower }}</li>
+      <li>Varietal: {{ coffeebag.coffee.varietal }}</li>
+      <li>Altitude: {{ coffeebag.coffee.altitude }}m</li>
+    </ul>
+
+    <h2>Roaster</h2>
     
     <!-- <img src="{{ STATIC_URL }}/img/{{ coffeebag.id }}.jpg" width="150"><br /> -->
     
@@ -18,16 +26,7 @@
       <li>Roaster: {{ coffeebag.roaster.name }}</li>
       <li>Roast date: {{ coffeebag.date_roast }}</li>
     </ul>
-    
-
-    <h2>Coffee information</h2>
-    <ul>
-      <li>Finca: {{ coffeebag.coffee.finca }}</li>
-      <li>Grower/Farmer: {{ coffeebag.coffee.grower }}</li>
-      <li>Varietal: {{ coffeebag.coffee.varietal }}</li>
-      <li>Altitude: {{ coffeebag.coffee.altitude }}m</li>
-    </ul>
-    
+        
     <h2>Notes</h2>
     <pre>{{ coffeebag.notes }}</pre>
 
