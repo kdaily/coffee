@@ -21,3 +21,18 @@ class PurchasedCoffeeBag(models.Model):
 
     def __unicode__(self):
         return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.coffeebag.store.name)
+
+def make_custom_datefield(f):
+    formfield = f.formfield()
+    if isinstance(f, models.DateField):
+        formfield.widget.format = '%Y-%m-%d'
+        formfield.widget.attrs.update({'class': 'datePicker', 'readonly': 'true'})
+    return formfield
+
+class PurchasedCoffeeBagForm(forms.ModelForm):
+
+    formfield_callback = make_custom_datefield
+    
+    class Meta:
+        model = PurchasedCoffeeBag
+        exclude = ('user',)
