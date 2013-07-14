@@ -1,5 +1,32 @@
 # Django settings for coffee_site project.
 
+from unipath import Path
+
+PROJECT_ROOT = Path(__file__).ancestor(3)
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+MEDIA_ROOT = PROJECT_ROOT.child("media")
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+STATIC_ROOT = PROJECT_ROOT.child("static")
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+TEMPLATE_DIRS = (
+    PROJECT_ROOT.child("django_templates")
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+
 ADMINS = (
     ('Kenneth Daily', 'kmdaily@gmail.com'),
     ('Vesna Memisevic', 'vesna.memisevic@gmail.com'),
@@ -41,31 +68,15 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/dailykm/projects/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/home/dailykm/projects/media/'
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+MEDIA_URL = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+STATIC_URL = ''
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -109,12 +120,6 @@ ROOT_URLCONF = 'coffee_site.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'coffee_site.wsgi.application'
 
-TEMPLATE_DIRS = (
-    "/home/dailykm/Projects/django_templates/"
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
