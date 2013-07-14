@@ -8,6 +8,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
+from coffee_journal.views import CoffeeDetailView, CoffeeBagDetailView, PurchasedCoffeeBagDetailView
+
 urlpatterns = patterns('',
                        # Examples:
                            
@@ -30,8 +32,18 @@ urlpatterns = patterns('',
                        url(r'^purchased_coffees/$', 'coffee_journal.views.purchased_coffees_paginated'),
                        # url(r'^carousel/$', 'coffee_journal.views.coffee_carousel'),
 
-                       url(r'^coffee/(?P<coffee_id>\d+)/$', 'coffee_journal.views.coffee_detail'),
-                       url(r'^purchased_coffee/(?P<coffee_id>\d+)/$', 'coffee_journal.views.purchased_coffee_detail'),
+                       url(r'^coffee/(?P<pk>\d+)/$', 
+                           view=CoffeeDetailView.as_view(),
+                           name="coffeedetail"),
+
+                       url(r'^coffeebag/(?P<pk>\d+)/$', 
+                           view=CoffeeBagDetailView.as_view(),
+                           name="coffeebagdetail"),
+
+                       url(r'^purchcoffeebag/(?P<pk>\d+)/$', 
+                           view=PurchasedCoffeeBagDetailView.as_view(),
+                           name="purchcoffeebagdetail"),
+
                        url(r'^add/$', 'coffee_journal.views.coffee_add'),
                        
                        # url(r'^coffee_journal/login/$', 'coffee_journal.views.login'),                       
