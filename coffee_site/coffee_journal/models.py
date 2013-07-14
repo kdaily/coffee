@@ -20,7 +20,7 @@ class PurchasedCoffeeBag(models.Model):
     coffeebag = models.ForeignKey(CoffeeBag)
 
     def __unicode__(self):
-        return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.coffeebag.store.name)
+        return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.store.name)
 
 def make_custom_datefield(f):
     formfield = f.formfield()
