@@ -2,7 +2,7 @@
 	background-position:left bottom;
 }
 label{
-	background:url('http://img833.imageshack.us/img833/5959/stard.png') no-repeat left bottom;
+	background:url('/static/img/stard.png') no-repeat left bottom;
 	float:right;
 	line-height:20px;	
 	padding-left:20px;
