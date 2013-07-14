@@ -14,13 +14,14 @@ STATIC_ROOT = PROJECT_ROOT.child("static")
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    PROJECT_ROOT.child("static"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
 
 TEMPLATE_DIRS = (
-    PROJECT_ROOT.child("django_templates")
+    PROJECT_ROOT.child("django_templates"),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -119,7 +120,6 @@ ROOT_URLCONF = 'coffee_site.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'coffee_site.wsgi.application'
-
 
 INSTALLED_APPS = (
     'django.contrib.auth',
