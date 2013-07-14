@@ -1,4 +1,5 @@
-from base.models import Coffee, CoffeeBag, PurchasedCoffeeBag, Roaster, Store
+from base.models import Coffee, CoffeeBag, Roaster, Store
+from coffee_journal.models import PurchasedCoffeeBag
 from django.contrib import admin
 # from django.contrib.auth.admin import UserAdmin
 # from django.contrib.auth.models import User
