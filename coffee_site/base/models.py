@@ -60,7 +60,6 @@ class CoffeeBag(models.Model):
     thumb = ImageField(upload_to='/media/img/', blank=True)
 
     roaster = models.ForeignKey(Roaster)
-    store = models.ForeignKey(Store)
     coffee = models.ForeignKey(Coffee)
 
     def __unicode__(self):
