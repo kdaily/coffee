@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block otherstyles %}<link rel="stylesheet" href="{{ STATIC_URL }}/css/rating.css" />{% endblock %}
+
+{% block title %}Coffee Detail: {{ coffeebag.name }} {% endblock %}
+
+{% block loggedinstatus %}Logged in as <a href="#" class="navbar-link">{{ user.username }}</a> (<a href="/logout/" class="navbar-link">Logout</a>){% endblock %}
+
+{% block content %}
+
+    <h1>{{ purchasedcoffeebag.coffeebag.coffee.name }}</h1>
+
+    <h2>Roaster information</h2>
+    
+    <!-- <img src="{{ STATIC_URL }}/img/{{ coffeebag.id }}.jpg" width="150"><br /> -->
+    
+    <ul>
+      <li>Roaster: {{ purchasedcoffeebag.coffeebag.roaster.name }}</li>
+      <li>Roast date: {{ purchasedcoffeebag.coffeebag.date_roast }}</li>
+    </ul>
+    
+
+    <h2>Coffee information</h2>
+    <ul>
+      <li>Finca: {{ purchasedcoffeebag.coffeebag.coffee.finca }}</li>
+      <li>Grower/Farmer: {{ purchasedcoffeebag.coffeebag.coffee.grower }}</li>
+      <li>Varietal: {{ purchasedcoffeebag.coffeebag.coffee.varietal }}</li>
+      <li>Altitude: {{ purchasedcoffeebag.coffeebag.coffee.altitude }}m</li>
+    </ul>
+        
+    <h2>Purchase information</h2>
+    <ul>
+      <li>Purchase location: {{ purchasedcoffeebag.purch_location }}</li>  
+      <li>Purchase date: {{ purchasedcoffeebag.date_purch }}</li>
+      <li>Amount purchased: {{ purchasedcoffeebag.amount }}g</li>
+    </ul>
+    
+    <h2>Notes</h2>
+    <pre>{{ purchasedcoffeebag.notes }}</pre>
+
+    <h2>Rating</h2>
+    <div class="ratingwrapper">	
+      <input type="radio" name="radiobutton" id="star-1"/><label for="star-1"></label>
+      <input type="radio" name="radiobutton" id="star-2"/><label for="star-2"></label>
+      <input type="radio" name="radiobutton" id="star-3"/><label for="star-3"></label>
+      <input type="radio" name="radiobutton" id="star-4"/><label for="star-4"></label>
+      <input type="radio" name="radiobutton" id="star-5"/><label for="star-5"></label>	
+    </div>
+    <p>
+      {{ coffeebag.rating.score }}
+    </p>
+
+{% endblock %}
