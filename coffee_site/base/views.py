@@ -2,11 +2,16 @@
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response
-from django.template import RequestContext
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.template import RequestContext, Context, loader
+
+from django.contrib.auth.models import User
 
 from .models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
 
@@ -37,6 +42,32 @@ def coffees(request):
     c = RequestContext(request, {'latest_coffee_list': latest_coffee_list, 'user': request.user})
 
     return HttpResponse(t.render(c))
+
+class CoffeeListView(ListView):
+
+    model = Coffee
+
+    template_name = 'base/coffees_paginated.html'
+    paginate_by = 5
+
+    context_object_name = 'coffee_list'
+
+class CoffeeCreateView(CreateView):
+    model = Coffee
+    form_class = CoffeeForm
+    template_name = 'coffee_journal/coffee_add.html'
+
+    context_object_name = 'coffee_create'
+
+
+class CoffeeBagListView(ListView):
+
+    model = CoffeeBag
+
+    template_name = 'base/coffeebags_paginated.html'
+    paginate_by = 5
+
+    context_object_name = 'coffeebag_list'
 
 def coffees_paginated(request):
     latest_coffee_list = Coffee.objects.all()
