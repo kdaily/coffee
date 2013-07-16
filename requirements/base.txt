@@ -4,3 +4,4 @@ PIL==1.1.7
 sorl-thumbnail==11.12
 virtualenv==1.9.1
 Unipath==1.0
+django-braces==1.0.0
