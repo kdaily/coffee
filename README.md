@@ -17,3 +17,9 @@ All requirements files are in the "requirements" sub-directory. To install all r
 ```
 pip install -r requirements/base.txt
 ```
+
+Then, sync the database (using your own local settings file):
+
+```
+python manage.py syncdb --settings=coffee_site.settings.local_yourusername
+```
