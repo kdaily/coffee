@@ -10,9 +10,11 @@ admin.autodiscover()
 
 from coffee_journal.views import PurchasedCoffeeBagDetailView
 from coffee_journal.views import PurchasedCoffeeBagListView
+from coffee_journal.views import UserPurchasedCoffeeBagListView
 from coffee_journal.views import PurchasedCoffeeBagCreateView
 from base.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
 from base.views import CoffeeBagListView, CoffeeBagDetailView
+from base.views import RoasterListView, RoasterDetailView
 
 urlpatterns = patterns('',
                        # Examples:
@@ -52,6 +54,10 @@ urlpatterns = patterns('',
                            view=PurchasedCoffeeBagListView.as_view(),
                            name="purchcoffeebaglist"),
 
+                       url(r'^purchased_coffees/([A-Za-z]+[\w-]*)/$', 
+                           view=UserPurchasedCoffeeBagListView.as_view(),
+                           name="userpurchcoffeebaglist"),
+
                        url(r'^addpurchcoffeebag/$', 
                            view=PurchasedCoffeeBagCreateView.as_view(),
                            name="purchcoffeebagcreate"),
@@ -67,7 +73,15 @@ urlpatterns = patterns('',
                        url(r'^coffeebags/$', 
                            view=CoffeeBagListView.as_view(),
                            name="coffeebaglist"),
-                       
+
+                       url(r'^roasters/$', 
+                           view=RoasterListView.as_view(),
+                           name="roasterlist"),
+
+                       url(r'^roaster/(?P<pk>\d+)/$', 
+                           view=RoasterDetailView.as_view(),
+                           name="roasterdetail"),
+
                        # url(r'^coffee_journal/login/$', 'coffee_journal.views.login'),                       
                        # url(r'^coffee_journal/logout/$', 'coffee_journal.views.logout'),
                        # url(r'^coffee_journal/coffees/$', 'coffee_journal.views.coffees'),
