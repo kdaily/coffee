@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Add a Coffee{% endblock %}
+
+{% block loggedinstatus %}Logged in as <a href="#" class="navbar-link">{{ user.username }}</a> (<a href="/logout/" class="navbar-link">Logout</a>){% endblock %}
+
+{% block content %}
+
+<h1>Add A Coffee</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="/add/" method="post">{% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" value="Save" />
+</form>      
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ STATIC_URL }}/js/jquery-1.9.1.js"></script>
+<script src="{{ STATIC_URL }}/js/jquery-ui-1.10.3.js"></script>
+<script>	
+  jQuery(function($){
+  //all jQuery code which uses $ needs to be inside here
+  $( ".datePicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  });
+</script>
+
+{% endblock %}
+
+</section> <!-- #content -->  
+
+
