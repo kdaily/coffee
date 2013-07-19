@@ -12,8 +12,9 @@ class PurchasedCoffeeBag(models.Model):
 
     # purch_location = models.CharField(max_length=500)
     date_purch = models.DateField('Purchase Date', blank=True)
-
     rating = RatingField(range=5)
+
+    notes = models.TextField(blank=True, null=True)
 
     user = models.ManyToManyField(User)
     store = models.ForeignKey(Store)

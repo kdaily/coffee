@@ -13,24 +13,23 @@
 
 <h1>{{ user.first_name }} {{ user.last_name }}'s Coffees</h1>
 
-{% if purchasedcoffeebag_list %}
+{% if coffee_list %}
 
-<!-- <div class="span10"> -->
-  {% for coffee in purchasedcoffeebag_list %}
-  <div class="row-fluid">
-    
-    <div class="span10">
-      <div class="item">
-	<div class="item_head">
-	  <h2>[{{ coffee.date_purch }}] {{ coffee.coffeebag.coffee.name }}</h2>
-	</div>
-	<a class="btn" href="/purchcoffeebag/{{ coffee.id }}/">View details &raquo;</a>
-      </div><!--/span-->
-    </div>
+{% for coffeebag in coffeebag_list %}
+
+<div class="row-fluid">
+  <div class="span10">
+    <div class="item">
+      <div class="item_head">
+	<h2>{{ coffeebag.coffee.name }}</h2>
+      </div>
+      <!-- <img src="{{ STATIC_URL }}/img/{{ coffee.id }}.jpg" width=100> -->
+      <a class="btn" href="/coffeebag/{{ coffeebag.id }}/">View details &raquo;</a>
+    </div><!--/span-->
   </div>
-  {% endfor %}
-  
-<!-- </div> -->
+</div>
+
+{% endfor %}
 
 {% if is_paginated %}
 <div class="pagination">
@@ -49,6 +48,8 @@
   </span>
 </div>
 {% endif %}
+
+
 
 {% else %}
 <div class="row-fluid">
