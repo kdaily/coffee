@@ -67,8 +67,6 @@ urlpatterns = patterns('',
                        url(r'^coffeebags/$', 
                            view=CoffeeBagListView.as_view(),
                            name="coffeebaglist"),
-
-                       url(r'^add/$', 'base.views.coffee_add'),
                        
                        # url(r'^coffee_journal/login/$', 'coffee_journal.views.login'),                       
                        # url(r'^coffee_journal/logout/$', 'coffee_journal.views.logout'),
