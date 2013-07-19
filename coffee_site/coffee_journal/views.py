@@ -117,25 +117,3 @@ class PurchasedCoffeeBagDetailView(DetailView):
 
 #     return HttpResponse(t.render(c))
 
-@login_required
-def coffee_add(request):
-    # sticks in a POST or renders empty form
-
-    curruser = User.objects.get(pk=request.user.id)
-
-    if request.method == 'POST':
-        form = CoffeeForm(request.POST)
-        if form.is_valid():
-            cmodel = form.save()
-            #This is where you might chooose to do stuff.
-            #cmodel.name = 'test1'
-            cmodel.save()
-            return redirect('coffee_journal.views.coffee_detail', coffee_id=cmodel.pk)
-    
-    else:
-        form = CoffeeForm(initial={'user': curruser})
-
-    return render_to_response('coffee_journal/coffee_add.html',
-                              {'coffee_form': form},
-                              context_instance=RequestContext(request))
-
