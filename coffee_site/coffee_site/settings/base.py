@@ -140,7 +140,7 @@ INSTALLED_APPS = (
     ## External apps
     'djangoratings',
     'sorl.thumbnail',
-
+    'braces',
 )
 
 # A sample logging configuration. The only tangible logging
