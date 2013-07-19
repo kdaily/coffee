@@ -3,14 +3,13 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views.generic import DetailView
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from base.models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
-
 from .models import PurchasedCoffeeBag, PurchasedCoffeeBagForm
 
-from django.http import HttpResponse, HttpResponseRedirect
-
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -109,8 +108,6 @@ def purchased_coffees_paginated(request):
     
     return HttpResponse(t.render(c))
 
-from django.views.generic import DetailView
-
 class CoffeeDetailView(DetailView):
     model = Coffee
     template_name = 'base/coffee_detail.html'
@@ -123,13 +120,13 @@ class PurchasedCoffeeBagDetailView(DetailView):
     model = PurchasedCoffeeBag
     template_name = 'coffee_journal/purchasedcoffeebag_detail.html'
 
-def purchased_coffee_detail(request, coffee_id):
-    coffee = PurchasedCoffeeBag.objects.get(pk=coffee_id)
+# def purchased_coffee_detail(request, coffee_id):
+#     coffee = PurchasedCoffeeBag.objects.get(pk=coffee_id)
 
-    t = loader.get_template('coffee_journal/purchased_coffee_detail.html')
-    c = RequestContext(request, {'coffee': coffee})
+#     t = loader.get_template('coffee_journal/purchased_coffee_detail.html')
+#     c = RequestContext(request, {'coffee': coffee})
 
-    return HttpResponse(t.render(c))
+#     return HttpResponse(t.render(c))
 
 @login_required
 def coffee_add(request):
