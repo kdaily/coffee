@@ -1,0 +1,14 @@
+[
+    {
+        "pk": 1, 
+        "model": "coffee_journal.purchasedcoffeebag", 
+        "fields": {
+            "date_purch": "2013-06-20", 
+	    "rating": 0,
+	    "notes": null,
+            "user": 1, 
+	    "store": 1,
+	    'coffeebag': 1,
+        }
+    }
+]
