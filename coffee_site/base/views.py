@@ -54,6 +54,11 @@ class RoasterListView(ListView):
 
     context_object_name = 'roaster_list'
 
+class RoasterDetailView(DetailView):
+    model = Roaster
+    template_name = 'base/roaster_detail.html'
+
+    
 class CoffeeListView(ListView):
 
     model = Coffee
