@@ -14,6 +14,7 @@ from django.template import RequestContext, Context, loader
 from django.contrib.auth.models import User
 
 from .models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
+from .models import Roaster
 
 def index(request):
     return HttpResponse("Hello, world. You're at the base index.")
@@ -43,11 +44,21 @@ def coffees(request):
 
     return HttpResponse(t.render(c))
 
+
+class RoasterListView(ListView):
+
+    model = Roaster
+
+    template_name = 'base/roaster_list.html'
+    paginate_by = 5
+
+    context_object_name = 'roaster_list'
+
 class CoffeeListView(ListView):
 
     model = Coffee
 
-    template_name = 'base/coffees_paginated.html'
+    template_name = 'base/coffee_list.html'
     paginate_by = 5
 
     context_object_name = 'coffee_list'
@@ -56,31 +67,10 @@ class CoffeeBagListView(ListView):
 
     model = CoffeeBag
 
-    template_name = 'base/coffeebags_paginated.html'
+    template_name = 'base/coffeebag_list.html'
     paginate_by = 5
 
     context_object_name = 'coffeebag_list'
-
-def coffees_paginated(request):
-    latest_coffee_list = Coffee.objects.all()
-    paginator = Paginator(latest_coffee_list, 5)
-
-    t = loader.get_template('coffee_journal/coffees_paginated.html')
-
-    page = request.GET.get('page')
-    
-    try:
-        coffees = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        coffees = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        coffees = paginator.page(paginator.num_pages)
-
-    c = RequestContext(request, {'latest_coffee_list': coffees, 'user': request.user})
-    
-    return HttpResponse(t.render(c))
 
 class CoffeeDetailView(DetailView):
     model = Coffee
