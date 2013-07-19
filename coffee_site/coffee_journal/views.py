@@ -63,7 +63,7 @@ class PurchasedCoffeeBagDetailView(DetailView):
 class PurchasedCoffeeBagCreateView(CreateView):
     model = PurchasedCoffeeBag
     form_class = PurchasedCoffeeBagForm
-    template_name = 'coffee_journal/coffee_add.html'
+    template_name = 'coffee_journal/purchasedcoffeebag_create.html'
 
 class PurchasedCoffeeBagListView(ListView):
 
