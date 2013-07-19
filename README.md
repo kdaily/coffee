@@ -12,9 +12,7 @@ Requirements
 * PIL
 * django-ratings: https://github.com/dcramer/django-ratings
 
-All requirements files are in the "requirements" sub-directory.
-
-To install all requirements, make a new virtual environment, and then:
+All requirements files are in the "requirements" sub-directory. To install all requirements, make a new virtual environment, and then:
 
 ```
 pip install -r requirements/base.txt
