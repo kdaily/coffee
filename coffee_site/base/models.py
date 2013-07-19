@@ -18,6 +18,9 @@ class Roaster(models.Model):
     def __unicode__(self):
         return "%s" % (self.name)
 
+    class Meta:
+        unique_together = ('name', 'city', 'state')
+
 class Store(models.Model):
     name = models.CharField(max_length=500)
     address = models.CharField(max_length=500, blank=True, null=True)
@@ -29,7 +32,7 @@ class Store(models.Model):
     phone = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
-        return "%s" % (self.name)
+        return "%s (%s, %s)" % (self.name, self.city, self.state)
 
 # Create your models here.
 class Coffee(models.Model):
@@ -51,8 +54,11 @@ class Coffee(models.Model):
 
 
     def __unicode__(self):
-        return "%s" % (self.name)
+        return "%s (%s)" % (self.name, self.finca)
 
+    class Meta:
+        unique_together = ("name", "grower", "finca")
+    
 class CoffeeBag(models.Model):
 
     date_roast = models.DateField('Roast Date', blank=True, null=True)
@@ -66,8 +72,11 @@ class CoffeeBag(models.Model):
     coffee = models.ForeignKey(Coffee)
 
     def __unicode__(self):
-        return "%s, %s" % (self.coffee.name, self.roaster.name)
+        return "%s, %s (%s)" % (self.coffee.name, self.roaster.name, self.date_roast)
 
+    class Meta:
+        unique_together = ('roaster', 'coffee', 'date_roast')
+        
 def make_custom_datefield(f):
     formfield = f.formfield()
     if isinstance(f, models.DateField):
