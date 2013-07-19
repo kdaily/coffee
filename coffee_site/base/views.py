@@ -83,7 +83,7 @@ class CoffeeBagDetailView(DetailView):
 class CoffeeCreateView(CreateView):
     model = Coffee
     form_class = CoffeeForm
-    template_name = 'base/coffee_add.html'
+    template_name = 'base/coffee_create.html'
 
     context_object_name = 'coffee_create'
 
