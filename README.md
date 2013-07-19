@@ -16,3 +16,9 @@ Then, sync the database (using your own local settings file):
 ```
 python manage.py syncdb --settings=coffee_site.settings.local_yourusername
 ```
+
+Finally, you should be up and running with:
+
+```
+python manage.py runserver --settings=coffee_site.settings.local_yourusername
+```
