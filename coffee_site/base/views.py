@@ -1,7 +1,7 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
@@ -52,14 +52,6 @@ class CoffeeListView(ListView):
 
     context_object_name = 'coffee_list'
 
-class CoffeeCreateView(CreateView):
-    model = Coffee
-    form_class = CoffeeForm
-    template_name = 'coffee_journal/coffee_add.html'
-
-    context_object_name = 'coffee_create'
-
-
 class CoffeeBagListView(ListView):
 
     model = CoffeeBag
@@ -98,24 +90,49 @@ class CoffeeBagDetailView(DetailView):
     model = CoffeeBag
     template_name = 'base/coffeebag_detail.html'
 
-@login_required
-def coffee_add(request):
-    # sticks in a POST or renders empty form
+class CoffeeCreateView(CreateView):
+    model = Coffee
+    form_class = CoffeeForm
+    template_name = 'base/coffee_add.html'
 
-    curruser = User.objects.get(pk=request.user.id)
+    context_object_name = 'coffee_create'
 
-    if request.method == 'POST':
+    def get(self, request, *args, **kwargs):
+        curruser = User.objects.get(pk=request.user.id)
+        form = self.form_class(initial={'user': curruser})
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+
         form = CoffeeForm(request.POST)
+
         if form.is_valid():
             cmodel = form.save()
             #This is where you might chooose to do stuff.
             #cmodel.name = 'test1'
             cmodel.save()
-            return redirect('coffee_journal.views.coffee_detail', coffee_id=cmodel.pk)
-    
-    else:
-        form = CoffeeForm(initial={'user': curruser})
+            return redirect('coffeedetail', pk=cmodel.pk)
+        
+        return render(request, self.template_name, {'form': form})
 
-    return render_to_response('coffee_journal/coffee_add.html',
-                              {'coffee_form': form},
-                              context_instance=RequestContext(request))
+# @login_required
+# def coffee_add(request):
+#     # sticks in a POST or renders empty form
+
+#     curruser = User.objects.get(pk=request.user.id)
+
+#     if request.method == 'POST':
+#         form = CoffeeForm(request.POST)
+#         if form.is_valid():
+#             cmodel = form.save()
+#             #This is where you might chooose to do stuff.
+#             #cmodel.name = 'test1'
+#             cmodel.save()
+#             return redirect('coffee_journal.views.coffee_detail', coffee_id=cmodel.pk)
+    
+#     else:
+#         form = CoffeeForm(initial={'user': curruser})
+
+#     return render_to_response('coffee_journal/coffee_add.html',
+#                               {'coffee_form': form},
+#                               context_instance=RequestContext(request))
