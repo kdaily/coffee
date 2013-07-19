@@ -10,8 +10,9 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext, Context, loader
-
 from django.contrib.auth.models import User
+
+from braces.views import LoginRequiredMixin
 
 from .models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
 
@@ -90,7 +91,7 @@ class CoffeeBagDetailView(DetailView):
     model = CoffeeBag
     template_name = 'base/coffeebag_detail.html'
 
-class CoffeeCreateView(CreateView):
+class CoffeeCreateView(LoginRequiredMixin, CreateView):
     model = Coffee
     form_class = CoffeeForm
     template_name = 'base/coffee_add.html'
