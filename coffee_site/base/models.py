@@ -6,22 +6,25 @@ from sorl.thumbnail import ImageField
 
 class Roaster(models.Model):
     name = models.CharField(max_length=500)
+    address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
     state = models.CharField(max_length=500, blank=True, null=True)
-    address = models.CharField(max_length=500, blank=True, null=True)
-    zipcode = models.IntegerField(blank=True, null=True)
+    zipcode = models.IntegerField(null=True)
+    country = models.CharField(max_length=3, null=True)
+    
     website = models.CharField(max_length=500, blank=True, null=True)
-    phone = models.IntegerField(blank=True, null=True)
+    phone = models.IntegerField(null=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
 
 class Store(models.Model):
     name = models.CharField(max_length=500)
+    address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
     state = models.CharField(max_length=500, blank=True, null=True)
-    address = models.CharField(max_length=500, blank=True, null=True)
     zipcode = models.IntegerField(blank=True, null=True)
+    country = models.CharField(max_length=3, blank=True, null=True)
     website = models.CharField(max_length=500, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
 
@@ -39,10 +42,10 @@ class Coffee(models.Model):
 
     grower = models.CharField(max_length=500, blank=True, null=True)
     finca = models.CharField(max_length=500, blank=True, null=True)
-    varietal = models.CharField(max_length=200, blank=True, null=True)
-
+    region = models.CharField(max_length=500, blank=True, null=True)
     country = models.CharField(max_length=3, blank=True, null=True)
-
+    
+    varietal = models.CharField(max_length=200, blank=True, null=True)
     altitude = models.IntegerField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
