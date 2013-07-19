@@ -1,9 +1,0 @@
-{% if latest_coffee_list %}
-    <ul>
-    {% for coffee in latest_coffee_list %}
-        <li><a href="/polls/{{ coffee.id }}/">{{ coffee.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No coffee available.</p>
-{% endif %}
