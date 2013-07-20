@@ -66,7 +66,7 @@ class PurchasedCoffeeBagCreateView(LoginRequiredMixin, CreateView):
     model = PurchasedCoffeeBag
     form_class = PurchasedCoffeeBagForm
 
-    template_name = 'coffee_journal/purch_coffee_add.html'
+    template_name = 'coffee_journal/purchasedcoffeebag_create.html'
 
     context_object_name = 'purch_coffee_create'
 
@@ -92,15 +92,21 @@ class PurchasedCoffeeBagCreateView(LoginRequiredMixin, CreateView):
 
 class PurchasedCoffeeBagListView(ListView):
 
-    template_name = 'coffee_journal/purchased_coffees_paginated.html'
+    model = PurchasedCoffeeBag
+    template_name = 'coffee_journal/purchasedcoffeebag_list.html'
+    paginate_by = 5 
+    context_object_name = 'purchasedcoffeebag_list'
+
+class UserPurchasedCoffeeBagListView(ListView):
+
+    model = PurchasedCoffeeBag
+    template_name = 'coffee_journal/purchasedcoffeebag_list.html'
     paginate_by = 5
 
     def get_queryset(self):
-        # self.user_id = get_object_or_404(Publisher, name=self.args[0])
-        return PurchasedCoffeeBag.objects.filter(user__id=self.request.user.id).order_by('-date_purch')
+        self.user = get_object_or_404(User, username=self.args[0])
+        return PurchasedCoffeeBag.objects.filter(user__id=self.user.id).order_by('-date_purch')
     
-    context_object_name = 'purchasedcoffeebag_list'
-
 # @login_required
 # def purchased_coffees_paginated(request):
 #     latest_coffee_list = PurchasedCoffeeBag.objects.filter(user__id=request.user.id).order_by('-date_purch')
