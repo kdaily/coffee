@@ -1,12 +1,14 @@
 from django.template import RequestContext, Context, loader
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
-from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.shortcuts import render_to_response, get_object_or_404, redirect, render
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.generic import DetailView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from braces.views import LoginRequiredMixin
 
 from base.models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
 from .models import PurchasedCoffeeBag, PurchasedCoffeeBagForm
@@ -60,10 +62,33 @@ class PurchasedCoffeeBagDetailView(DetailView):
     model = PurchasedCoffeeBag
     template_name = 'coffee_journal/purchasedcoffeebag_detail.html'
 
-class PurchasedCoffeeBagCreateView(CreateView):
+class PurchasedCoffeeBagCreateView(LoginRequiredMixin, CreateView):
     model = PurchasedCoffeeBag
     form_class = PurchasedCoffeeBagForm
-    template_name = 'coffee_journal/coffee_add.html'
+
+    template_name = 'coffee_journal/purch_coffee_add.html'
+
+    context_object_name = 'purch_coffee_create'
+
+    def get(self, request, *args, **kwargs):
+        curruser = User.objects.get(pk=request.user.id)
+        form = self.form_class(initial={'id_user': curruser})
+        ## form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            cmodel = form.save()
+            #This is where you might chooose to do stuff.
+            #cmodel.name = 'test1'
+            cmodel.save()
+            return redirect('purchcoffeebagdetail', pk=cmodel.pk)
+        
+        return render(request, self.template_name, {'form': form})
+
 
 class PurchasedCoffeeBagListView(ListView):
 
