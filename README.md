@@ -20,7 +20,7 @@ python manage.py syncdb --settings=coffee_site.settings.local_yourusername
 Add some data using previously saved fixtures:
 
 ```
-python manage.py loaddata base/fixtures/auth.User.json base/fixtures/base.Roaster.json base/fixtures/base.Stores.json base/fixtures/base.Coffee.json --settings=coffee_site.settings.local_yourusername
+python manage.py loaddata fixtures/*.json base/fixtures/*.json coffee_journal/fixtures/*.json --settings=coffee_site.settings.local_yourusername
 ```
 
 Finally, you should be up and running with:
