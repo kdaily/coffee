@@ -36,6 +36,11 @@ def register(request):
     return render(request, "registration/register.html", 
                   {'form': form,})
 
+def bootstrap(request):
+    t = loader.get_template('base/bootstrap.html')
+    c = RequestContext(request)
+    return HttpResponse(t.render(c))
+
 def coffees(request):
     latest_coffee_list = Coffee.objects.all()
 
@@ -51,7 +56,7 @@ class RoasterListView(ListView):
     model = Roaster
 
     template_name = 'base/roaster_list.html'
-    paginate_by = 5
+    paginate_by = 8
 
     context_object_name = 'roaster_list'
 
