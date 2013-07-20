@@ -106,6 +106,18 @@ class UserPurchasedCoffeeBagListView(ListView):
     def get_queryset(self):
         self.user = get_object_or_404(User, username=self.args[0])
         return PurchasedCoffeeBag.objects.filter(user__id=self.user.id).order_by('-date_purch')
+
+class SearchPurchasedCoffeeBagListView(ListView):
+
+    model = PurchasedCoffeeBag
+    template_name = 'coffee_journal/purchasedcoffeebag_list.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super(SearchPurchasedCoffeeBagListView, self).get_queryset()
+        
+        q = self.request.GET.get("q")
+        return queryset.filter(varietal__icontains=q)
     
 # @login_required
 # def purchased_coffees_paginated(request):
