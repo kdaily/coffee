@@ -94,7 +94,7 @@ class PurchasedCoffeeBagListView(ListView):
 
     model = PurchasedCoffeeBag
     template_name = 'coffee_journal/purchasedcoffeebag_list.html'
-    paginate_by = 5 
+    paginate_by = 8 
     context_object_name = 'purchasedcoffeebag_list'
 
 class UserPurchasedCoffeeBagListView(ListView):
