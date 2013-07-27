@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Coffee's in Journal{% endblock %}
+
+{% block otherstyles %}
+<link rel="stylesheet" href="{{ STATIC_URL }}/css/rating.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}/css/coffeebag.css" />
+{% endblock %}
+
+{% block loggedinstatus %}Logged in as <a href="#" class="navbar-link">{{ user.username }}</a> (<a href="/logout/" class="navbar-link">Logout</a>){% endblock %}
+
+{% block content %}
+
+<h1>{{ user.first_name }} {{ user.last_name }}'s Coffees</h1>
+
+{% if coffee_list %}
+
+{% for coffeebag in coffeebag_list %}
+
+<div class="row-fluid">
+  <div class="span10">
+    <div class="item">
+      <div class="item_head">
+	<h2>{{ coffeebag.coffee.name }}</h2>
+      </div>
+      <!-- <img src="{{ STATIC_URL }}/img/{{ coffee.id }}.jpg" width=100> -->
+      <a class="btn" href="/coffeebag/{{ coffeebag.id }}/">View details &raquo;</a>
+    </div><!--/span-->
+  </div>
+</div>
+
+{% endfor %}
+
+{% if is_paginated %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+    
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %}
+
+
+
+{% else %}
+<div class="row-fluid">
+  <div class="span8">
+    <p>No coffee available.</p>
+  </div><!--/span-->
+</div>
+{% endif %}
+
+{% endblock %}

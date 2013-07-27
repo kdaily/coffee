@@ -6,15 +6,17 @@
 
 {% block content %}
 
-<h1>Add A Coffee</h1>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="/add/" method="post">{% csrf_token %}
+<div class="span4 offset4">
+<h1>Add A Coffee</h1>
+<form action="/addcoffee/" method="POST">{% csrf_token %}
   <table>
-    {{ coffee_form.as_table }}
+    {{ form.as_table }}
   </table>
   <input type="submit" value="Save" />
 </form>      
+</div>
 
 {% endblock %}
 

@@ -1,16 +1,17 @@
 from django.template import RequestContext, Context, loader
-from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.shortcuts import render_to_response, get_object_or_404, redirect, render
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views.generic import DetailView
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from braces.views import LoginRequiredMixin
 
 from base.models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
-
 from .models import PurchasedCoffeeBag, PurchasedCoffeeBagForm
-
-from django.http import HttpResponse, HttpResponseRedirect
-
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -57,59 +58,87 @@ def logout(request):
     # return HttpResponseRedirect('/login/')
     return redirect('coffee_journal.views.login')
 
-def coffees(request):
-    latest_coffee_list = Coffee.objects.all()
+class PurchasedCoffeeBagDetailView(DetailView):
+    model = PurchasedCoffeeBag
+    template_name = 'coffee_journal/purchasedcoffeebag_detail.html'
 
-    t = loader.get_template('coffee_journal/index.html')
+class PurchasedCoffeeBagCreateView(LoginRequiredMixin, CreateView):
+    model = PurchasedCoffeeBag
+    form_class = PurchasedCoffeeBagForm
 
-    c = RequestContext(request, {'latest_coffee_list': latest_coffee_list, 'user': request.user})
+    template_name = 'coffee_journal/purchasedcoffeebag_create.html'
 
-    return HttpResponse(t.render(c))
+    context_object_name = 'purch_coffee_create'
 
-def coffees_paginated(request):
-    latest_coffee_list = Coffee.objects.all()
-    paginator = Paginator(latest_coffee_list, 5)
+    def get(self, request, *args, **kwargs):
+        curruser = User.objects.get(pk=request.user.id)
+        form = self.form_class(initial={'id_user': curruser})
+        ## form = self.form_class()
+        return render(request, self.template_name, {'form': form})
 
-    t = loader.get_template('coffee_journal/coffees_paginated.html')
+    def post(self, request, *args, **kwargs):
 
-    page = request.GET.get('page')
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            cmodel = form.save()
+            #This is where you might chooose to do stuff.
+            #cmodel.name = 'test1'
+            cmodel.save()
+            return redirect('purchcoffeebagdetail', pk=cmodel.pk)
+        
+        return render(request, self.template_name, {'form': form})
+
+
+class PurchasedCoffeeBagListView(ListView):
+
+    model = PurchasedCoffeeBag
+    template_name = 'coffee_journal/purchasedcoffeebag_list.html'
+    paginate_by = 5 
+    context_object_name = 'purchasedcoffeebag_list'
+
+class UserPurchasedCoffeeBagListView(ListView):
+
+    model = PurchasedCoffeeBag
+    template_name = 'coffee_journal/purchasedcoffeebag_list.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        self.user = get_object_or_404(User, username=self.args[0])
+        return PurchasedCoffeeBag.objects.filter(user__id=self.user.id).order_by('-date_purch')
+
+class SearchPurchasedCoffeeBagListView(ListView):
+
+    model = PurchasedCoffeeBag
+    template_name = 'coffee_journal/purchasedcoffeebag_list.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super(SearchPurchasedCoffeeBagListView, self).get_queryset()
+        
+        q = self.request.GET.get("q")
+        return queryset.filter(varietal__icontains=q)
     
-    try:
-        coffees = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        coffees = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        coffees = paginator.page(paginator.num_pages)
+# @login_required
+# def purchased_coffees_paginated(request):
+#     latest_coffee_list = PurchasedCoffeeBag.objects.filter(user__id=request.user.id).order_by('-date_purch')
+#     paginator = Paginator(latest_coffee_list, 5)
 
-    c = RequestContext(request, {'latest_coffee_list': coffees, 'user': request.user})
+#     t = loader.get_template('coffee_journal/purchased_coffees_paginated.html')
+
+#     page = request.GET.get('page')
     
-    return HttpResponse(t.render(c))
+#     try:
+#         coffees = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page is not an integer, deliver first page.
+#         coffees = paginator.page(1)
+#     except EmptyPage:
+#         # If page is out of range (e.g. 9999), deliver last page of results.
+#         coffees = paginator.page(paginator.num_pages)
 
-@login_required
-def purchased_coffees_paginated(request):
-    latest_coffee_list = PurchasedCoffeeBag.objects.filter(user__id=request.user.id).order_by('-date_purch')
-    paginator = Paginator(latest_coffee_list, 5)
-
-    t = loader.get_template('coffee_journal/coffees_paginated.html')
-
-    page = request.GET.get('page')
-    
-    try:
-        coffees = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        coffees = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        coffees = paginator.page(paginator.num_pages)
-
-    c = RequestContext(request, {'latest_coffee_list': coffees, 'user': request.user})
-    
-    return HttpResponse(t.render(c))
-
-from django.views.generic import DetailView
+#     c = RequestContext(request, {'latest_coffee_list': coffees, 'user': request.user})
+#     return HttpResponse(t.render(c))
 
 class CoffeeDetailView(DetailView):
     model = Coffee
@@ -123,35 +152,11 @@ class PurchasedCoffeeBagDetailView(DetailView):
     model = PurchasedCoffeeBag
     template_name = 'coffee_journal/purchasedcoffeebag_detail.html'
 
-def purchased_coffee_detail(request, coffee_id):
-    coffee = PurchasedCoffeeBag.objects.get(pk=coffee_id)
+# def purchased_coffee_detail(request, coffee_id):
+#     coffee = PurchasedCoffeeBag.objects.get(pk=coffee_id)
 
-    t = loader.get_template('coffee_journal/purchased_coffee_detail.html')
-    c = RequestContext(request, {'coffee': coffee})
+#     t = loader.get_template('coffee_journal/purchased_coffee_detail.html')
+#     c = RequestContext(request, {'coffee': coffee})
 
-    return HttpResponse(t.render(c))
+#     return HttpResponse(t.render(c))
 
-@login_required
-def coffee_add(request):
-    # sticks in a POST or renders empty form
-
-    curruser = User.objects.get(pk=request.user.id)
-
-    if request.method == 'POST':
-        form = CoffeeForm(request.POST)
-        if form.is_valid():
-            cmodel = form.save()
-            #This is where you might chooose to do stuff.
-            #cmodel.name = 'test1'
-            cmodel.save()
-            return redirect('coffee_journal.views.coffee_detail', coffee_id=cmodel.pk)
-    
-    else:
-        form = CoffeeForm(initial={'user': curruser})
-
-    return render_to_response('coffee_journal/coffee_add.html',
-                              {'coffee_form': form},
-                              context_instance=RequestContext(request))
-
-def add_coffee(request):
-    pass

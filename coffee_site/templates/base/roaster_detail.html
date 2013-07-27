@@ -16,7 +16,7 @@
   
   <div class="coffeetitle">
     <div class="coffeetitle_head">
-      <h1>{{ coffee.name }}</h1>
+      <h1>{{ roaster.name }}</h1>
     </div>
   </div>
   
@@ -25,26 +25,17 @@
     <div class="span4">
       <div class="item">
 	<div class="item_head">
-	  <h2>Coffee</h2>
+	  <h2>Info</h2>
 	</div>
 	<ul>
-	  <li>Finca: {{ coffee.finca }}</li>
-	  <li>Grower: {{ coffee.grower }}</li>
-	  <li>Varietal: {{ coffee.varietal }}</li>
-	  <li>Altitude: {{ coffee.altitude }}m</li>
+	  <li>City: {{ roaster.city }}</li>
+	  <li>State: {{ roaster.state }}</li>
+	  <li>Country: {{ roaster.country }}</li>
+	  <li>Website: <a href="{{ roaster.website }}">{{ roaster.website }}</a></li>
 	</ul>
       </div>
     </div>  
     
-    <div class="span8">
-      <div class="item">
-	<div class="item_head">
-	  <h2>Notes</h2>
-	</div>
-	<pre>{{ coffee.notes }}</pre>
-      </div>
-    </div>
-  
   </div> <!--- end row --->
   
 </div>

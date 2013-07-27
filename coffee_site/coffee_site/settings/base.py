@@ -28,6 +28,11 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+FIXTURE_DIRS = (
+    PROJECT_ROOT.child("fixtures"),
+    PROJECT_ROOT.child("base").child("fixtures"),
+    PROJECT_ROOT.child("coffee_journal").child("fixtures"),
+)
 
 ADMINS = (
     ('Kenneth Daily', 'kmdaily@gmail.com'),
@@ -140,7 +145,7 @@ INSTALLED_APPS = (
     ## External apps
     'djangoratings',
     'sorl.thumbnail',
-
+    'braces',
 )
 
 # A sample logging configuration. The only tangible logging

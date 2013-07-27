@@ -37,11 +37,11 @@
 	<![endif]-->
     
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png"> -->
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png"> -->
+    <!-- <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png"> -->
+    <!-- <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png"> -->
+    <!-- <link rel="shortcut icon" href="../assets/ico/favicon.png"> -->
   </head>
   
   <body>
@@ -60,34 +60,25 @@
 	      {% block loggedinstatus %}Not logged in (<a href="/login/" class="navbar-link">Login</a>){% endblock %}
             </p>
             <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="/coffees/">Coffee List</a></li>
-              <li><a href="/add/">Add a Coffee</a></li>
+              <li><a href="/purchased_coffees/">Coffees</a></li>
+              <li><a href="/roasters/">Roasters</a></li>
+              <li><a href="/addcoffee/">Add a Coffee</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
 
+    {% block pageheader %}{% endblock %}
+    
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-
-        <div class="span9">
+        <div class="span12">
 
 	  {% block content %}{% endblock %}
-
-        </div><!--/span-->
-      </div><!--/row-->
+	  
+        </div> <!--/span-->
+      </div> <!--/row-->
       
       <hr>
       

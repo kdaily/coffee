@@ -1,6 +1,0 @@
-<h1>{{ coffee.name }}</h1>
-
-<ul>
-  <li>{{ coffee.finca }}</li>
-  <li>{{ coffee.roaster }}</li>
-</ul>

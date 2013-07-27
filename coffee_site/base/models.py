@@ -6,27 +6,33 @@ from sorl.thumbnail import ImageField
 
 class Roaster(models.Model):
     name = models.CharField(max_length=500)
+    address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
     state = models.CharField(max_length=500, blank=True, null=True)
-    address = models.CharField(max_length=500, blank=True, null=True)
-    zipcode = models.IntegerField(blank=True, null=True)
+    zipcode = models.IntegerField(null=True)
+    country = models.CharField(max_length=3, null=True)
+    
     website = models.CharField(max_length=500, blank=True, null=True)
-    phone = models.IntegerField(blank=True, null=True)
+    phone = models.IntegerField(null=True)
 
     def __unicode__(self):
         return "%s" % (self.name)
+
+    class Meta:
+        unique_together = ('name', 'city', 'state')
 
 class Store(models.Model):
     name = models.CharField(max_length=500)
+    address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
     state = models.CharField(max_length=500, blank=True, null=True)
-    address = models.CharField(max_length=500, blank=True, null=True)
     zipcode = models.IntegerField(blank=True, null=True)
+    country = models.CharField(max_length=3, blank=True, null=True)
     website = models.CharField(max_length=500, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
-        return "%s" % (self.name)
+        return "%s (%s, %s)" % (self.name, self.city, self.state)
 
 # Create your models here.
 class Coffee(models.Model):
@@ -39,17 +45,20 @@ class Coffee(models.Model):
 
     grower = models.CharField(max_length=500, blank=True, null=True)
     finca = models.CharField(max_length=500, blank=True, null=True)
-    varietal = models.CharField(max_length=200, blank=True, null=True)
-
+    region = models.CharField(max_length=500, blank=True, null=True)
     country = models.CharField(max_length=3, blank=True, null=True)
-
+    
+    varietal = models.CharField(max_length=200, blank=True, null=True)
     altitude = models.IntegerField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
 
     def __unicode__(self):
-        return "%s" % (self.name)
+        return "%s (%s)" % (self.name, self.finca)
 
+    class Meta:
+        unique_together = ("name", "grower", "finca")
+    
 class CoffeeBag(models.Model):
 
     date_roast = models.DateField('Roast Date', blank=True, null=True)
@@ -63,8 +72,11 @@ class CoffeeBag(models.Model):
     coffee = models.ForeignKey(Coffee)
 
     def __unicode__(self):
-        return "%s, %s" % (self.coffee.name, self.roaster.name)
+        return "%s, %s (%s)" % (self.coffee.name, self.roaster.name, self.date_roast)
 
+    class Meta:
+        unique_together = ('roaster', 'coffee', 'date_roast')
+        
 def make_custom_datefield(f):
     formfield = f.formfield()
     if isinstance(f, models.DateField):
