@@ -56,7 +56,7 @@ class RoasterListView(ListView):
     model = Roaster
 
     template_name = 'base/roaster_list.html'
-    paginate_by = 8
+    paginate_by = 6
 
     context_object_name = 'roaster_list'
 
