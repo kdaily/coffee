@@ -15,21 +15,32 @@
 
 {% if purchasedcoffeebag_list %}
 
-<!-- <div class="span10"> -->
+<div class="row-fluid">
+  
   {% for coffee in purchasedcoffeebag_list %}
+  
+  {% if forloop.counter0|divisibleby:"4" %}
   <div class="row-fluid">
+    {% endif %}  
     
-    <div class="span10">
+    
+    <div class="span3">
       <div class="item">
 	<div class="item_head">
-	  <h2>[{{ coffee.date_purch }}] {{ coffee.coffeebag.coffee.name }}</h2>
+	  <h2>[{{ coffee.date_purch }}]</h2>
 	</div>
-	<a class="btn" href="/purchcoffeebag/{{ coffee.id }}/">View details &raquo;</a>
+	{{ coffee.coffeebag.coffee.name }}<a class="btn" href="/purchcoffeebag/{{ coffee.id }}/">View details &raquo;</a>
       </div><!--/span-->
     </div>
-  </div>
-  {% endfor %}
   
+    {% if forloop.counter|divisibleby:"4" %}
+  </div>
+  {% endif %}
+
+  {% endfor %}
+</div>
+</div>
+
 <!-- </div> -->
 
 {% if is_paginated %}
