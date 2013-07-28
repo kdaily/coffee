@@ -19,24 +19,15 @@ from base.views import RoasterListView, RoasterDetailView
 urlpatterns = patterns('',
                        # Examples:
                            
-                       # url(r'^$', 'coffee_site.views.home', name='home'),
-                       # url(r'^coffee_site/', include('coffee_site.foo.urls')),
                        
                        # url(r'^login/$', 'django.contrib.auth.views.login'),                       
                        ## url(r'^logout/$', 'django.contrib.auth.views.logout'),                       
-                       
-                       # url(r'^login/$', 'coffee_journal.views.login'),
-                       ## url(r'^logout/$', 'coffee_journal.views.logout'),
-                       
+                                              
                        url(r'^$', 'coffee_journal.views.home', name='home'),
 
                        url(r'^register/$', 'base.views.register'),                       
                        url(r'^login/$', 'coffee_journal.views.login'),                       
                        url(r'^logout/$', 'coffee_journal.views.logout'),
-
-                       # url(r'^coffees/$', 'base.views.coffees_paginated'),
-
-                       # url(r'^carousel/$', 'coffee_journal.views.coffee_carousel'),
 
                        url(r'^coffee/(?P<pk>\d+)/$', 
                            view=CoffeeDetailView.as_view(),
@@ -81,12 +72,6 @@ urlpatterns = patterns('',
                        url(r'^roaster/(?P<pk>\d+)/$', 
                            view=RoasterDetailView.as_view(),
                            name="roasterdetail"),
-
-                       # url(r'^coffee_journal/login/$', 'coffee_journal.views.login'),                       
-                       # url(r'^coffee_journal/logout/$', 'coffee_journal.views.logout'),
-                       # url(r'^coffee_journal/coffees/$', 'coffee_journal.views.coffees'),
-                       # url(r'^coffee_journal/coffee/(?P<coffee_id>\d+)/$', 'coffee_journal.views.coffee_detail'),
-                       # url(r'^coffee_journal/add/$', 'coffee_journal.views.coffee_add'),
                        
                        # Uncomment the admin/doc line below to enable admin documentation:
                        # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
