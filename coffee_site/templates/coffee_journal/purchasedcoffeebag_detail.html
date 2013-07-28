@@ -30,11 +30,13 @@
 	<div class="item_head">
 	  <h2>Purchase</h2>
 	</div>
-	<ul>
-	  <li>Location: {{ purchasedcoffeebag.store.name }}</li>  
-	  <li>Date: {{ purchasedcoffeebag.date_purch }}</li>
-	  <li>Amount: {{ purchasedcoffeebag.coffeebag.amount }} grams</li>
-	</ul>
+	<div class="item_body">
+	  <ul>
+	    <li>Location: {{ purchasedcoffeebag.store.name }}</li>  
+	    <li>Date: {{ purchasedcoffeebag.date_purch }}</li>
+	    <li>Amount: {{ purchasedcoffeebag.coffeebag.amount }} grams</li>
+	  </ul>
+	</div>
       </div>
     </div>
     
@@ -43,12 +45,14 @@
 	<div class="item_head">
 	  <h2>Coffee</h2>
 	</div>
-	<ul>
-	  <li>Finca: {{ purchasedcoffeebag.coffeebag.coffee.finca }}</li>
-	  <li>Grower: {{ purchasedcoffeebag.coffeebag.coffee.grower }}</li>
-	  <li>Varietal: {{ purchasedcoffeebag.coffeebag.coffee.varietal }}</li>
-	  <li>Altitude: {{ purchasedcoffeebag.coffeebag.coffee.altitude }}m</li>
-	</ul>
+	<div class="item_body">
+	  <ul>
+	    <li>Finca: {{ purchasedcoffeebag.coffeebag.coffee.finca }}</li>
+	    <li>Grower: {{ purchasedcoffeebag.coffeebag.coffee.grower }}</li>
+	    <li>Varietal: {{ purchasedcoffeebag.coffeebag.coffee.varietal }}</li>
+	    <li>Altitude: {{ purchasedcoffeebag.coffeebag.coffee.altitude }}m</li>
+	  </ul>
+	</div>
       </div>
     </div>
     
@@ -58,11 +62,12 @@
 	  <h2>Roaster</h2>
 	</div>
 	<!-- <img src="{{ STATIC_URL }}/img/{{ coffeebag.id }}.jpg" width="150"><br /> -->
-	
-	<ul>
-	  <li>Name: {{ purchasedcoffeebag.coffeebag.roaster.name }}</li>
-	  <li>Date: {{ purchasedcoffeebag.coffeebag.date_roast }}</li>
-	</ul>
+	<div class="item_body">
+	  <ul>
+	    <li>Name: {{ purchasedcoffeebag.coffeebag.roaster.name }}</li>
+	    <li>Date: {{ purchasedcoffeebag.coffeebag.date_roast }}</li>
+	  </ul>
+	</div>
       </div>
     </div>
   </div>
