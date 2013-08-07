@@ -32,11 +32,6 @@ def register(request):
     return render(request, "registration/register.html", 
                   {'form': form,})
 
-def bootstrap(request):
-    t = loader.get_template('base/bootstrap.html')
-    c = RequestContext(request)
-    return HttpResponse(t.render(c))
-
 def coffees(request):
     latest_coffee_list = Coffee.objects.all()
 
