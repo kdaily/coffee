@@ -6,8 +6,6 @@ from djangoratings.fields import RatingField
 
 from base.models import Store, CoffeeBag
 
-# Create your models here.
-
 class PurchasedCoffeeBag(models.Model):
     """DB model for a purchased coffee bag.
     
