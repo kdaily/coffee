@@ -8,7 +8,10 @@ from sorl.thumbnail import ImageField
 from coffee_journal.models import PurchasedCoffeeBag
 
 class Method(models.Model):
-
+    """DB model for a preparation method.
+    
+    """
+    
     name = models.CharField(max_length=500)
     description = models.TextField(blank=True, null=True)
     thumb = ImageField(upload_to='/media/img/', blank=True)
@@ -18,6 +21,9 @@ class Method(models.Model):
       
     
 class CoffeeMaker(models.Model):
+    """DB model for a generic type of coffee maker.
+    
+    """
 
     name = models.CharField(max_length=500)
     manufacturer = models.CharField(max_length=500)
@@ -30,6 +36,9 @@ class CoffeeMaker(models.Model):
     method = models.OneToOneField(Method)    
     
 class CoffeeGrinder(models.Model):
+    """DB model for a coffee grinder.
+    
+    """
 
     name = models.CharField(max_length=500)
     manufacturer = models.CharField(max_length=500)
@@ -37,9 +46,12 @@ class CoffeeGrinder(models.Model):
     description = models.TextField(blank=True, null=True)
     thumb = ImageField(upload_to='/media/img/', blank=True)
     
-    
-    
 class PurchasedCoffeeMaker(models.Model):
+    """DB model for a type of coffee maker that a user has.
+    
+    For example, it may be a different model, size, etc.
+    
+    """
 
     # should be changed to only a year
     date_purch = models.DateField('Purchase Date', blank=True)
@@ -49,6 +61,11 @@ class PurchasedCoffeeMaker(models.Model):
 
 
 class PurchasedCoffeeGrinder(models.Model):
+    """DB model for a type of coffee maker that a user has.
+    
+    For example, it may be a different model, size, etc.
+    
+    """
 
     # should be changed to only a year
     date_purch = models.DateField('Purchase Date', blank=True)
@@ -58,6 +75,13 @@ class PurchasedCoffeeGrinder(models.Model):
     
     
 class Preparation(models.Model):
+    """DB model for a coffee preparation.
+
+    Includes all variables, equipment, and coffee involved in making a coffee.
+    
+    Has relationships to a method, grinder, purchased coffee bag, and a user.
+    
+    """
 
     date = models.DateField('Preparation Date', blank=True)
 
@@ -72,8 +96,8 @@ class Preparation(models.Model):
     grinder = models.ForeignKey(PurchasedCoffeeGrinder)
     coffeebag = models.ForeignKey(PurchasedCoffeeBag)
     user = models.ForeignKey(User)
-
+    
     ## tags for flavor notes?
     # tags = sometaggingappmodel()
-
+    
     ## Need to investigate how to share b/t users...
