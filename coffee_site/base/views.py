@@ -32,16 +32,6 @@ def register(request):
     return render(request, "registration/register.html", 
                   {'form': form,})
 
-def coffees(request):
-    latest_coffee_list = Coffee.objects.all()
-
-    t = loader.get_template('coffee_journal/index.html')
-
-    c = RequestContext(request, {'latest_coffee_list': latest_coffee_list, 'user': request.user})
-
-    return HttpResponse(t.render(c))
-
-
 class RoasterListView(ListView):
 
     model = Roaster
