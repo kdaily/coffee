@@ -1,3 +1,8 @@
+<!-- Base template that all other pages should inherit. --> 
+<!-- Defines basic layout and default content.. --> 
+<!-- Modified from one of the Twitter Bootstrap example layouts -->
+<!-- The body and media styles are overloaded from the bootstrap css here -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,6 +34,8 @@
     </style>
     <link href="{{ STATIC_URL }}/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
+
+    <!-- Any other stylesheets that are needed go here -->
     {% block otherstyles %}{% endblock %}
     
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -36,11 +43,7 @@
 	<script src="../assets/js/html5shiv.js"></script>
 	<![endif]-->
     
-    <!-- Fav and touch icons -->
-    <!-- <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png"> -->
-    <!-- <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png"> -->
-    <!-- <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png"> -->
-    <!-- <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png"> -->
+    <!-- Fav icon -->
     <link rel="shortcut icon" href="{{ STATIC_URL }}/img/favicon.ico">
   </head>
   
@@ -67,10 +70,12 @@
           </div><!--/.nav-collapse -->
         </div>
       </div>
-    </div>
+    </div> <!-- Ends navbar -->
 
+    <!-- Page header should go here -->
     {% block pageheader %}{% endblock %}
-    
+
+    <!-- Set up the structure of the main content -->
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span12">
@@ -86,11 +91,13 @@
         <p>&copy; Coffee Ratio 2013</p>
       </footer>
       
-    </div><!--/.fluid-container-->
+    </div> <!-- ends the fluid-container -->
     
     <script src="{{ STATIC_URL }}/js/jquery-1.9.1.js"></script>
     <script src="{{ STATIC_URL }}/bootstrap/js/bootstrap.js"></script>
 
+    <!-- Any other javascript includes go here -->
     {% block scripts %}{% endblock %}
   </body>
 </html>
+
