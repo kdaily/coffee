@@ -17,10 +17,6 @@ from braces.views import LoginRequiredMixin
 from .models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
 from .models import Roaster
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the base index.")
-
-
 def logout_view(request):
     logout(request)
 
