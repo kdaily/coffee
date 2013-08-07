@@ -28,3 +28,10 @@ Finally, you should be up and running with:
 ```
 python manage.py runserver --settings=coffee_site.settings.local_yourusername
 ```
+
+App Layout
+------
+
+- `base` has models and views common across apps (roasters, coffees, coffee bags, etc.).
+- `coffee_journal` has models and views for the coffee journal (purchased coffee bags).
+- `coffee_ratio` has models and views for coffee preparation methods.
