@@ -32,6 +32,10 @@ python manage.py runserver --settings=coffee_site.settings.local_yourusername
 App Layout
 ------
 
+The layout is mostly based on concepts from the "Two Scoops" Django book.
+
 - `base` has models and views common across apps (roasters, coffees, coffee bags, etc.).
 - `coffee_journal` has models and views for the coffee journal (purchased coffee bags).
 - `coffee_ratio` has models and views for coffee preparation methods.
+- `templates` holds all HTML templates that are rendered by views.
+- `static` holds all static content - Twitter Bootstrap, JQuery, CSS stylesheets, static (non-user) images, etc.
