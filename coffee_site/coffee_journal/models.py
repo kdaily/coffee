@@ -9,8 +9,12 @@ from base.models import Store, CoffeeBag
 # Create your models here.
 
 class PurchasedCoffeeBag(models.Model):
-
-    # purch_location = models.CharField(max_length=500)
+    """DB model for a purchased coffee bag.
+    
+    Has relationships to a user, store, and coffee bag.
+    
+    """
+    
     date_purch = models.DateField('Purchase Date', blank=True)
     rating = RatingField(range=5)
 
@@ -24,10 +28,17 @@ class PurchasedCoffeeBag(models.Model):
         return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.store.name)
 
     class Meta:
+        # Default ordering - chronological by purchase date
         ordering = ["-date_purch"]
 
 
 def make_custom_datefield(f):
+    """Change format of date fields in form.
+    
+    Should move to a utilities module.
+    
+    """
+    
     formfield = f.formfield()
     if isinstance(f, models.DateField):
         formfield.widget.format = '%Y-%m-%d'
@@ -35,9 +46,16 @@ def make_custom_datefield(f):
     return formfield
 
 class PurchasedCoffeeBagForm(forms.ModelForm):
+    """Form model for purchased coffee bags.
+    
+    """
 
+    # Change format of date fields in form.
     formfield_callback = make_custom_datefield
     
     class Meta:
         model = PurchasedCoffeeBag
+        
+        # Logged in user will add a purchased coffee bag
+        # so in form the user field should not be displayed.
         exclude = ('user',)
