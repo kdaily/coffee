@@ -1,8 +1,12 @@
+/* Style sheet for list and detail views of items (CoffeeBags, Roasters, etc).
+
+*/
+
 .item {
     /* width: 300px; */
     padding: 4px;
     /* margin-bottom: 10px; */
-    background: #999;
+    background: inherit;
     
     min-height:100px;
     height:auto !important;
@@ -32,8 +36,7 @@
     overflow: hidden;
     margin-bottom: 0px;
     padding: 3px;
-    background: #fff;
-
+    background: #FFF;
 
     -moz-border-bottom-left-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
@@ -56,11 +59,15 @@
     line-height: 2em;
 }
 
+
 .item li {
     font-size: 1.5em;
     font-style: normal;
     line-height: 1.5em;
 }
+
+
+/* Used in detail views */
 
 .coffeetitle {
     /* width: 426px; */

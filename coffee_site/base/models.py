@@ -5,6 +5,10 @@ from django import forms
 from sorl.thumbnail import ImageField
 
 class Roaster(models.Model):
+    """Model for a roaster.
+    
+    """
+    
     name = models.CharField(max_length=500)
     address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
@@ -19,9 +23,14 @@ class Roaster(models.Model):
         return "%s" % (self.name)
 
     class Meta:
+        # the columns that make unique records
         unique_together = ('name', 'city', 'state')
 
 class Store(models.Model):
+    """Model for a store.
+    
+    """
+    
     name = models.CharField(max_length=500)
     address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
@@ -57,9 +66,15 @@ class Coffee(models.Model):
         return "%s (%s)" % (self.name, self.finca)
 
     class Meta:
+        # the columns that make unique records
         unique_together = ("name", "grower", "finca")
     
 class CoffeeBag(models.Model):
+    """DB model for a coffee bag.
+
+    This has a roaster and a coffee as relationships.
+
+    """
 
     date_roast = models.DateField('Roast Date', blank=True, null=True)
     
@@ -75,9 +90,14 @@ class CoffeeBag(models.Model):
         return "%s, %s (%s)" % (self.coffee.name, self.roaster.name, self.date_roast)
 
     class Meta:
+        # the columns that make unique records
         unique_together = ('roaster', 'coffee', 'date_roast')
         
 def make_custom_datefield(f):
+    """Change the format of the date in form fields.
+    
+    """
+    
     formfield = f.formfield()
     if isinstance(f, models.DateField):
         formfield.widget.format = '%Y-%m-%d'
@@ -85,17 +105,33 @@ def make_custom_datefield(f):
     return formfield
 
 class CoffeeForm(forms.ModelForm):
-
+    """Form model for adding new coffees.
+    
+    """
+    
+    # change the format of the date fields
     formfield_callback = make_custom_datefield
     
     class Meta:
         model = Coffee
+        
+        # The user is excluded since a coffee will be added by
+        # the currently logged in user; hence this field need
+        # not be displayed
         exclude = ('user',)
 
 class CoffeeBagForm(forms.ModelForm):
+    """Form model for adding new coffees.
+    
+    """
 
+    # change the format of the date fields
     formfield_callback = make_custom_datefield
     
     class Meta:
         model = CoffeeBag
+        
+        # The user is excluded since a coffee will be added by
+        # the currently logged in user; hence this field need
+        # not be displayed
         exclude = ('user',)
