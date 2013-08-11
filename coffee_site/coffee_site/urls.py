@@ -8,13 +8,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
-from coffee_journal.views import PurchasedCoffeeBagDetailView
-from coffee_journal.views import PurchasedCoffeeBagListView
-from coffee_journal.views import UserPurchasedCoffeeBagListView
-from coffee_journal.views import PurchasedCoffeeBagCreateView
-from base.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
-from base.views import CoffeeBagListView, CoffeeBagDetailView
-from base.views import RoasterListView, RoasterDetailView
+from coffee_bag.views import PurchasedCoffeeBagDetailView
+from coffee_bag.views import PurchasedCoffeeBagListView
+from coffee_bag.views import UserPurchasedCoffeeBagListView
+from coffee_bag.views import PurchasedCoffeeBagCreateView
+from coffee_site_general.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
+from coffee_site_general.views import CoffeeBagListView, CoffeeBagDetailView
+from coffee_site_general.views import RoasterListView, RoasterDetailView
 
 urlpatterns = patterns('',
                        # Examples:
@@ -24,12 +24,12 @@ urlpatterns = patterns('',
                        ## url(r'^logout/$', 'django.contrib.auth.views.logout'),                       
                        
                        # Main page
-                       url(r'^$', 'coffee_journal.views.home', name='home'),
+                       url(r'^$', 'coffee_site.views.home', name='home'),
 
                        # Register/login/logout of the coffee jounal
                        # Probably could all be moved to base.
-                       url(r'^login/$', 'coffee_journal.views.login'),                       
-                       url(r'^logout/$', 'coffee_journal.views.logout'),
+                       url(r'^login/$', 'coffee_site.views.login'),                       
+                       url(r'^logout/$', 'coffee_site.views.logout'),
 
                        # View detail for a coffee
                        url(r'^coffee/(?P<pk>\d+)/$', 

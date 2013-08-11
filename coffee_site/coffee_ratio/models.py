@@ -5,7 +5,7 @@ from django import forms
 from djangoratings.fields import RatingField
 from sorl.thumbnail import ImageField
 
-from coffee_journal.models import PurchasedCoffeeBag
+from coffee_bag.models import PurchasedCoffeeBag
 
 class Method(models.Model):
     """DB model for a preparation method.

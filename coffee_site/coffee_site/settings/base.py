@@ -30,8 +30,8 @@ TEMPLATE_DIRS = (
 
 FIXTURE_DIRS = (
     PROJECT_ROOT.child("fixtures"),
-    PROJECT_ROOT.child("base").child("fixtures"),
-    PROJECT_ROOT.child("coffee_journal").child("fixtures"),
+    PROJECT_ROOT.child("corree_site_general").child("fixtures"),
+    PROJECT_ROOT.child("coffee_bag").child("fixtures"),
 )
 
 ADMINS = (
@@ -138,8 +138,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     # our apps
-    'base',
-    'coffee_journal',
+    'coffee_site_general',
+    'coffee_bag',
     'coffee_ratio',
 
     ## External apps
@@ -178,4 +178,4 @@ LOGGING = {
 }
 
 # URL of the login page.
-LOGIN_URL = '/login/'
+# LOGIN_URL = '/login/'
