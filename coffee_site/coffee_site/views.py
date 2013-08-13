@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from braces.views import LoginRequiredMixin
 
-from coffee_site_general.models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
+from general.models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
 from coffee_bag.models import PurchasedCoffeeBag, PurchasedCoffeeBagForm
 
 # Create your views here.

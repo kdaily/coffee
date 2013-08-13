@@ -1,4 +1,4 @@
-from coffee_site_general.models import Coffee, CoffeeBag, Roaster, Store
+from general.models import Coffee, CoffeeBag, Roaster, Store
 from coffee_bag.models import PurchasedCoffeeBag
 from django.contrib import admin
 # from django.contrib.auth.admin import UserAdmin

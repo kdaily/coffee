@@ -4,7 +4,7 @@ from django import forms
 
 from djangoratings.fields import RatingField
 
-from coffee_site_general.models import Store, CoffeeBag
+from general.models import Store, CoffeeBag
 
 class PurchasedCoffeeBag(models.Model):
     """DB model for a purchased coffee bag.

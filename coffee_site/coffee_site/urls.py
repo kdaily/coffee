@@ -12,9 +12,9 @@ from coffee_bag.views import PurchasedCoffeeBagDetailView
 from coffee_bag.views import PurchasedCoffeeBagListView
 from coffee_bag.views import UserPurchasedCoffeeBagListView
 from coffee_bag.views import PurchasedCoffeeBagCreateView
-from coffee_site_general.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
-from coffee_site_general.views import CoffeeBagListView, CoffeeBagDetailView
-from coffee_site_general.views import RoasterListView, RoasterDetailView
+from general.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
+from general.views import CoffeeBagListView, CoffeeBagDetailView
+from general.views import RoasterListView, RoasterDetailView
 
 urlpatterns = patterns('',
                        # Examples:
