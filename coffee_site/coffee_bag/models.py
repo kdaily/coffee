@@ -29,6 +29,7 @@ class PurchasedCoffeeBag(models.Model):
         # Default ordering - chronological by purchase date
         ordering = ["-date_purch"]
 
+        permissions = (('view_purch_coffee_bag', 'View purchased coffee bag'),)
 
 def make_custom_datefield(f):
     """Change format of date fields in form.
