@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django import forms
 from django.conf import settings
 
@@ -19,6 +18,7 @@ class PurchasedCoffeeBag(models.Model):
 
     notes = models.TextField(blank=True, null=True)
 
+    # Better way to specify the user than the User object
     user = models.ManyToManyField(settings.AUTH_USER_MODEL)
     store = models.ForeignKey(Store)
     coffeebag = models.ForeignKey(CoffeeBag)
