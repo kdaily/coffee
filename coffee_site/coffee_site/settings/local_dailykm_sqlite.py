@@ -3,6 +3,7 @@
 """
 
 from .base import *
+from .local_dailykm import *
 
 DEBUG = True
 TEMPLATE_DEBUG = True #DEBUG
