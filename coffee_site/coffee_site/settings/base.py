@@ -143,6 +143,7 @@ INSTALLED_APPS = (
     'coffee_ratio',
 
     ## External apps
+    'guardian',
     'djangoratings',
     'sorl.thumbnail',
     'braces',
