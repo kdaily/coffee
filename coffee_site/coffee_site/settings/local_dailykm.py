@@ -25,3 +25,6 @@ AUTHENTICATION_BACKENDS = (
 
 # For django-guardian
 ANONYMOUS_USER_ID = -1
+
+# Use a new user model
+AUTH_USER_MODEL = "general.CoffeeUser"
