@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django import forms
+from django.conf import settings
 
 from djangoratings.fields import RatingField
 from sorl.thumbnail import ImageField
@@ -56,7 +56,7 @@ class PurchasedCoffeeMaker(models.Model):
     # should be changed to only a year
     date_purch = models.DateField('Purchase Date', blank=True)
     rating = RatingField(range=5)
-    user = models.ManyToManyField(User)    
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)    
     coffeemaker = models.ForeignKey(CoffeeMaker)
 
 
@@ -70,7 +70,7 @@ class PurchasedCoffeeGrinder(models.Model):
     # should be changed to only a year
     date_purch = models.DateField('Purchase Date', blank=True)
     rating = RatingField(range=5)
-    user = models.ManyToManyField(User)    
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)    
     coffeegrinder = models.ForeignKey(CoffeeGrinder)
     
     
@@ -95,7 +95,7 @@ class Preparation(models.Model):
     method = models.ForeignKey(PurchasedCoffeeMaker)
     grinder = models.ForeignKey(PurchasedCoffeeGrinder)
     coffeebag = models.ForeignKey(PurchasedCoffeeBag)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     
     ## tags for flavor notes?
     # tags = sometaggingappmodel()
