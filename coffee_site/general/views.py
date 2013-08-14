@@ -19,7 +19,7 @@ from .models import Roaster
 
 class RoasterListView(ListView):
     """View to get a paginated list of all roasters.
-"""
+    """
     
     model = Roaster
     
@@ -30,53 +30,53 @@ class RoasterListView(ListView):
 
 class RoasterDetailView(DetailView):
     """View to get the detailed view for a roaster.
-"""
+    """
     
     model = Roaster
     template_name = 'base/roaster_detail.html'
 
 class CoffeeListView(ListView):
     """View to get a paginated list of all coffees.
-"""
+    """
     
     model = Coffee
     
-    template_name = 'base/coffee_list.html'
+    template_name = 'coffee_journal/coffee/coffee_list.html'
     paginate_by = 5
     
     context_object_name = 'coffee_list'
 
 class CoffeeBagListView(ListView):
     """View to get a paginated list of all coffee bags.
-"""
+    """
     
     model = CoffeeBag
     
-    template_name = 'base/coffeebag_list.html'
+    template_name = 'coffee_journal/coffee/coffeebag_list.html'
     paginate_by = 5
     
     context_object_name = 'coffeebag_list'
 
 class CoffeeDetailView(DetailView):
     """View to get the detailed view for a coffee.
-"""
+    """
     
     model = Coffee
     template_name = 'base/coffee_detail.html'
 
 class CoffeeBagDetailView(DetailView):
     """View to get the detailed view for a coffee bag.
-"""
+    """
     
     model = CoffeeBag
     template_name = 'base/coffeebag_detail.html'
 
 class CoffeeCreateView(LoginRequiredMixin, CreateView):
     """View to create a new coffee.
-Since this can only be done by a logged in user, the user
-is set in the form initially, and that field should be excluded
-from view.
-"""
+    Since this can only be done by a logged in user, the user
+    is set in the form initially, and that field should be excluded
+    from view.
+    """
 
     model = Coffee
     form_class = CoffeeForm
@@ -85,9 +85,11 @@ from view.
     context_object_name = 'coffee_create'
 
     def get(self, request, *args, **kwargs):
-        """Action to perform when GET method is used
-Render the form.
-"""
+        """Action to perform when GET method is used.
+
+        Render the form.
+
+        """
         
         curruser = User.objects.get(pk=request.user.id)
         form = self.form_class(initial={'user': curruser})
@@ -95,10 +97,12 @@ Render the form.
 
     def post(self, request, *args, **kwargs):
         """Action to perform when POST method is used
-Process the form. Validation is currently done by default.
-Probably could use some custom validation though, and possibly
-some validation at the Javascript level (but don't rely on that!)
-"""
+
+        Process the form. Validation is currently done by default.
+        Probably could use some custom validation though, and possibly
+        some validation at the Javascript level (but don't rely on that!)
+        
+        """
         
         form = CoffeeForm(request.POST)
 
