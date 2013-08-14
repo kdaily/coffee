@@ -1,7 +1,7 @@
 [
     {
         "pk": 1, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.handsomecoffee.com/", 
             "city": "Los Angeles", 
@@ -15,7 +15,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.nagadicoffee.com/", 
             "city": "Silver Spring", 
@@ -29,7 +29,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.intelligentsiacoffee.com/", 
             "city": "Chicago", 
@@ -43,7 +43,7 @@
     }, 
     {
         "pk": 4, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.heartroasters.com/", 
             "city": "Portland", 
@@ -57,7 +57,7 @@
     }, 
     {
         "pk": 5, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://kaldiscoffee.com/", 
             "city": "Saint Louis", 
@@ -71,7 +71,7 @@
     }, 
     {
         "pk": 6, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://vigilantecoffee.myshopify.com/", 
             "city": "Washington", 
@@ -85,7 +85,7 @@
     }, 
     {
         "pk": 7, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.counterculturecoffee.com/", 
             "city": "Durham", 
@@ -99,7 +99,7 @@
     }, 
     {
         "pk": 8, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.keancoffee.com/", 
             "city": "Newport Beach", 
@@ -113,7 +113,7 @@
     }, 
     {
         "pk": 9, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://madcapcoffee.com/", 
             "city": "Grand Rapids", 
@@ -127,7 +127,7 @@
     }, 
     {
         "pk": 10, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://stumptowncoffee.com/", 
             "city": "Portland", 
@@ -141,7 +141,7 @@
     }, 
     {
         "pk": 11, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.vervecoffeeroasters.com/", 
             "city": "Santa Cruz", 
@@ -155,7 +155,7 @@
     }, 
     {
         "pk": 12, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.caffeladro.com/", 
             "city": "Seattle", 
@@ -169,7 +169,7 @@
     }, 
     {
         "pk": 13, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.ritualroasters.com/", 
             "city": "San Francisco", 
@@ -183,7 +183,7 @@
     }, 
     {
         "pk": 14, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.joenewyork.com/", 
             "city": "New York City", 
@@ -197,7 +197,7 @@
     }, 
     {
         "pk": 15, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://fourbarrelcoffee.com/", 
             "city": "San Francisco", 
@@ -211,7 +211,7 @@
     }, 
     {
         "pk": 16, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.metropoliscoffee.com/", 
             "city": "Chicago", 
@@ -225,7 +225,7 @@
     }, 
     {
         "pk": 17, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://coavacoffee.com/", 
             "city": "Portland", 
@@ -239,7 +239,7 @@
     }, 
     {
         "pk": 18, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.ptscoffee.com/", 
             "city": "Topeka", 
@@ -253,7 +253,7 @@
     }, 
     {
         "pk": 19, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "https://www.sightglasscoffee.com/", 
             "city": "San Francisco", 
@@ -267,7 +267,7 @@
     }, 
     {
         "pk": 20, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.gimmecoffee.com/", 
             "city": "Ithaca", 
@@ -281,7 +281,7 @@
     }, 
     {
         "pk": 21, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.ceremonycoffee.com/", 
             "city": "Annapolis", 
@@ -295,7 +295,7 @@
     }, 
     {
         "pk": 22, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://www.wreckingballcoffee.com/", 
             "city": "San Francisco", 
@@ -309,7 +309,7 @@
     }, 
     {
         "pk": 23, 
-        "model": "base.roaster", 
+        "model": "general.roaster", 
         "fields": {
             "website": "http://cafegrumpy.com/", 
             "city": "New York City", 
