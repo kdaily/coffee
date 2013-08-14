@@ -1,7 +1,7 @@
 [
     {
         "pk": 1, 
-        "model": "base.store", 
+        "model": "general.store", 
         "fields": {
             "website": "http://www.grosvenormarket.com/", 
             "city": "North Bethesda", 
@@ -15,7 +15,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "base.store", 
+        "model": "general.store", 
         "fields": {
             "website": "http://www.craftcoffee.com/", 
             "city": null, 
@@ -29,7 +29,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "base.store", 
+        "model": "general.store", 
         "fields": {
             "website": "http://dolcezzagelato.com/", 
             "city": "Washington", 
@@ -43,7 +43,7 @@
     }, 
     {
         "pk": 4, 
-        "model": "base.store", 
+        "model": "general.store", 
         "fields": {
             "website": "http://dolcezzagelato.com/", 
             "city": "Bethesda", 
@@ -57,7 +57,7 @@
     }, 
     {
         "pk": 5, 
-        "model": "base.store", 
+        "model": "general.store", 
         "fields": {
             "website": "http://filtercoffeehouse.com/", 
             "city": "Washington", 
@@ -71,7 +71,7 @@
     }, 
     {
         "pk": 6, 
-        "model": "base.store", 
+        "model": "general.store", 
         "fields": {
             "website": "http://peregrineespresso.com/", 
             "city": "Washington", 
@@ -85,7 +85,7 @@
     }, 
     {
         "pk": 7, 
-        "model": "base.store", 
+        "model": "general.store", 
         "fields": {
             "website": "http://www.trystdc.com/", 
             "city": "Washington", 
