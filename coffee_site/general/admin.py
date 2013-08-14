@@ -4,20 +4,21 @@ from django.contrib import admin
 # from django.contrib.auth.admin import UserAdmin
 # from django.contrib.auth.models import User
 
-
-# class CoffeeAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'finca', 'date_purch', 'date_roast', 'purch_location', 'date_roast', 'amount', 'roaster')
+from guardian.admin import GuardedModelAdmin
 
 
-#     fieldsets = [
-#         ('Coffee',               {'fields': ['name', 'finca', 'grower', 'varietal', 'altitude', 'notes']}),
-#         ('Roaster',               {'fields': ['roaster', 'amount', 'date_roast']}),
-#         ('Purchase', {'fields': ['date_purch', 'purch_location'], 'classes': ['collapse']})
-#         ]
 
-# admin.site.register(Coffee, CoffeeAdmin)
+# Old way:
+#class AuthorAdmin(admin.ModelAdmin):
+#    pass
 
-admin.site.register(Coffee)
+# With object permissions support
+class CoffeeAdmin(GuardedModelAdmin):
+    pass
+
+admin.site.register(Coffee, CoffeeAdmin)
+## admin.site.register(Coffee)
+
 admin.site.register(Roaster)
 admin.site.register(Store)
 admin.site.register(CoffeeBag)
