@@ -23,7 +23,7 @@ class PurchasedCoffeeBagDetailView(DetailView):
     """
     
     model = PurchasedCoffeeBag
-    template_name = 'coffee_journal/purchasedcoffeebag_detail.html'
+    template_name = 'coffee_journal/coffee/purchasedcoffeebag_detail.html'
 
 
 
@@ -33,7 +33,7 @@ class PurchasedCoffeeBagListView(ListView):
     """
     
     model = PurchasedCoffeeBag
-    template_name = 'coffee_journal/purchasedcoffeebag_list.html'
+    template_name = 'coffee_journal/coffee/purchasedcoffeebag_list.html'
     paginate_by = 8 
     context_object_name = 'purchasedcoffeebag_list'
 
@@ -43,7 +43,7 @@ class UserPurchasedCoffeeBagListView(LoginRequiredMixin, ListView):
     """
     
     model = PurchasedCoffeeBag
-    template_name = 'coffee_journal/purchasedcoffeebag_list.html'
+    template_name = 'coffee_journal/coffee/purchasedcoffeebag_list.html'
     paginate_by = 5
 
     def get_queryset(self):
@@ -65,7 +65,7 @@ class SearchPurchasedCoffeeBagListView(ListView):
     """
     
     model = PurchasedCoffeeBag
-    template_name = 'coffee_journal/purchasedcoffeebag_list.html'
+    template_name = 'coffee_journal/coffee/purchasedcoffeebag_list.html'
     paginate_by = 5
     
     def get_queryset(self):
@@ -90,7 +90,7 @@ class PurchasedCoffeeBagCreateView(LoginRequiredMixin, CreateView):
     model = PurchasedCoffeeBag
     form_class = PurchasedCoffeeBagForm
 
-    template_name = 'coffee_journal/purchasedcoffeebag_create.html'
+    template_name = 'coffee_journal/coffee/purchasedcoffeebag_create.html'
 
     context_object_name = 'purch_coffee_create'
 
