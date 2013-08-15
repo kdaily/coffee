@@ -1,12 +1,9 @@
 from general.models import Coffee, CoffeeBag, Roaster, Store
-from coffee_bag.models import PurchasedCoffeeBag
 from django.contrib import admin
 # from django.contrib.auth.admin import UserAdmin
 # from django.contrib.auth.models import User
 
 from guardian.admin import GuardedModelAdmin
-
-
 
 # Old way:
 #class AuthorAdmin(admin.ModelAdmin):
@@ -22,7 +19,6 @@ admin.site.register(Coffee, CoffeeAdmin)
 admin.site.register(Roaster)
 admin.site.register(Store)
 admin.site.register(CoffeeBag)
-admin.site.register(PurchasedCoffeeBag)
 
 
 # Stuff to have a new user class admin
