@@ -98,9 +98,11 @@ def make_custom_datefield(f):
     """
     
     formfield = f.formfield()
+
     if isinstance(f, models.DateField):
         formfield.widget.format = '%Y-%m-%d'
         formfield.widget.attrs.update({'class': 'datePicker', 'readonly': 'true'})
+
     return formfield
 
 class CoffeeForm(forms.ModelForm):
@@ -114,11 +116,6 @@ class CoffeeForm(forms.ModelForm):
     class Meta:
         model = Coffee
         
-        # The user is excluded since a coffee will be added by
-        # the currently logged in user; hence this field need
-        # not be displayed
-        exclude = ('user',)
-
 class CoffeeBagForm(forms.ModelForm):
     """Form model for adding new coffees.
     
@@ -129,8 +126,3 @@ class CoffeeBagForm(forms.ModelForm):
     
     class Meta:
         model = CoffeeBag
-        
-        # The user is excluded since a coffee will be added by
-        # the currently logged in user; hence this field need
-        # not be displayed
-        exclude = ('user',)
