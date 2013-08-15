@@ -89,6 +89,10 @@ class Preparation(models.Model):
     water_amt = models.IntegerField(blank=True, null=True)
     coffee_amt = models.IntegerField(blank=True, null=True)
     time_amt = models.IntegerField(blank=True, null=True)
+
+    extraction = models.FloatField(blank=True, null=True)
+    tds = models.FloatField(blank=True, null=True)
+
     notes = models.TextField(blank=True, null=True)
     rating = RatingField(range=5)
 
