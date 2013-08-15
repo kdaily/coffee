@@ -91,6 +91,8 @@ class Preparation(models.Model):
     time_amt = models.IntegerField(blank=True, null=True)
 
     extraction = models.FloatField(blank=True, null=True)
+
+    # Total dissolved solids
     tds = models.FloatField(blank=True, null=True)
 
     notes = models.TextField(blank=True, null=True)
