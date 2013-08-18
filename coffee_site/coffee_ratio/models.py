@@ -18,7 +18,7 @@ class Method(models.Model):
     rec_grind = models.CharField(max_length=100, blank=True, null=True)
     rec_water_amt = models.IntegerField(blank=True, null=True)
     rec_coffee_amt = models.IntegerField(blank=True, null=True)
-      
+     
     
 class CoffeeMaker(models.Model):
     """DB model for a generic type of coffee maker.
@@ -32,6 +32,8 @@ class CoffeeMaker(models.Model):
     
     description = models.TextField(blank=True, null=True)
     thumb = ImageField(upload_to='/media/img/', blank=True)
+    
+    rating = RatingField(range=5)
 
     method = models.OneToOneField(Method)    
     
@@ -45,6 +47,7 @@ class CoffeeGrinder(models.Model):
     model = models.CharField(max_length=500)
     description = models.TextField(blank=True, null=True)
     thumb = ImageField(upload_to='/media/img/', blank=True)
+    rating = RatingField(range=5)
     
 class PurchasedCoffeeMaker(models.Model):
     """DB model for a type of coffee maker that a user has.
@@ -58,6 +61,13 @@ class PurchasedCoffeeMaker(models.Model):
     rating = RatingField(range=5)
     user = models.ManyToManyField(User)    
     coffeemaker = models.ForeignKey(CoffeeMaker)
+    
+    notes = models.TextField(blank=True, null=True)
+    
+    thumb = ImageField(upload_to='/media/img/', blank=True)
+    
+    #This needs to be replaced with something else, once we set up the groups
+    is_shared = models.IntegerField()
 
 
 class PurchasedCoffeeGrinder(models.Model):
@@ -72,6 +82,14 @@ class PurchasedCoffeeGrinder(models.Model):
     rating = RatingField(range=5)
     user = models.ManyToManyField(User)    
     coffeegrinder = models.ForeignKey(CoffeeGrinder)
+    
+    notes = models.TextField(blank=True, null=True)
+    
+    thumb = ImageField(upload_to='/media/img/', blank=True)
+    
+    #This needs to be replaced with something else, once we set up the groups
+    is_shared = models.IntegerField()
+
     
     
 class Preparation(models.Model):
@@ -96,6 +114,12 @@ class Preparation(models.Model):
     grinder = models.ForeignKey(PurchasedCoffeeGrinder)
     coffeebag = models.ForeignKey(PurchasedCoffeeBag)
     user = models.ForeignKey(User)
+    
+    thumb = ImageField(upload_to='/media/img/', blank=True)
+    
+   #This needs to be replaced with something else, once we set up the groups
+    is_shared = models.IntegerField()
+
     
     ## tags for flavor notes?
     # tags = sometaggingappmodel()
