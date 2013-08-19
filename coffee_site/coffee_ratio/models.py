@@ -18,7 +18,7 @@ class Method(models.Model):
     rec_grind = models.CharField(max_length=100, blank=True, null=True)
     rec_water_amt = models.IntegerField(blank=True, null=True)
     rec_coffee_amt = models.IntegerField(blank=True, null=True)
-     
+    rec_temp = models.FloatField(blank=True, null=True) 
     
 class CoffeeMaker(models.Model):
     """DB model for a generic type of coffee maker.
@@ -103,12 +103,18 @@ class Preparation(models.Model):
 
     date = models.DateField('Preparation Date', blank=True)
 
+    grinder = models.CharField(max_length=100, blank=True, null=True)
     grind = models.CharField(max_length=100, blank=True, null=True)
     water_amt = models.IntegerField(blank=True, null=True)
     coffee_amt = models.IntegerField(blank=True, null=True)
     time_amt = models.IntegerField(blank=True, null=True)
+    temp = models.FloatField(blank=True, null=True)
+    
     notes = models.TextField(blank=True, null=True)
-    rating = RatingField(range=5)
+    
+    rating_taste = RatingField(range=5)
+    rating_aroma = RatingField(range=5)
+    rating_tactile = RatingField(range=5)
 
     method = models.ForeignKey(PurchasedCoffeeMaker)
     grinder = models.ForeignKey(PurchasedCoffeeGrinder)
