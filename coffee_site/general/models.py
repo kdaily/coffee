@@ -24,7 +24,8 @@ class Roaster(models.Model):
     facebook  = models.CharField(max_length=500, blank=True, null=True)
     twitter  = models.CharField(max_length=500, blank=True, null=True)
     gplus  = models.CharField(max_length=500, blank=True, null=True)
-       
+     
+    #To use ImageFields, you need to install the Python Imaging Library
     thumb = models.ImageField(upload_to='/media/img/', blank=True)
     
     rating = RatingField(range=5)
@@ -54,6 +55,7 @@ class Store(models.Model):
     twitter  = models.CharField(max_length=500, blank=True, null=True)
     gplus  = models.CharField(max_length=500, blank=True, null=True)
     
+    #To use ImageFields, you need to install the Python Imaging Library
     thumb = models.ImageField(upload_to='/media/img/', blank=True)
     
     rating = RatingField(range=5)
@@ -103,7 +105,8 @@ class CoffeeBag(models.Model):
     
     roast_type = models.CharField(max_length=200, blank=True, null=True)
 
-    thumb = ImageField(upload_to='/media/img/', blank=True)
+    #To use ImageFields, you need to install the Python Imaging Library
+    thumb = models.ImageField(upload_to='/media/img/', blank=True)
 
     roaster = models.ForeignKey(Roaster)
     coffee = models.ForeignKey(Coffee)
