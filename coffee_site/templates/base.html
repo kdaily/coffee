@@ -43,18 +43,27 @@
             
           	  <a class="brand" href="/">Coffee Ratios</a>
           	  
-          	  <li><a href="#">About</a></li>                    	     
+          	  <li class="dropdown">
+            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">About <b class="caret"></b></a> <!--  add/use <b class="caret"></b> to display arrow down -->
+            	<ul class="dropdown-menu">           		
+            		<li><a href="#">About us</a></li>            		 
+            		<li><a href="#">FAQ</a></li>                	
+                	<li class="divider"></li>     
+                	<li><a href="#">Contact</a></li>           	                	
+          		</ul><!-- .dropdown-menu -->
+          		</li><!-- .dropdown-About -->               	     
             	
             	<li class="dropdown">
-            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">Coffee <b class="caret"></b></a> <!--  add/use <b class="caret"></b> to display arrow down -->
-            	<ul class="dropdown-menu">
-            		<li class="nav-header">Location</li>
-            		<li><a href="#">Africa</a></li>
-            		<li><a href="#">Central America</a></li>
-                	<li><a href="#">South America</a></li>
-                	<li class="divider"></li>
-                	<li><a href="#">Aroma</a></li>
-                	<li><a href="#">Roast</a></li>
+            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">Coffee<b class="caret"></b></a> 
+            	<ul class="dropdown-menu">           		
+            		<li><a href="#">Regions</a></li>
+            		<li class="divider"></li>  
+            		<li><a href="#">Flavors</a></li>
+            		<li><a href="#">Roasting</a></li>
+            		<li class="divider"></li> 
+            		<li><a href="#">Roasters</a></li>
+                	<li><a href="#">Stores</a></li> 
+         	                	
           		</ul><!-- .dropdown-menu -->
           		</li><!-- .dropdown-Coffee -->
           		
@@ -63,19 +72,17 @@
             	<ul class="dropdown-menu">
             		<li class="nav-header">Methods</li>
             		<li><a href="#">Aero-press</a></li>
+            		<li><a href="#">Drip</a></li>
+            		<li><a href="#">Espresso</a></li>
             		<li><a href="#">French-press</a></li>
             		<li><a href="#">Pourover</a></li>
-                	<li><a href="#">Vacuum</a></li>
+                	<li><a href="#">Siphon</a></li>
                 	<li class="divider"></li>                	
-                	<li><a href="#">Grinds</a></li>
-                	<li><a href="#">Water</a></li>                	
+                	<li><a href="#">Grinding</a></li>
+                	<li class="divider"></li>    
+                	<li><a href="#">Tips</a></li>                	
           		</ul><!-- .dropdown-menu -->
-             	</li><!-- .dropdown-Preparation -->
-             	
-             	<li><a href="#">Roasters</a></li>   
-             	
-             	<li><a href="#">Contact</a></li>           	             	
-         	
+             	</li><!-- .dropdown-Preparation -->         	         	
          	</ul><!-- nav -->
          	
          	{% if user.is_authenticated %}
@@ -86,13 +93,11 @@
             		<li><a href="#">My methods</a></li>	
             		<li class="divider"></li>
             		<li><a href="/purchased_coffees/">My coffees</a></li>
+            		<li><a href="#">My equipment</a></li>
+            		<li class="divider"></li>
                 	<li><a href="/roasters/">My roasters</a></li>
-                	<li><a href="#">My equipment</a></li>
-                	<li class="divider"></li>
-                	<li><a href="#">My notes</a></li>
-                	<li class="divider"></li>
-                	<li><a href="#">My friends</a></li>
-                	<li class="divider"></li>
+                	<li><a href="/roasters/">My stores</a></li>                	                	               
+                  	<li class="divider"></li>
                 	<li><a href="#">My favorites</a></li>
           		</ul><!-- .dropdown-menu -->
           		</li><!-- .dropdown-Coffee -->
@@ -101,8 +106,14 @@
          	<li class="dropdown">
           		<a data-toggle="dropdown" class="dropdown-toggle" href="#"> <img src="{{ STATIC_URL }}/img/settings.gif"> <b class="caret"></b></a>
             	<ul class="dropdown-menu">            		
+            		<li><a href="#">Edit profile</a></li>
             		<li><a href="#">Settings</a></li>
-            		<li class="divider"></li>                	
+            		<li class="divider"></li>   
+            		<li><a href="#">My friends</a></li>
+            		<li><a href="#">Find a friend</a></li>
+            		<li class="divider"></li>  
+            		<li><a href="/logout/">Help</a></li>           
+            		<li class="divider"></li>              	
                 	<li><a href="/logout/">Sign out</a></li>                	                
           		</ul><!-- .dropdown-menu -->
              	</li><!-- .dropdown-Settings -->
