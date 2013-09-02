@@ -27,9 +27,6 @@ class PurchasedCoffeeBag(models.Model):
     store = models.ForeignKey(UserStore)
     coffeebag = models.ForeignKey(CoffeeBag)
     
-    #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
-
     def __unicode__(self):
         return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.store.name)
 
