@@ -165,8 +165,13 @@ class UserRoaster(models.Model):
     user = models.ManyToManyField(User)
     roaster = models.ForeignKey(Roaster)
     
-    #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
+
+    class Meta:
+        # Default ordering - chronological by purchase date
+        ordering = ["roaster.roaster.name"]
+
+        permissions = (('view_user_coffee_roaster', "View user's roaster"),)
+
 
 class UserStore(models.Model):
     """DB model for a user's stores.
@@ -180,10 +185,12 @@ class UserStore(models.Model):
 
     user = models.ManyToManyField(User)
     store = models.ForeignKey(Store)
-    
-    #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
 
+    class Meta:
+        # Default ordering - chronological by purchase date
+        ordering = ["store.store.name"]
+
+        permissions = (('view_user_store', "View user's stores"),)
 
 class RoasterStore(models.Model):
     """DB model for a user's roasters.
