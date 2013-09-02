@@ -1,6 +1,10 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth import logout
 
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
+
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -15,6 +19,7 @@ from coffee_bag.views import PurchasedCoffeeBagCreateView
 from general.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
 from general.views import CoffeeBagListView, CoffeeBagDetailView
 from general.views import RoasterListView, RoasterDetailView
+
 
 urlpatterns = patterns('',
                        # Examples:
@@ -34,10 +39,20 @@ urlpatterns = patterns('',
                      # Main page when logged in
                     url(r'login/$', 'general.views.login_user'),
                     url(r'logout/$', 'general.views.logout'),
+                    
+                    url('^register/$', CreateView.as_view(template_name='signup.html', form_class=UserCreationForm, success_url='/')),
+                    
+                     # View a list of roasters
+                       url(r'^roasters/$', 
+                           view=RoasterListView.as_view(),
+                           name="roasterlist"),
 
-
-                     
-                       # View detail for a coffee
+                       # View details for roaster by primary key
+                       url(r'^roaster/(?P<pk>\d+)/$', 
+                           view=RoasterDetailView.as_view(),
+                           name="roasterdetail"),
+    
+                    # View detail for a coffee
                        url(r'^coffee/(?P<pk>\d+)/$', 
                            view=CoffeeDetailView.as_view(),
                            name="coffeedetail"),
@@ -82,15 +97,7 @@ urlpatterns = patterns('',
                            view=CoffeeBagListView.as_view(),
                            name="coffeebaglist"),
 
-                       # View a list of roasters
-                       url(r'^roasters/$', 
-                           view=RoasterListView.as_view(),
-                           name="roasterlist"),
-
-                       # View details for roaster by primary key
-                       url(r'^roaster/(?P<pk>\d+)/$', 
-                           view=RoasterDetailView.as_view(),
-                           name="roasterdetail"),
+                      
                        
                        # Uncomment the admin/doc line below to enable admin documentation:
                        # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
