@@ -10,7 +10,15 @@ class CoffeeUser(AbstractUser):
     and ratio preparations for now) the user wants to share.
 
     """
-    
+
+    username = models.CharField(max_length=20)
+
+    facebook  = models.CharField(max_length=500, blank=True, null=True)
+    twitter  = models.CharField(max_length=500, blank=True, null=True)
+    gplus  = models.CharField(max_length=500, blank=True, null=True)
+
+    skill_level = models.CharField(max_length=500, blank=True, null=True)
+
     # Encoding for sharing fields
     NOSHARE = 0
     SHAREFRIENDS = 1
