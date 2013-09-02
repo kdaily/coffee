@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django import forms
 
-class CoffeeUser(models.Model):
+class CoffeeUser(AbstractUser):
     """Subclass user to add extra fields.
 
     Only extra fields now are to determine what objects (purchased coffee bags
@@ -10,8 +10,6 @@ class CoffeeUser(models.Model):
 
     """
     
-    user = models.OneToOneField(User)
-
     # Encoding for sharing fields
     NOSHARE = 0
     SHAREFRIENDS = 1
