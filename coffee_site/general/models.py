@@ -1,9 +1,8 @@
 from django.db import models
 from django import forms
+from django.conf import settings
 
 from sorl.thumbnail import ImageField
-
-from django.contrib.auth.models import User
 from djangoratings.fields import RatingField
 
 class Roaster(models.Model):
@@ -162,7 +161,7 @@ class UserRoaster(models.Model):
 
     notes = models.TextField(blank=True, null=True)    
 
-    user = models.ManyToManyField(User)
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
     roaster = models.ForeignKey(Roaster)
     
 
@@ -183,7 +182,7 @@ class UserStore(models.Model):
 
     notes = models.TextField(blank=True, null=True)    
 
-    user = models.ManyToManyField(User)
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
     store = models.ForeignKey(Store)
 
     class Meta:
@@ -216,7 +215,7 @@ class NewsInfo(models.Model):
     source = models.CharField(max_length=500, blank=True, null=True)
     website = models.CharField(max_length=500, blank=True, null=True)
     thumb = models.ImageField(upload_to='/media/img/', blank=True)
-    posted_by = models.ManyToManyField(User)
+    posted_by = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
     
             
