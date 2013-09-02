@@ -166,9 +166,6 @@ class UserRoaster(models.Model):
     
 
     class Meta:
-        # Default ordering - chronological by purchase date
-        ordering = ["roaster.roaster.name"]
-
         permissions = (('view_user_coffee_roaster', "View user's roaster"),)
 
 
@@ -186,9 +183,6 @@ class UserStore(models.Model):
     store = models.ForeignKey(Store)
 
     class Meta:
-        # Default ordering - chronological by purchase date
-        ordering = ["store.store.name"]
-
         permissions = (('view_user_store', "View user's stores"),)
 
 class RoasterStore(models.Model):
