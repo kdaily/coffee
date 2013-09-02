@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django import forms
+from django.conf import settings
 
 class CoffeeUser(AbstractUser):
     """Subclass user to add extra fields.
@@ -27,3 +28,6 @@ class CoffeeUser(AbstractUser):
 
     ratio_sharing = models.SmallIntegerField(choices=SHARE_CHOICES,
                                              default=NOSHARE)
+
+    friends = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    
