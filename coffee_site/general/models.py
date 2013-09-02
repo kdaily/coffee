@@ -119,6 +119,7 @@ class CoffeeBag(models.Model):
     This has a roaster and a coffee as relationships.
 
     """
+    
     #Maybe we should only have a year?
     date_roast = models.DateField('Roast Date', blank=True, null=True)
     
@@ -241,7 +242,7 @@ class CoffeeBagForm(forms.ModelForm):
     """Form model for adding new coffees.
     
     """
-
+    
     # change the format of the date fields
     formfield_callback = make_custom_datefield
     
