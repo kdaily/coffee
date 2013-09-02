@@ -133,8 +133,11 @@ class Preparation(models.Model):
     
     thumb = ImageField(upload_to='/media/img/', blank=True)
     
-   #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
+    class Meta:
+        # Default ordering - chronological by purchase date
+        ordering = ["-date"]
+
+        permissions = (('view_preparation', 'View preparation'),)
 
     
     ## tags for flavor notes?
