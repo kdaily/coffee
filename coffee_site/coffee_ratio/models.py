@@ -65,10 +65,13 @@ class PurchasedCoffeeMaker(models.Model):
     notes = models.TextField(blank=True, null=True)
     
     thumb = ImageField(upload_to='/media/img/', blank=True)
-    
-    #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
 
+    class Meta:
+        # Default ordering - chronological by purchase date
+        ordering = ["-date_purch"]
+
+        permissions = (('view_purch_coffee_maker', 'View purchased coffee maker'),)
+    
 
 class PurchasedCoffeeGrinder(models.Model):
     """DB model for a type of coffee maker that a user has.
