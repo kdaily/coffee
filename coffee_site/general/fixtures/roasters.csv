@@ -1,24 +1,24 @@
-name,city,state,country,address,zipcode,website,phone
-Handsome Coffee Roasters,Los Angeles,CA,USA,,,http://www.handsomecoffee.com/,
-Nagadi Coffee Roastery,Silver Spring,MD,USA,,,http://www.nagadicoffee.com/,
-Intelligentsia Coffee,Chicago,IL,USA,,,http://www.intelligentsiacoffee.com/,
-Heart Roasters,Portland,OR,USA,,,http://www.heartroasters.com/,
-Kaldi's Coffee,Saint Louis,MO,USA,,,http://kaldiscoffee.com/,
-Vigilante Coffee,Washington,DC,USA,,,http://vigilantecoffee.myshopify.com/,
-Counter Culture Coffee,Durham,NC,USA,,,http://www.counterculturecoffee.com/,
-Kéan Coffee,Newport Beach,CA,USA,,,http://www.keancoffee.com/,
-Madcap Coffee,Grand Rapids,MI,USA,,,http://madcapcoffee.com/,
-Stumptown Coffee Roasters,Portland,OR,USA,,,http://stumptowncoffee.com/,
-Verve Coffee Roasters,Santa Cruz,CA,USA,,,http://www.vervecoffeeroasters.com/,
-Caffe Ladro,Seattle,WA,USA,,,http://www.caffeladro.com/,
-Ritual Coffee Roasters,San Francisco,CA,USA,,,http://www.ritualroasters.com/,
-Joe,New York City,NY,USA,,,http://www.joenewyork.com/,
-Four Barrel Coffee,San Francisco,CA,USA,,,http://fourbarrelcoffee.com/,
-Metropolis Coffee Company,Chicago,IL,USA,,,http://www.metropoliscoffee.com/,
-Coava Coffee,Portland,OR,USA,,,http://coavacoffee.com/,
-PT's Coffee Roasting Company,Topeka,KS,USA,,,http://www.ptscoffee.com/,
-Sightglass Coffee,San Francisco,CA,USA,,,https://www.sightglasscoffee.com/,
-Gimme! Coffee,Ithaca,NY,USA,,,http://www.gimmecoffee.com/,
-Ceremony Coffee Roasters,Annapolis,MD,USA,,,http://www.ceremonycoffee.com/,
-Wrecking Ball Coffee Roasters,San Francisco,CA,USA,,,http://www.wreckingballcoffee.com/,
-Cafe Grumpy,New York City,NY,USA,,,http://cafegrumpy.com/,
+name	address	city	state	zipcode	country	website	phone	fbook	twitter	gplus
+Handsome Coffee Roasters		Los Angeles	CA		USA	http://www.handsomecoffee.com/				
+Nagadi Coffee Roastery		Silver Spring	MD		USA	http://www.nagadicoffee.com/				
+Intelligentsia Coffee		Chicago	IL		USA	http://www.intelligentsiacoffee.com/				
+Heart Roasters		Portland	OR		USA	http://www.heartroasters.com/				
+Kaldi's Coffee		Saint Louis	MO		USA	http://kaldiscoffee.com/				
+Vigilante Coffee		Washington	DC		USA	http://vigilantecoffee.myshopify.com/				
+Counter Culture Coffee		Durham	NC		USA	http://www.counterculturecoffee.com/				
+Kéan Coffee		Newport Beach	CA		USA	http://www.keancoffee.com/				
+Madcap Coffee		Grand Rapids	MI		USA	http://madcapcoffee.com/				
+Stumptown Coffee Roasters		Portland	OR		USA	http://stumptowncoffee.com/				
+Verve Coffee Roasters		Santa Cruz	CA		USA	http://www.vervecoffeeroasters.com/				
+Caffe Ladro		Seattle	WA		USA	http://www.caffeladro.com/				
+Ritual Coffee Roasters		San Francisco	CA		USA	http://www.ritualroasters.com/				
+Joe		New York City	NY		USA	http://www.joenewyork.com/				
+Four Barrel Coffee		San Francisco	CA		USA	http://fourbarrelcoffee.com/				
+Metropolis Coffee Company		Chicago	IL		USA	http://www.metropoliscoffee.com/				
+Coava Coffee		Portland	OR		USA	http://coavacoffee.com/				
+PT's Coffee Roasting Company		Topeka	KS		USA	http://www.ptscoffee.com/				
+Sightglass Coffee		San Francisco	CA		USA	https://www.sightglasscoffee.com/				
+Gimme! Coffee		Ithaca	NY		USA	http://www.gimmecoffee.com/				
+Ceremony Coffee Roasters		Annapolis	MD		USA	http://www.ceremonycoffee.com/				
+Wrecking Ball Coffee Roasters		San Francisco	CA		USA	http://www.wreckingballcoffee.com/				
+Cafe Grumpy		New York City	NY		USA	http://cafegrumpy.com/				
