@@ -15,13 +15,13 @@ class Roaster(models.Model):
     address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
     state = models.CharField(max_length=500, blank=True, null=True)
-    zipcode = models.IntegerField(null=True)
-    country = models.CharField(max_length=3, null=True)
+    zipcode = models.IntegerField(null=True, blank=True)
+    country = models.CharField(max_length=3, null=True, blank=True)
     
     website = models.CharField(max_length=500, blank=True, null=True)
-    phone = models.IntegerField(null=True)
+    phone = models.IntegerField(null=True, blank=True)
     
-    facebook  = models.CharField(max_length=500, blank=True, null=True)
+    fbook  = models.CharField(max_length=500, blank=True, null=True)
     twitter  = models.CharField(max_length=500, blank=True, null=True)
     gplus  = models.CharField(max_length=500, blank=True, null=True)
      
@@ -51,7 +51,7 @@ class Store(models.Model):
     website = models.CharField(max_length=500, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
 
-    facebook  = models.CharField(max_length=500, blank=True, null=True)
+    fbook  = models.CharField(max_length=500, blank=True, null=True)
     twitter  = models.CharField(max_length=500, blank=True, null=True)
     gplus  = models.CharField(max_length=500, blank=True, null=True)
     
@@ -116,8 +116,6 @@ class CoffeeRoaster(models.Model):
     
 class CoffeeBag(models.Model):
     """DB model for a specific coffee bag.
-
-    This has a roaster and a coffee as relationships.
 
     """
     #Maybe we should only have a year?
