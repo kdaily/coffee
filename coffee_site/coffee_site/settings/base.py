@@ -145,7 +145,7 @@ INSTALLED_APPS = (
 
     ## External apps
     'guardian',
-
+    
     # # Not compatible with Django 1.5 (doesn't work with custom user class)
     # # Pull request in github repo has been made to add this functionality,
     # # but has not been merged (see https://github.com/kdaily/coffee/issues/10)
