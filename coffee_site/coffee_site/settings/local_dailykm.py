@@ -27,4 +27,4 @@ AUTHENTICATION_BACKENDS = (
 ANONYMOUS_USER_ID = -1
 
 # Use a new user model
-AUTH_USER_MODEL = "general.CoffeeUser"
+AUTH_USER_MODEL = "profile.CoffeeUser"
