@@ -1,3 +1,6 @@
+<!--{{ STATIC_URL }}/-->
+<!--{{ STATIC_URL }}/js/jquery-1.9.1.js-->
+
 <!DOCTYPE html>  
 <html>  
   <head>  
@@ -37,99 +40,132 @@
          </a>
          <div class="nav-collapse collapse">
             <ul class="nav">
+            
           	  <a class="brand" href="/">Coffee Ratios</a>
-            	<!-- <li><a href="#">Link Uno</a></li>  -->            
-            	<li class="dropdown">
-            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">Coffee <b class="caret"></b></a> <!--  add/use <b class="caret"></b> to display arrow down -->
-            	<ul class="dropdown-menu">
-            		<li class="nav-header">Location</li>
-            		<li><a href="#">Africa</a></li>
-            		<li><a href="#">Central America</a></li>
-                	<li><a href="#">South America</a></li>
-                	<li class="divider"></li>
-                	<li><a href="#">Aroma</a></li>
-                	<li><a href="#">Roast</a></li>
+          	  
+          	  <li class="dropdown">
+            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">About <b class="caret"></b></a> <!--  add/use <b class="caret"></b> to display arrow down -->
+            	<ul class="dropdown-menu">           		
+            		<li><a href="#">About us</a></li>            		 
+            		<li><a href="#">FAQ</a></li>                	
+                	<li class="divider"></li>     
+                	<li><a href="#">Contact</a></li>           	                	
           		</ul><!-- .dropdown-menu -->
-          		</li>
+          		</li><!-- .dropdown-About -->               	     
+            	
+            	<li class="dropdown">
+            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">Coffee<b class="caret"></b></a> 
+            	<ul class="dropdown-menu">           		
+            		<li><a href="#">Regions</a></li>
+            		<li class="divider"></li>  
+            		<li><a href="#">Flavors</a></li>
+            		<li><a href="#">Roasting</a></li>
+            		<li class="divider"></li> 
+            		<li><a href="#">Roasters</a></li>
+                	<li><a href="#">Stores</a></li> 
+         	                	
+          		</ul><!-- .dropdown-menu -->
+          		</li><!-- .dropdown-Coffee -->
+          		
           		<li class="dropdown">
-          		<a data-toggle="dropdown" class="dropdown-toggle" href="#">Preparation <b class="caret"></b></a> <!--  add/use <b class="caret"></b> to display arrow down -->
+          		<a data-toggle="dropdown" class="dropdown-toggle" href="#">Preparation <b class="caret"></b></a> 
             	<ul class="dropdown-menu">
             		<li class="nav-header">Methods</li>
             		<li><a href="#">Aero-press</a></li>
+            		<li><a href="#">Drip</a></li>
+            		<li><a href="#">Espresso</a></li>
             		<li><a href="#">French-press</a></li>
             		<li><a href="#">Pourover</a></li>
-                	<li><a href="#">Vacuum</a></li>
+                	<li><a href="#">Siphon</a></li>
                 	<li class="divider"></li>                	
-                	<li><a href="#">Grinds</a></li>
-                	<li><a href="#">Water</a></li>                	
+                	<li><a href="#">Grinding</a></li>
+                	<li class="divider"></li>    
+                	<li><a href="#">Tips</a></li>                	
           		</ul><!-- .dropdown-menu -->
-             	</li>
-             	<li><a href="#">Roasters</a></li>             	             	
-         	</ul>
+             	</li><!-- .dropdown-Preparation -->         	         	
+         	</ul><!-- nav -->
+         	
          	{% if user.is_authenticated %}
-         	<ul class="nav pull-right">
-                            <span class="label label-inverse"> {{ user.username }},</span>
-                            <li class="divider-vertical"></li>
-                            <a href="">Change password</a>
-                            <a class="btn btn-inverse" href="">Leave</a>
-                        </ul>
+         	<ul class="nav pull-right">   
+         	<li class="dropdown">
+            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">My journal <b class="caret"></b></a>
+            	<ul class="dropdown-menu">            	
+            		<li><a href="#">My methods</a></li>	
+            		<li class="divider"></li>
+            		<li><a href="/purchased_coffees/">My coffees</a></li>
+            		<li><a href="#">My equipment</a></li>
+            		<li class="divider"></li>
+                	<li><a href="/roasters/">My roasters</a></li>
+                	<li><a href="/roasters/">My stores</a></li>                	                	               
+                  	<li class="divider"></li>
+                	<li><a href="#">My favorites</a></li>
+          		</ul><!-- .dropdown-menu -->
+          		</li><!-- .dropdown-Coffee -->
+         	
+         	        	
+         	<li class="dropdown">
+          		<a data-toggle="dropdown" class="dropdown-toggle" href="#"> <img src="{{ STATIC_URL }}/img/settings.gif"> <b class="caret"></b></a>
+            	<ul class="dropdown-menu">            		
+            		<li><a href="#">Edit profile</a></li>
+            		<li><a href="#">Settings</a></li>
+            		<li class="divider"></li>   
+            		<li><a href="#">My friends</a></li>
+            		<li><a href="#">Find a friend</a></li>
+            		<li class="divider"></li>  
+            		<li><a href="/logout/">Help</a></li>           
+            		<li class="divider"></li>              	
+                	<li><a href="/logout/">Sign out</a></li>                	                
+          		</ul><!-- .dropdown-menu -->
+             	</li><!-- .dropdown-Settings -->
+            </ul>
 
-                    {% else %}
-         	<!-- here comes the important part -->
+            {% else %}       	
  			<ul class="nav pull-right">
-           <li class="dropdown" id="menu1">
-             <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-               Login
-                <b class="caret"></b>
-             </a>
-             <div class="dropdown-menu">
-               <form style="margin: 0px" accept-charset="UTF-8" action="." method="post">  {% csrf_token %}              
-                 <fieldset class='textbox' style="padding:10px">
-                   <input style="margin-top: 8px" type="text" placeholder="Username" />
-                   <input style="margin-top: 8px" type="password" placeholder="Passsword" />
-                   <input class="btn-primary" name="commit" type="submit" value="Log In" />
-                 </fieldset>
-               </form>
-             </div>
-           </li>
-    </ul>
-    {% endif %}
+ 			
+ 				<li><a href="#">Sign up</a></li> 			 				
+ 				       
+           		<li class="dropdown" id="menu1">
+             		<a class="dropdown-toggle" data-toggle="dropdown" href="#menu1"> Login <b class="caret"></b></a>            
+             			<div class="dropdown-menu">
+               				<form style="margin: 0px" accept-charset="UTF-8" action="/login/" method="post">{% csrf_token %}              
+                 				<fieldset class='textbox' style="padding:10px">
+                   					<input style="margin-top: 8px" type="text" placeholder="Username" name="username"/>
+                   					<input style="margin-top: 8px" type="password" placeholder="Passsword" name="password"/>
+                   					<input class="btn-primary" name="commit" type="submit" value="Log In" />
+                   					<li class="divider"></li>                	
+                   					<li><a href="#">Forgoten password/username</a></li>
+                 				</fieldset>
+               				</form>
+      					</div>
+               </li>
+    	</ul>
+   		{% endif %}
+        
         </div><!-- .nav-collapse -->
      </div><!-- .container -->
     </div><!-- .navbar-inner -->
   </div><!-- .navbar-outer -->
   </div><!-- .navbar -->
   
-    <div class="container">
-      <div class="row-fluid">
-        <div class="span12">
+  <div class="container">
+  	<div class="row-fluid">
+    	<div class="span12">
 
-	  {% block content %}{% endblock %}
+	  	{% block content %}{% endblock %}
 	  
-        </div> <!--/span-->
-      </div> <!--/row-->
+    	 </div> <!--/span-->
+	</div> <!--/row-->
       
-      <hr>
+    <hr>
       
-      <footer>
-        <p>&copy; Coffee Ratio 2013</p>
-      </footer>
+    <footer>
+    	<p>&copy; Coffee Ratio 2013</p>
+    </footer>
       
     </div><!--/.fluid-container-->
 
-  
 
- <!-- Do not colapse if resolution larger than 767px -->
- <!--@media (max-width: 767px) {
-    .nav-collapse { clear: none; }
-    .nav-collapse, .nav-collapse.collapse { height: auto; }
-    .nav-collapse .nav > li { float: left; }
-    .navbar .btn-navbar { display: none; }
-}-->
 
-     
-    
-  
     <script src="{{ STATIC_URL }}/js/jquery-1.9.1.js"></script>  
     <script src="{{ STATIC_URL }}/bootstrap/js/bootstrap.min.js"></script>  
     <script src="{{ STATIC_URL }}/bootstrap/js/bootstrap-dropdown.js"></script>

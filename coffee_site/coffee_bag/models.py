@@ -2,9 +2,11 @@ from django.db import models
 from django import forms
 from django.conf import settings
 
+from sorl.thumbnail import ImageField
+
 from djangoratings.fields import RatingField
 
-from general.models import Store, CoffeeBag
+from general.models import UserStore, CoffeeBag
 
 class PurchasedCoffeeBag(models.Model):
     """DB model for a purchased coffee bag.
@@ -16,12 +18,17 @@ class PurchasedCoffeeBag(models.Model):
     date_purch = models.DateField('Purchase Date', blank=True)
     rating = RatingField(range=5)
 
-    notes = models.TextField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)    
+
+    thumb = ImageField(upload_to='/media/img/', blank=True)
 
     # Better way to specify the user than the User object
     user = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    store = models.ForeignKey(Store)
+    store = models.ForeignKey(UserStore)
     coffeebag = models.ForeignKey(CoffeeBag)
+    
+    #This needs to be replaced with something else, once we set up the groups
+    is_shared = models.IntegerField()
 
     def __unicode__(self):
         return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.store.name)

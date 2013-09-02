@@ -11,19 +11,106 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext, Context, loader
 from django.contrib.auth.models import User
+from django.contrib import auth
 
 from braces.views import LoginRequiredMixin
 
 from .models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
 from .models import Roaster
 
+
+def home(request):
+    """Display the home (index) page.
+    
+    Shouldn't need a login required, and needs to handle when
+    users are not logged in.
+    
+    """
+    
+    return render_to_response('index.html', context_instance = RequestContext(request))
+
+
+def login_user(request):
+    """User login.
+Handles successful/unsuccessful logins.
+This was meant to be specific to the coffee journal portion
+of the app, but probably could be used site-wide (coffee ratio too)
+"""
+
+    state = "Please log in below..."
+    username = ''
+    password = ''
+        
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                auth.login(request, user)
+                state = "You're successfully logged in!"
+
+                return render_to_response('coffee_journal/index.html',
+                                          {'state': state, 'username': username},
+                                          context_instance=RequestContext(request))
+
+                ## return redirect('coffee_bag.views.coffees')
+            else:
+                state = "Your account is not active, please contact the site admin."
+        else:
+            state = "Your username and/or password were incorrect."
+
+    return render_to_response('index.html',
+                              {'state': state, 'username': username},
+                              context_instance=RequestContext(request))
+
+
+#------------------------------------------------------ def login_user(request):
+    #------------------------------------------------------------ """User login.
+#------------------------------------------------------------------------------ 
+    #----------------------------------- Handles successful/unsuccessful logins.
+#------------------------------------------------------------------------------ 
+    #--------------- This was meant to be specific to the coffee journal portion
+    #------- of the app, but probably could be used site-wide (coffee ratio too)
+#------------------------------------------------------------------------------ 
+    #----------------------------------------------------------------------- """
+#------------------------------------------------------------------------------ 
+    #------------------------------------------------------------- username = ''
+    #------------------------------------------------------------- password = ''
+#------------------------------------------------------------------------------ 
+    #---------------------------------------------------------- if request.POST:
+        #------------------------------- username = request.POST.get('username')
+        #------------------------------- password = request.POST.get('password')
+#------------------------------------------------------------------------------ 
+        #-------- user = auth.authenticate(username=username, password=password)
+        #-------------------------------------------------- if user is not None:
+            #------------------------------------------------ if user.is_active:
+                #------------------------------------- auth.login(request, user)
+                #---------------------- state = "You're successfully logged in!"
+                #------------------------ return HttpResponseRedirect('/login/')
+#------------------------------------------------------------------------------ 
+    # return render_to_response('coffee_journal/index.html', context_instance=RequestContext(request))
+
+
+def logout(request):
+    """Log users out and re-direct them to the login page.
+    
+    """
+    
+    auth.logout(request)
+
+    return HttpResponseRedirect('/')
+
+    
 class RoasterListView(ListView):
     """View to get a paginated list of all roasters.
     """
     
     model = Roaster
     
-    template_name = 'base/roaster_list.html'
+    template_name = 'coffee_journal/roaster/roaster_list.html'
     paginate_by = 6
     
     context_object_name = 'roaster_list'
@@ -33,7 +120,7 @@ class RoasterDetailView(DetailView):
     """
     
     model = Roaster
-    template_name = 'base/roaster_detail.html'
+    template_name = 'coffee_journal/roaster/roaster_detail.html'
 
 class CoffeeListView(ListView):
     """View to get a paginated list of all coffees.
@@ -62,14 +149,14 @@ class CoffeeDetailView(DetailView):
     """
     
     model = Coffee
-    template_name = 'base/coffee_detail.html'
+    template_name = 'coffee_journal/coffee/coffee_detail.html'
 
 class CoffeeBagDetailView(DetailView):
     """View to get the detailed view for a coffee bag.
     """
     
     model = CoffeeBag
-    template_name = 'base/coffeebag_detail.html'
+    template_name = 'coffee_journal/coffee/coffeebag_detail.html'
 
 class CoffeeCreateView(LoginRequiredMixin, CreateView):
     """View to create a new coffee.
@@ -80,7 +167,7 @@ class CoffeeCreateView(LoginRequiredMixin, CreateView):
 
     model = Coffee
     form_class = CoffeeForm
-    template_name = 'base/coffee_create.html'
+    template_name = 'coffee_journal/coffee/coffee_create.html'
 
     context_object_name = 'coffee_create'
 
