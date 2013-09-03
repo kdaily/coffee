@@ -2,6 +2,12 @@ from django.db import models
 from django import forms
 from django.conf import settings
 
+from phonenumber_field.modelfields import PhoneNumberField
+
+from localflavor.us.us_states import US_STATES
+from localflavor.us.models import USStateField
+from django_countries import CountryField
+
 from sorl.thumbnail import ImageField
 from djangoratings.fields import RatingField
 
@@ -13,19 +19,19 @@ class Roaster(models.Model):
     name = models.CharField(max_length=500)
     address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
-    state = models.CharField(max_length=500, blank=True, null=True)
+    state = USStateField(choices = US_STATES)
     zipcode = models.IntegerField(null=True, blank=True)
-    country = models.CharField(max_length=3, null=True, blank=True)
+    country = CountryField()
     
     website = models.CharField(max_length=500, blank=True, null=True)
-    phone = models.IntegerField(null=True, blank=True)
+    phone = PhoneNumberField(null=True, blank=True)
     
     fbook  = models.CharField(max_length=500, blank=True, null=True)
     twitter  = models.CharField(max_length=500, blank=True, null=True)
     gplus  = models.CharField(max_length=500, blank=True, null=True)
      
     #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='/media/img/', blank=True)
+    thumb = models.ImageField(upload_to='media/img/', blank=True)
     
     rating = RatingField(range=5)
 
@@ -44,18 +50,18 @@ class Store(models.Model):
     name = models.CharField(max_length=500)
     address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
-    state = models.CharField(max_length=500, blank=True, null=True)
+    state = USStateField(choices = US_STATES)
     zipcode = models.IntegerField(blank=True, null=True)
-    country = models.CharField(max_length=3, blank=True, null=True)
+    country = CountryField()
     website = models.CharField(max_length=500, blank=True, null=True)
-    phone = models.IntegerField(blank=True, null=True)
+    phone = PhoneNumberField(null=True, blank=True)
 
     fbook  = models.CharField(max_length=500, blank=True, null=True)
     twitter  = models.CharField(max_length=500, blank=True, null=True)
     gplus  = models.CharField(max_length=500, blank=True, null=True)
     
     #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='/media/img/', blank=True)
+    thumb = models.ImageField(upload_to='media/img/', blank=True)
     
     rating = RatingField(range=5)
     
@@ -99,7 +105,7 @@ class RoastedCoffeeBag(models.Model):
     roast_type = models.CharField(max_length=200, blank=True, null=True)
 
     #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='/media/img/', blank=True)
+    thumb = models.ImageField(upload_to='media/img/', blank=True)
 
     roaster = models.ForeignKey(Roaster)
     coffee = models.ForeignKey(Coffee)
@@ -125,7 +131,7 @@ class CoffeeBag(models.Model):
     price = models.FloatField(blank=True, null=True)
     
     #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='/media/img/', blank=True)
+    thumb = models.ImageField(upload_to='media/img/', blank=True)
 
     roasted_coffee_bag = models.ForeignKey(RoastedCoffeeBag)
 
@@ -206,7 +212,7 @@ class NewsInfo(models.Model):
     text = models.TextField(blank=True, null=True)   
     source = models.CharField(max_length=500, blank=True, null=True)
     website = models.CharField(max_length=500, blank=True, null=True)
-    thumb = models.ImageField(upload_to='/media/img/', blank=True)
+    thumb = models.ImageField(upload_to='media/img/', blank=True)
     posted_by = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
     

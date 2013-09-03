@@ -20,7 +20,7 @@ class PurchasedCoffeeBag(models.Model):
 
     notes = models.TextField(blank=True, null=True)    
 
-    thumb = ImageField(upload_to='/media/img/', blank=True)
+    thumb = ImageField(upload_to='media/img/', blank=True)
 
     # Better way to specify the user than the User object
     user = models.ManyToManyField(settings.AUTH_USER_MODEL)
