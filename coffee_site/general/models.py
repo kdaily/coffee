@@ -248,3 +248,4 @@ class CoffeeBagForm(forms.ModelForm):
     
     class Meta:
         model = CoffeeBag
+    
