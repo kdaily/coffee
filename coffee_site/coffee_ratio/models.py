@@ -14,7 +14,7 @@ class Method(models.Model):
     
     name = models.CharField(max_length=500)
     description = models.TextField(blank=True, null=True)
-    thumb = ImageField(upload_to='/media/img/', blank=True)
+    thumb = ImageField(upload_to='media/img/', blank=True)
     rec_grind = models.CharField(max_length=100, blank=True, null=True)
     rec_water_amt = models.IntegerField(blank=True, null=True)
     rec_coffee_amt = models.IntegerField(blank=True, null=True)
@@ -31,7 +31,7 @@ class CoffeeMaker(models.Model):
     volume = models.FloatField(blank=True, null=True)
     
     description = models.TextField(blank=True, null=True)
-    thumb = ImageField(upload_to='/media/img/', blank=True)
+    thumb = ImageField(upload_to='media/img/', blank=True)
     
     rating = RatingField(range=5)
 
@@ -46,7 +46,7 @@ class CoffeeGrinder(models.Model):
     manufacturer = models.CharField(max_length=500)
     model = models.CharField(max_length=500)
     description = models.TextField(blank=True, null=True)
-    thumb = ImageField(upload_to='/media/img/', blank=True)
+    thumb = ImageField(upload_to='media/img/', blank=True)
     rating = RatingField(range=5)
     
 class PurchasedCoffeeMaker(models.Model):
@@ -64,7 +64,7 @@ class PurchasedCoffeeMaker(models.Model):
     
     notes = models.TextField(blank=True, null=True)
     
-    thumb = ImageField(upload_to='/media/img/', blank=True)
+    thumb = ImageField(upload_to='media/img/', blank=True)
 
     class Meta:
         # Default ordering - chronological by purchase date
@@ -88,7 +88,7 @@ class PurchasedCoffeeGrinder(models.Model):
     
     notes = models.TextField(blank=True, null=True)
     
-    thumb = ImageField(upload_to='/media/img/', blank=True)
+    thumb = ImageField(upload_to='media/img/', blank=True)
     
     class Meta:
         # Default ordering - chronological by purchase date
@@ -131,7 +131,7 @@ class Preparation(models.Model):
     coffeebag = models.ForeignKey(PurchasedCoffeeBag)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     
-    thumb = ImageField(upload_to='/media/img/', blank=True)
+    thumb = ImageField(upload_to='media/img/', blank=True)
     
     class Meta:
         # Default ordering - chronological by purchase date
