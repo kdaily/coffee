@@ -2,7 +2,9 @@ from django.contrib import admin
 
 from guardian.admin import GuardedModelAdmin
 
-from .models import Coffee, CoffeeBag, Roaster, Store
+from .models import Coffee, CoffeeBag, RoastedCoffeeBag, 
+from .models import Roaster, UserRoaster
+from .models import Store, UserStore
 
 # Old way:
 #class AuthorAdmin(admin.ModelAdmin):
