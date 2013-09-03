@@ -17,3 +17,14 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # default
+    'guardian.backends.ObjectPermissionBackend',
+)
+
+# For django-guardian
+ANONYMOUS_USER_ID = -1
+
+# Use a new user model
+AUTH_USER_MODEL = "profile.CoffeeUser"

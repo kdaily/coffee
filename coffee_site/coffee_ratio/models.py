@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django import forms
+from django.conf import settings
 
 from djangoratings.fields import RatingField
 from sorl.thumbnail import ImageField
@@ -59,16 +59,19 @@ class PurchasedCoffeeMaker(models.Model):
     # should be changed to only a year
     date_purch = models.DateField('Purchase Date', blank=True)
     rating = RatingField(range=5)
-    user = models.ManyToManyField(User)    
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)    
     coffeemaker = models.ForeignKey(CoffeeMaker)
     
     notes = models.TextField(blank=True, null=True)
     
     thumb = ImageField(upload_to='/media/img/', blank=True)
-    
-    #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
 
+    class Meta:
+        # Default ordering - chronological by purchase date
+        ordering = ["-date_purch"]
+
+        permissions = (('view_purch_coffee_maker', 'View purchased coffee maker'),)
+    
 
 class PurchasedCoffeeGrinder(models.Model):
     """DB model for a type of coffee maker that a user has.
@@ -80,15 +83,18 @@ class PurchasedCoffeeGrinder(models.Model):
     # should be changed to only a year
     date_purch = models.DateField('Purchase Date', blank=True)
     rating = RatingField(range=5)
-    user = models.ManyToManyField(User)    
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)    
     coffeegrinder = models.ForeignKey(CoffeeGrinder)
     
     notes = models.TextField(blank=True, null=True)
     
     thumb = ImageField(upload_to='/media/img/', blank=True)
     
-    #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
+    class Meta:
+        # Default ordering - chronological by purchase date
+        ordering = ["-date_purch"]
+
+        permissions = (('view_purch_coffee_grinder', 'View purchased coffee grinder'),)
 
     
     
@@ -108,6 +114,10 @@ class Preparation(models.Model):
     water_amt = models.IntegerField(blank=True, null=True)
     coffee_amt = models.IntegerField(blank=True, null=True)
     time_amt = models.IntegerField(blank=True, null=True)
+    extraction = models.FloatField(blank=True, null=True)
+
+    # Total dissolved solids
+    tds = models.FloatField(blank=True, null=True)
     temp = models.FloatField(blank=True, null=True)
     
     notes = models.TextField(blank=True, null=True)
@@ -119,12 +129,15 @@ class Preparation(models.Model):
     method = models.ForeignKey(PurchasedCoffeeMaker)
     grinder = models.ForeignKey(PurchasedCoffeeGrinder)
     coffeebag = models.ForeignKey(PurchasedCoffeeBag)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     
     thumb = ImageField(upload_to='/media/img/', blank=True)
     
-   #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
+    class Meta:
+        # Default ordering - chronological by purchase date
+        ordering = ["-date"]
+
+        permissions = (('view_preparation', 'View preparation'),)
 
     
     ## tags for flavor notes?

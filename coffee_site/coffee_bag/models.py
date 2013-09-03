@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django import forms
+from django.conf import settings
 
 from sorl.thumbnail import ImageField
 
@@ -22,13 +22,11 @@ class PurchasedCoffeeBag(models.Model):
 
     thumb = ImageField(upload_to='/media/img/', blank=True)
 
-    user = models.ManyToManyField(User)
+    # Better way to specify the user than the User object
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
     store = models.ForeignKey(UserStore)
     coffeebag = models.ForeignKey(CoffeeBag)
     
-    #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
-
     def __unicode__(self):
         return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.store.name)
 
@@ -36,6 +34,7 @@ class PurchasedCoffeeBag(models.Model):
         # Default ordering - chronological by purchase date
         ordering = ["-date_purch"]
 
+        permissions = (('view_purch_coffee_bag', 'View purchased coffee bag'),)
 
 def make_custom_datefield(f):
     """Change format of date fields in form.

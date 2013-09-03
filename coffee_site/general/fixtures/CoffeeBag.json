@@ -1,7 +1,7 @@
 [
     {
         "pk": 1, 
-        "model": "base.coffeebag", 
+        "model": "general.coffeebag", 
         "fields": {
             "roaster": 2, 
             "coffee": 1, 

@@ -1,9 +1,8 @@
 from django.db import models
 from django import forms
+from django.conf import settings
 
 from sorl.thumbnail import ImageField
-
-from django.contrib.auth.models import User
 from djangoratings.fields import RatingField
 
 class Roaster(models.Model):
@@ -118,6 +117,7 @@ class CoffeeBag(models.Model):
     """DB model for a specific coffee bag.
 
     """
+    
     #Maybe we should only have a year?
     date_roast = models.DateField('Roast Date', blank=True, null=True)
     
@@ -160,11 +160,13 @@ class UserRoaster(models.Model):
 
     notes = models.TextField(blank=True, null=True)    
 
-    user = models.ManyToManyField(User)
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
     roaster = models.ForeignKey(Roaster)
     
-    #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
+
+    class Meta:
+        permissions = (('view_user_coffee_roaster', "View user's roaster"),)
+
 
 class UserStore(models.Model):
     """DB model for a user's stores.
@@ -176,12 +178,11 @@ class UserStore(models.Model):
 
     notes = models.TextField(blank=True, null=True)    
 
-    user = models.ManyToManyField(User)
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
     store = models.ForeignKey(Store)
-    
-    #This needs to be replaced with something else, once we set up the groups
-    is_shared = models.IntegerField()
 
+    class Meta:
+        permissions = (('view_user_store', "View user's stores"),)
 
 class RoasterStore(models.Model):
     """DB model for a user's roasters.
@@ -207,7 +208,7 @@ class NewsInfo(models.Model):
     source = models.CharField(max_length=500, blank=True, null=True)
     website = models.CharField(max_length=500, blank=True, null=True)
     thumb = models.ImageField(upload_to='/media/img/', blank=True)
-    posted_by = models.ManyToManyField(User)
+    posted_by = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
     
             
@@ -217,9 +218,11 @@ def make_custom_datefield(f):
     """
     
     formfield = f.formfield()
+
     if isinstance(f, models.DateField):
         formfield.widget.format = '%Y-%m-%d'
         formfield.widget.attrs.update({'class': 'datePicker', 'readonly': 'true'})
+
     return formfield
 
 class CoffeeForm(forms.ModelForm):
@@ -233,23 +236,13 @@ class CoffeeForm(forms.ModelForm):
     class Meta:
         model = Coffee
         
-        # The user is excluded since a coffee will be added by
-        # the currently logged in user; hence this field need
-        # not be displayed
-        exclude = ('user',)
-
 class CoffeeBagForm(forms.ModelForm):
     """Form model for adding new coffees.
     
     """
-
+    
     # change the format of the date fields
     formfield_callback = make_custom_datefield
     
     class Meta:
         model = CoffeeBag
-        
-        # The user is excluded since a coffee will be added by
-        # the currently logged in user; hence this field need
-        # not be displayed
-        exclude = ('user',)

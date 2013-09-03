@@ -139,11 +139,18 @@ INSTALLED_APPS = (
 
     # our apps
     'general',
+    'profile',
     'coffee_bag',
     'coffee_ratio',
 
     ## External apps
-    'djangoratings',
+    'guardian',
+    
+    # # Not compatible with Django 1.5 (doesn't work with custom user class)
+    # # Pull request in github repo has been made to add this functionality,
+    # # but has not been merged (see https://github.com/kdaily/coffee/issues/10)
+    # 'djangoratings',
+
     'sorl.thumbnail',
     'braces',
 )

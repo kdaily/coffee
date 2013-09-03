@@ -1,7 +1,7 @@
 [
     {
         "pk": 1, 
-        "model": "base.coffee", 
+        "model": "general.coffee", 
         "fields": {
             "name": "Sumatra Royal Badak", 
             "notes": null, 
@@ -15,7 +15,7 @@
     }, 
     {
         "pk": 2, 
-        "model": "base.coffee", 
+        "model": "general.coffee", 
         "fields": {
             "name": "Kenya Thunguri AA", 
             "notes": null, 
@@ -29,7 +29,7 @@
     }, 
     {
         "pk": 3, 
-        "model": "base.coffee", 
+        "model": "general.coffee", 
         "fields": {
             "name": "Sidamo Ardi", 
             "notes": "Natural processing", 
@@ -43,7 +43,7 @@
     }, 
     {
         "pk": 4, 
-        "model": "base.coffee", 
+        "model": "general.coffee", 
         "fields": {
             "name": "Finca La Bolsa", 
             "notes": null, 
@@ -57,7 +57,7 @@
     }, 
     {
         "pk": 5, 
-        "model": "base.coffee", 
+        "model": "general.coffee", 
         "fields": {
             "name": "Kochere Yirgacheffe", 
             "notes": "Fully washed, raised-bed dried", 
