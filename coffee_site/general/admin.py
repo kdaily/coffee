@@ -16,5 +16,8 @@ admin.site.register(Coffee, CoffeeAdmin)
 ## admin.site.register(Coffee)
 
 admin.site.register(Roaster)
+admin.site.register(UserRoaster)
 admin.site.register(Store)
+admin.site.register(UserStore)
 admin.site.register(CoffeeBag)
+admin.site.register(RoastedCoffeeBag)
