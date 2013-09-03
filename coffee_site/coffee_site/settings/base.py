@@ -184,5 +184,13 @@ LOGGING = {
     }
 }
 
+
+# For django-guardian
+ANONYMOUS_USER_ID = -1
+
+# Use a new user model
+AUTH_USER_MODEL = "profile.CoffeeUser"
+
+
 # URL of the login page.
 # LOGIN_URL = '/login/'

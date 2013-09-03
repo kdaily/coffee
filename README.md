@@ -11,6 +11,13 @@ All requirements files are in the "requirements" sub-directory. To install all r
 pip install -r requirements/base.txt
 ```
 
+Another non-pip installable requirement is django-ratings, which has not been updated to be Django 1.5 compatible (with the custom user models).
+It is a very small change, and multiple users have made it. This requirement needs to be installed from git (clone the repo and then copy the app):
+
+```
+https://github.com/deepakprakash/django-ratings
+```
+
 Then, sync the database (using your own local settings file):
 
 ```

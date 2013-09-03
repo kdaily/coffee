@@ -67,33 +67,6 @@ of the app, but probably could be used site-wide (coffee ratio too)
                               context_instance=RequestContext(request))
 
 
-#------------------------------------------------------ def login_user(request):
-    #------------------------------------------------------------ """User login.
-#------------------------------------------------------------------------------ 
-    #----------------------------------- Handles successful/unsuccessful logins.
-#------------------------------------------------------------------------------ 
-    #--------------- This was meant to be specific to the coffee journal portion
-    #------- of the app, but probably could be used site-wide (coffee ratio too)
-#------------------------------------------------------------------------------ 
-    #----------------------------------------------------------------------- """
-#------------------------------------------------------------------------------ 
-    #------------------------------------------------------------- username = ''
-    #------------------------------------------------------------- password = ''
-#------------------------------------------------------------------------------ 
-    #---------------------------------------------------------- if request.POST:
-        #------------------------------- username = request.POST.get('username')
-        #------------------------------- password = request.POST.get('password')
-#------------------------------------------------------------------------------ 
-        #-------- user = auth.authenticate(username=username, password=password)
-        #-------------------------------------------------- if user is not None:
-            #------------------------------------------------ if user.is_active:
-                #------------------------------------- auth.login(request, user)
-                #---------------------- state = "You're successfully logged in!"
-                #------------------------ return HttpResponseRedirect('/login/')
-#------------------------------------------------------------------------------ 
-    # return render_to_response('coffee_journal/index.html', context_instance=RequestContext(request))
-
-
 def logout(request):
     """Log users out and re-direct them to the login page.
     
@@ -110,7 +83,7 @@ class RoasterListView(ListView):
     
     model = Roaster
     
-    template_name = 'coffee_journal/roaster/roaster_list.html'
+    template_name = 'general/roasters.html'
     paginate_by = 6
     
     context_object_name = 'roaster_list'
@@ -120,7 +93,7 @@ class RoasterDetailView(DetailView):
     """
     
     model = Roaster
-    template_name = 'coffee_journal/roaster/roaster_detail.html'
+    template_name = 'general/roaster_detail.html'
 
 class CoffeeListView(ListView):
     """View to get a paginated list of all coffees.

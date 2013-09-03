@@ -49,7 +49,9 @@
             		<li><a href="#">About us</a></li>            		 
             		<li><a href="#">FAQ</a></li>                	
                 	<li class="divider"></li>     
-                	<li><a href="#">Contact</a></li>           	                	
+                	<li><a href="#">Contact</a></li>    
+                	<li class="divider"></li>     
+                	<li><a href="#">Report a problem</a></li>          	                	
           		</ul><!-- .dropdown-menu -->
           		</li><!-- .dropdown-About -->               	     
             	
@@ -61,7 +63,7 @@
             		<li><a href="#">Flavors</a></li>
             		<li><a href="#">Roasting</a></li>
             		<li class="divider"></li> 
-            		<li><a href="#">Roasters</a></li>
+            		<li><a href="/roasters/">Roasters</a></li>
                 	<li><a href="#">Stores</a></li> 
          	                	
           		</ul><!-- .dropdown-menu -->
@@ -88,11 +90,12 @@
          	{% if user.is_authenticated %}
          	<ul class="nav pull-right">   
          	<li class="dropdown">
-            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">My journal <b class="caret"></b></a>
+            	<a data-toggle="dropdown" class="dropdown-toggle" href="#">My journal<b class="caret"></b></a>
             	<ul class="dropdown-menu">            	
-            		<li><a href="#">My methods</a></li>	
+            		<li><a href="#">My coffees</a></li>	
             		<li class="divider"></li>
-            		<li><a href="/purchased_coffees/">My coffees</a></li>
+            		<li><a href="/purchased_coffees/">My methods</a></li>
+            		<li class="divider"></li>
             		<li><a href="#">My equipment</a></li>
             		<li class="divider"></li>
                 	<li><a href="/roasters/">My roasters</a></li>
@@ -104,7 +107,7 @@
          	
          	        	
          	<li class="dropdown">
-          		<a data-toggle="dropdown" class="dropdown-toggle" href="#"> <img src="{{ STATIC_URL }}/img/settings.gif"> <b class="caret"></b></a>
+          		<a data-toggle="dropdown" class="dropdown-toggle" href="#"> <img src="{{ STATIC_URL }}/img/settings.gif"> {{ user.username }}<b class="caret"></b></a>
             	<ul class="dropdown-menu">            		
             		<li><a href="#">Edit profile</a></li>
             		<li><a href="#">Settings</a></li>
@@ -122,7 +125,7 @@
             {% else %}       	
  			<ul class="nav pull-right">
  			
- 				<li><a href="#">Sign up</a></li> 			 				
+ 				<li><a href="/register/">Sign up</a></li> 			 				
  				       
            		<li class="dropdown" id="menu1">
              		<a class="dropdown-toggle" data-toggle="dropdown" href="#menu1"> Login <b class="caret"></b></a>            
