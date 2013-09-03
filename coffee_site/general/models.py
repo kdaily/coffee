@@ -90,8 +90,8 @@ class Coffee(models.Model):
         # the columns that make unique records
         unique_together = ("name", "grower", "finca")
     
-class CoffeeRoaster(models.Model):
-    """DB model for a coffee bag.
+class RoastedCoffeeBag(models.Model):
+    """DB model for a bag of roasted coffee.
 
     This has a roaster and a coffee as relationships.
 
@@ -127,16 +127,16 @@ class CoffeeBag(models.Model):
     #To use ImageFields, you need to install the Python Imaging Library
     thumb = models.ImageField(upload_to='/media/img/', blank=True)
 
-    coffee_roaster = models.ForeignKey(CoffeeRoaster)
+    roasted_coffee_bag = models.ForeignKey(RoastedCoffeeBag)
 
     rating = RatingField(range=5)
     
     def __unicode__(self):
-        return "%s, %s (%s)" % (self.coffee_roaster.coffee, self.coffee_roaster.roaster, self.date_roast)
+        return "%s, %s (%s)" % (self.roasted_coffee_bag.coffee, self.roasted_coffee_bag.roaster, self.date_roast)
 
     class Meta:
         # the columns that make unique records
-        unique_together = ('coffee_roaster', 'date_roast')
+        unique_together = ('roasted_coffee_bag', 'date_roast')
         
 class AromaTaste(models.Model):
     """Model for a aroma/taste wheel
@@ -195,8 +195,7 @@ class RoasterStore(models.Model):
 
     store = models.ManyToManyField(Store)
     roaster = models.ForeignKey(Roaster)
-    coffee_roaster = models.ForeignKey(CoffeeRoaster)
-    
+    roasted_coffee_bag = models.ForeignKey(RoastedCoffeeBag)
     
 class NewsInfo(models.Model):
     """news for the first page.
