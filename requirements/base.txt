@@ -4,7 +4,12 @@ PIL==1.1.7
 Unipath==1.0
 django-braces==1.0.0
 django-guardian==1.1.1
+django-countries==1.5
+django-localflavor==1.0
+django-phonenumber-field==0.2a3
 ipython==0.13.2
 sorl-thumbnail==11.12
 virtualenv==1.9.1
 wsgiref==0.1.2
+
+
