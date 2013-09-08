@@ -6,8 +6,9 @@ from sorl.thumbnail import ImageField
 
 from djangoratings.fields import RatingField
 
-from general.models import UserStore, CoffeeBag
+from general.models import UserStore, CoffeeBag, CoffeeBagImage
 
+    
 class PurchasedCoffeeBag(models.Model):
     """DB model for a purchased coffee bag.
     
@@ -16,11 +17,11 @@ class PurchasedCoffeeBag(models.Model):
     """
     
     date_purch = models.DateField('Purchase Date', blank=True)
-    rating = RatingField(range=5)
+    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
 
     notes = models.TextField(blank=True, null=True)    
 
-    thumb = ImageField(upload_to='media/img/', blank=True)
+    thumb = models.ForeignKey(CoffeeBagImage)
 
     # Better way to specify the user than the User object
     user = models.ManyToManyField(settings.AUTH_USER_MODEL)
