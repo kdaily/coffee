@@ -9,7 +9,13 @@ from localflavor.us.models import USStateField
 from django_countries import CountryField
 
 from sorl.thumbnail import ImageField
+from sorl.thumbnail import get_thumbnail
+from django.core.files.base import ContentFile
+
 from djangoratings.fields import RatingField
+
+def upload_to_roaster(instance):
+    return '%s/coffees' % (instance.roaster.name)
 
 class Roaster(models.Model):
     """Model for a roaster.
@@ -19,9 +25,9 @@ class Roaster(models.Model):
     name = models.CharField(max_length=500)
     address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
-    state = USStateField(choices = US_STATES)
+    state = USStateField(choices = US_STATES, blank=True)
     zipcode = models.IntegerField(null=True, blank=True)
-    country = CountryField()
+    country = CountryField(blank=True)
     
     website = models.CharField(max_length=500, blank=True, null=True)
     phone = PhoneNumberField(null=True, blank=True)
@@ -31,9 +37,9 @@ class Roaster(models.Model):
     gplus  = models.CharField(max_length=500, blank=True, null=True)
      
     #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='media/img/', blank=True)
+    thumb = models.ImageField(upload_to='roasters/', blank=True)
     
-    rating = RatingField(range=5)
+    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
 
     def __unicode__(self):
         return "%s" % (self.name)
@@ -50,9 +56,9 @@ class Store(models.Model):
     name = models.CharField(max_length=500)
     address = models.CharField(max_length=500, blank=True, null=True)
     city = models.CharField(max_length=500, blank=True, null=True)
-    state = USStateField(choices = US_STATES)
+    state = USStateField(choices = US_STATES, blank=True)
     zipcode = models.IntegerField(blank=True, null=True)
-    country = CountryField()
+    country = CountryField(blank=True)
     website = models.CharField(max_length=500, blank=True, null=True)
     phone = PhoneNumberField(null=True, blank=True)
 
@@ -61,9 +67,9 @@ class Store(models.Model):
     gplus  = models.CharField(max_length=500, blank=True, null=True)
     
     #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='media/img/', blank=True)
+    thumb = models.ImageField(upload_to='stores/', blank=True)
     
-    rating = RatingField(range=5)
+    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
     
     def __unicode__(self):
         return "%s (%s, %s)" % (self.name, self.city, self.state)
@@ -80,14 +86,14 @@ class Coffee(models.Model):
     grower = models.CharField(max_length=500, blank=True, null=True)
     finca = models.CharField(max_length=500, blank=True, null=True)
     region = models.CharField(max_length=500, blank=True, null=True)
-    country = models.CharField(max_length=3, blank=True, null=True)
+    country = CountryField(blank=True)
     
     varietal = models.CharField(max_length=200, blank=True, null=True)
     altitude = models.IntegerField(blank=True, null=True)    
     
     notes = models.TextField(blank=True, null=True)
        
-    rating = RatingField(range=5)
+    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
 
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.finca)
@@ -95,7 +101,29 @@ class Coffee(models.Model):
     class Meta:
         # the columns that make unique records
         unique_together = ("name", "grower", "finca")
+           
+class CoffeeBagImage(models.Model):
+    """DB model for coffee bag images (to allow multiple images).
+
+    """
     
+    image = models.ImageField(upload_to=upload_to_roaster, blank = True, null = True)
+    caption = models.CharField(max_length = 250, blank =True, null = True)
+    
+    roaster = models.ForeignKey(Roaster)
+    coffee = models.ForeignKey(Coffee)
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
+        
+    def save(self, *args, **kwargs):
+        if not self.id:  
+            super(CoffeeBagImage, self).save(*args, **kwargs)  
+            resized = get_thumbnail(self.image, "250x250", crop='center', quality=99) 
+            self.image.save(resized.name, ContentFile(resized.read()), True)
+        super(CoffeeBagImage, self).save(*args, **kwargs)
+        
+    class Meta:
+        permissions = (('view_coffee_bag_image', "View coffee bag image"),)
+           
 class RoastedCoffeeBag(models.Model):
     """DB model for a bag of roasted coffee.
 
@@ -103,24 +131,22 @@ class RoastedCoffeeBag(models.Model):
 
     """
     roast_type = models.CharField(max_length=200, blank=True, null=True)
-
-    #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='media/img/', blank=True)
-
+    
+    thumb = models.ForeignKey(CoffeeBagImage)
     roaster = models.ForeignKey(Roaster)
     coffee = models.ForeignKey(Coffee)
 
-    rating = RatingField(range=5)
+    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
     
     def __unicode__(self):
         return "%s, %s (%s)" % (self.coffee.name, self.roaster.name)
-
+    
     class Meta:
         # the columns that make unique records
         unique_together = ('roaster', 'coffee')
-    
+                   
 class CoffeeBag(models.Model):
-    """DB model for a specific coffee bag.
+    """DB model for a specific coffee bag - a bag per roast date.
 
     """
     
@@ -130,12 +156,9 @@ class CoffeeBag(models.Model):
     amount = models.FloatField(blank=True, null=True)
     price = models.FloatField(blank=True, null=True)
     
-    #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='media/img/', blank=True)
-
     roasted_coffee_bag = models.ForeignKey(RoastedCoffeeBag)
 
-    rating = RatingField(range=5)
+    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
     
     def __unicode__(self):
         return "%s, %s (%s)" % (self.roasted_coffee_bag.coffee, self.roasted_coffee_bag.roaster, self.date_roast)
@@ -162,7 +185,7 @@ class UserRoaster(models.Model):
     Has relationships to a user and roaster
     """
     
-    rating = RatingField(range=5)
+    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
 
     notes = models.TextField(blank=True, null=True)    
 
@@ -180,7 +203,7 @@ class UserStore(models.Model):
     Has relationships to a user and store
     """
     
-    rating = RatingField(range=5)
+    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
 
     notes = models.TextField(blank=True, null=True)    
 
@@ -196,14 +219,14 @@ class RoasterStore(models.Model):
     Has relationships to a user and roaster
     """
     
-    rating = RatingField(range=5)
+    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
     notes = models.TextField(blank=True, null=True)    
 
     store = models.ManyToManyField(Store)
     roaster = models.ForeignKey(Roaster)
     roasted_coffee_bag = models.ForeignKey(RoastedCoffeeBag)
     
-class NewsInfo(models.Model):
+class news_info(models.Model):
     """news for the first page.
     
     """
@@ -212,7 +235,7 @@ class NewsInfo(models.Model):
     text = models.TextField(blank=True, null=True)   
     source = models.CharField(max_length=500, blank=True, null=True)
     website = models.CharField(max_length=500, blank=True, null=True)
-    thumb = models.ImageField(upload_to='media/img/', blank=True)
+    thumb = models.ImageField(upload_to='news/', blank=True)
     posted_by = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
     
