@@ -58,6 +58,7 @@ MANAGERS = ADMINS
 # In a Windows environment this must be set to your system time zone.
 TIME_ZONE = 'America/New_York'
 
+# DISQUS configuration
 # Needs to be changed - I created an account - vessykenny
 DISQUS_API_KEY = 'FOOBARFOOBARFOOBARFOOBARFOOBARF'
 DISQUS_WEBSITE_SHORTNAME = 'foobar'
