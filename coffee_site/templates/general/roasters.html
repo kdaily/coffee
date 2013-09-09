@@ -2,38 +2,57 @@
 
 {% block title %}Coffee Roasters{% endblock %}
 
-{% block otherstyles %}
-<link rel="stylesheet" href="{{ STATIC_URL }}/css/rating.css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}/css/coffeebag.css" />
-{% endblock %}
-
-{% block pageheader %}<h1>Coffee roasters</h1>{% endblock %}
-
 {% block content %}
 
 {% if roaster_list %}
 
+<div class="hero-unit">
 <div class="row-fluid">
+
+<div class="span12 spacerTop">  
+<h2>Coffee roasters</h2>  
+	<form id="custom-search-form" class="form-search form-horizontal form-inline">
+		<div class="input-append">
+		<input type="text" class="search-query" placeholder="Roaster by location search">
+		<button type="submit" class="btn"><i class="icon-search"></i></button>
+		</div>
+	</form>
+	<form id="custom-search-form" class="form-search form-horizontal form-inline">
+		<div class="input-append">
+		<input type="text" class="search-query" placeholder="Roaster name search">
+		<button type="submit" class="btn"><i class="icon-search"></i></button>
+		</div>
+	</form>
+</div> 
 
   {% for roaster in roaster_list %}
   {% if forloop.counter0|divisibleby:"3" %}
-  <div class="row-fluid">
+  <div class="row-fluid spacer">
   {% endif %}  
-  
-  <div class="span4">
-    <div class="item">
-      <div class="item_head">
-	<h2>{{ roaster.name }}</h2>
-      </div> 
-      <div class="item_body">
-	<a href="{{ roaster.website }}">{{ roaster.website }}</a>
-	<p>Located in {{ roaster.city }}, {{ roaster.state }}. This is where some info about the roaster will go. Who knows what we will say here, but something will be said.</p>
-	<a class="btn" href="/roaster/{{ roaster.id }}/">Details&raquo;</a>
-      </div>
-    </div>
-  </div>
-
-  {% if forloop.counter|divisibleby:"3" %}
+   <div class="span4 span4Mod">  	
+		<div style="padding:4px">
+		<img src = "{{ roaster.thumb }}"  height=250 alt="{{ roaster.name }}"> 
+		</div>
+		<div class="caption">
+			<h2>{{ roaster.name }}</h2>
+			<a href="{{ roaster.website }}" >{{ roaster.website }}</a>
+			<p><i class="icon icon-map-marker"></i> {{ roaster.city }}, {{ roaster.state }}</p>
+		</div>
+		<div class="modal-footer" style="text-align: left">			
+			<div class="row-fluid">
+				<div class="span6"><a class="btn btn-mini" href="/roaster/{{ roaster.id }}/">See more</a></div>
+				{% if user.is_authenticated %}
+					<div class="span6"><a class="btn btn-mini" href="/roaster/{{ roaster.id }}/">Add to my roasters</a></div>
+				{% else %}				
+					<div class="span6"><a class="btn disabled btn-mini" href="">Add to my roasters</a></div>			
+				{% endif %}				
+			</div>
+		</div>
+	
+   </div>
+   
+   
+   {% if forloop.counter|divisibleby:"3" %}
   </div>
   {% endif %}
   
@@ -57,6 +76,7 @@
     <a href="?page={{ page_obj.next_page_number }}">next</a>
     {% endif %}
   </span>
+</div>
 </div>
 {% endif %}
 {% endif %}
