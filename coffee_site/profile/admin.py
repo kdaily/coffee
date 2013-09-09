@@ -26,25 +26,33 @@ class CoffeeUserAdmin(UserAdmin):
 
     form = CoffeeUserForm
 
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'ratio_sharing')
+    # What to display in the list view
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
 
-    fieldsets = ((None, {'fields': ('username', 'password')}),
+    # Overloads what to display in the form
+    fieldsets = ((None, 
+                  {'fields': ('username', 'password')}),
+
                  ('Personal info',
                    {'fields': ('first_name', 'last_name', 'email', 'skill_level',)}),
+
                  ('Permissions',
                    {'fields': ('is_active',
                                'is_staff',
                                'is_superuser',
                                'groups',
                                'user_permissions')}),
+
                  ('Important dates',
                    {'fields': ('last_login', 'date_joined')}),
 
                  ('Social media',
                   {'fields': ('facebook', 'twitter', 'gplus')}),
+
                  ('Sharing',
                   {'fields': ('purch_coffee_bag_sharing', 'ratio_sharing', 'friends')}))
 
+    # Makes it easier to select many-to-many fields
     filter_horizontal = ('friends', 'groups')
 
 # # Re-register UserAdmin
