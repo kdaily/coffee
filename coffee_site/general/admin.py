@@ -2,9 +2,10 @@ from django.contrib import admin
 
 from guardian.admin import GuardedModelAdmin
 
-from .models import Coffee, CoffeeBag, RoastedCoffeeBag, 
+from .models import Coffee, CoffeeBag, RoastedCoffeeBag
 from .models import Roaster, UserRoaster
 from .models import Store, UserStore
+from .models import CoffeeBagImage
 
 # Old way:
 #class AuthorAdmin(admin.ModelAdmin):
@@ -23,3 +24,4 @@ admin.site.register(Store)
 admin.site.register(UserStore)
 admin.site.register(CoffeeBag)
 admin.site.register(RoastedCoffeeBag)
+admin.site.register(CoffeeBagImage)
