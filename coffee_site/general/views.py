@@ -22,13 +22,19 @@ from .models import Roaster
 def home(request):
     """Display the home (index) page.
     
-    Shouldn't need a login required, and needs to handle when
-    users are not logged in.
+    One version is displayed if the user is logged in,
+    and another if not.
     
     """
-    
-    return render_to_response('index.html', context_instance = RequestContext(request))
 
+    if request.user.is_authenticated():
+        response = render_to_response('index.html', 
+                                      context_instance=RequestContext(request))
+    else:
+        response = render_to_response('index.html',
+                                      context_instance=RequestContext(request))
+    
+    return response
 
 def login_user(request):
     """User login.
