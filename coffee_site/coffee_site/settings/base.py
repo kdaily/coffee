@@ -58,6 +58,11 @@ MANAGERS = ADMINS
 # In a Windows environment this must be set to your system time zone.
 TIME_ZONE = 'America/New_York'
 
+# DISQUS configuration
+# Needs to be changed - I created an account - vessykenny
+DISQUS_API_KEY = 'FOOBARFOOBARFOOBARFOOBARFOOBARF'
+DISQUS_WEBSITE_SHORTNAME = 'foobar'
+
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -79,7 +84,7 @@ USE_TZ = True
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = "http://localhost:8000/media/"
 
 
 # List of finder classes that know how to find static files in
@@ -144,6 +149,7 @@ INSTALLED_APPS = (
     'coffee_ratio',
 
     ## External apps
+    'disqus',
     'guardian',
     'localflavor',
     'django_countries',
