@@ -12,7 +12,7 @@ from .models import CoffeeUser
 
 # Define a new User admin
 class CoffeeUserAdmin(UserAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'ratio_sharing')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'ratio_sharing', 'facebook')
 
 # # Re-register UserAdmin
 # admin.site.unregister(User)
