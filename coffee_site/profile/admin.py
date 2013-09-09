@@ -12,6 +12,11 @@ from .models import CoffeeUser
 #     verbose_name_plural = 'coffeeusers'
 
 class CoffeeUserForm(forms.ModelForm):
+    """Form for changing CoffeeUser.
+
+    Currently only used in the admin panel; this could change.
+
+    """
 
     class Meta:
         model = CoffeeUser
