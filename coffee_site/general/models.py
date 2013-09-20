@@ -1,6 +1,7 @@
 from django.db import models
 from django import forms
 from django.conf import settings
+from django.core.files.base import ContentFile
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -10,7 +11,7 @@ from django_countries import CountryField
 
 from sorl.thumbnail import ImageField
 from sorl.thumbnail import get_thumbnail
-from django.core.files.base import ContentFile
+
 
 from djangoratings.fields import RatingField
 
