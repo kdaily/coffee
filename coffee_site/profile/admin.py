@@ -34,7 +34,7 @@ class CoffeeUserAdmin(UserAdmin):
                   {'fields': ('username', 'password')}),
 
                  ('Personal info',
-                   {'fields': ('first_name', 'last_name', 'email', 'skill_level',)}),
+                   {'fields': ('first_name', 'last_name', 'email', 'skill_level', 'avatar')}),
 
                  ('Permissions',
                    {'fields': ('is_active',
