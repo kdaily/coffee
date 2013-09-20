@@ -2,11 +2,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django import forms
 from django.conf import settings
+from django.core.files.base import ContentFile
 
 from sorl.thumbnail import ImageField
+from sorl.thumbnail import get_thumbnail
 
-def upload_to_user(instance):
-    return '%s' % (instance.user.username)
+def upload_to_user(instance, name):
+    return '%s/%s' % (instance.username, name)
 
 class CoffeeUser(AbstractUser):
     """Subclass user to add extra fields.
@@ -19,7 +21,7 @@ class CoffeeUser(AbstractUser):
 
     skill_level = models.CharField(max_length=500, blank=True, null=True)
 
-    avatar = ImageField(upload_to=upload_to_user, blank=True)
+    avatar = ImageField(upload_to=upload_to_user)
     
     # Encoding for sharing fields
     NOSHARE = 0
@@ -41,3 +43,10 @@ class CoffeeUser(AbstractUser):
 
     friends = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
+    def save(self, *args, **kwargs):
+        if not self.pk:
+        #super(CoffeeUser, self).save(*args, **kwargs)  
+            resized = get_thumbnail(self.avatar, '250x250', crop='center', quality=99)
+            self.avatar.save(resized.name, ContentFile(resized.read()), True)
+        super(CoffeeUser, self).save(*args, **kwargs)
+        
