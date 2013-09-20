@@ -16,7 +16,8 @@ from django.contrib import auth
 from braces.views import LoginRequiredMixin
 
 from .models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
-from .models import Roaster
+from .models import Roaster, UserRoaster
+
 
 
 def home(request):
@@ -100,6 +101,34 @@ class RoasterDetailView(DetailView):
     
     model = Roaster
     template_name = 'general/roaster_detail.html'
+    
+class UserRoasterListView(ListView):
+    """View to get a paginated list of all roasters.
+    """
+    
+    model = UserRoaster
+    
+    template_name = 'general/roasters.html'
+    paginate_by = 6
+    
+    context_object_name = 'roaster_list'
+    
+def addRoasterToMine(request):
+    """Add a roaster from Roaster to UserRoaster.
+    
+    """
+    state = "TEST..."
+    
+    roaster= Roaster()
+    user = User
+
+    if 'addIn' in request.POST:            
+       state = "You're successfully logged in!"
+    else:
+        state = "None"
+    
+    return state
+
 
 class CoffeeListView(ListView):
     """View to get a paginated list of all coffees.
