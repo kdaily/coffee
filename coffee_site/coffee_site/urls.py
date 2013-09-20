@@ -18,7 +18,10 @@ from coffee_bag.views import UserPurchasedCoffeeBagListView
 from coffee_bag.views import PurchasedCoffeeBagCreateView
 from general.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
 from general.views import CoffeeBagListView, CoffeeBagDetailView
-from general.views import RoasterListView, RoasterDetailView
+from general.views import RoasterListView, RoasterDetailView, UserRoasterListView
+
+
+media_root = getattr(settings, 'MEDIA_ROOT', '/media')    
 
 
 urlpatterns = patterns('',
@@ -42,6 +45,8 @@ urlpatterns = patterns('',
                     
                     url('^register/$', CreateView.as_view(template_name='signup.html', form_class=UserCreationForm, success_url='/')),
                     
+                    url(r'^media/(?P<path>.*)$','django.views.static.serve', {'document_root': media_root}),
+                    
                      # View a list of roasters
                        url(r'^roasters/$', 
                            view=RoasterListView.as_view(),
@@ -51,6 +56,15 @@ urlpatterns = patterns('',
                        url(r'^roaster/(?P<pk>\d+)/$', 
                            view=RoasterDetailView.as_view(),
                            name="roasterdetail"),
+                       
+                       # View a list of roasters for a user
+                       url(r'^myroasters/$', 
+                           view=UserRoasterListView.as_view(),
+                           name="roasterlist"),
+                       
+                       # View a list of roasters for a user
+                       url(r'^addtomine/$','general.views.addRoasterToMine'),
+                       
     
                     # View detail for a coffee
                        url(r'^coffee/(?P<pk>\d+)/$', 
