@@ -17,7 +17,7 @@ from braces.views import LoginRequiredMixin
 
 from .models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
 from .models import Roaster, UserRoaster
-
+from profile.models import CoffeeUser
 
 
 def home(request):
@@ -122,14 +122,14 @@ def add_user_roaster(request, pk, *args, **kwargs):
 
     state = "add a UserRoaster"
 
-    curruser = User.objects.get(pk=request.user.id)
+    curruser = CoffeeUser.objects.get(pk=request.user.id)
     roaster = Roaster.objects.get(pk=pk)
 
-    try:
-        user_roaster = UserRoaster(user=curruser, roaster=roaster)
-        user_roaster.save()
-        state = 'success'
-        
+    user_roaster = UserRoaster(user=curruser, roaster=roaster)
+    user_roaster.save()
+    
+    state = 'success'
+    
     context = {'state': state}
 
     return render(request, 'general/roasters.html', context)
