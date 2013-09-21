@@ -195,6 +195,7 @@ class UserRoaster(models.Model):
     
     class Meta:
         permissions = (('view_user_coffee_roaster', "View user's roaster"),)
+        unique_together = ('user', 'roaster')
 
 class UserStore(models.Model):
     """DB model for a user's stores.
