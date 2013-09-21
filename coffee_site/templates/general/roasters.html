@@ -46,9 +46,7 @@
 			<div class="row-fluid">
 				<div class="span4"><a class="btn btn-mini" href="/roaster/{{ roaster.id }}/">See more</a></div>
 				{% if user.is_authenticated %}
-					<form  action="/addtomine/" method="post"> {% csrf_token %}  
-						<div class="span4"><a class="btn btn-mini" title="Add to my roasters" type="submit" value="addIn" name="addIn"><i class="icon-user icon-plus"></i></a></div>					
-					</form>
+				<div class="span4"><a class="btn btn-mini" href="/adduserroaster/{{ roaster.id }}"><i class="icon-user icon-plus"></i></a></div>
 				{% else %}				
 					<div class="span4"><a class="btn disabled btn-mini" href="">Add to my roasters</a></div>			
 				{% endif %}				
