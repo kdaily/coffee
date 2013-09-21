@@ -116,6 +116,8 @@ class UserRoasterListView(ListView):
 @login_required    
 def add_user_roaster(request, pk, *args, **kwargs):
     """Add a roaster from Roaster to UserRoaster.
+
+    Needs better error handling.
     
     """
 
@@ -137,7 +139,6 @@ def add_user_roaster(request, pk, *args, **kwargs):
 
     # Redirect using url name to roaster list
     return redirect('myroasterlist')
-    # return render(request, 'general/roasters.html', context)
 
 class CoffeeListView(ListView):
     """View to get a paginated list of all coffees.
