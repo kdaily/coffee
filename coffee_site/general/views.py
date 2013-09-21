@@ -125,14 +125,19 @@ def add_user_roaster(request, pk, *args, **kwargs):
     curruser = CoffeeUser.objects.get(pk=request.user.id)
     roaster = Roaster.objects.get(pk=pk)
 
-    user_roaster = UserRoaster(user=curruser, roaster=roaster)
-    user_roaster.save()
-    
-    state = 'success'
+    try:
+        user_roaster = UserRoaster(user=curruser, roaster=roaster)
+        user_roaster.save()
+        state = 'success'
+    except:
+        state = "Already added that roaster"
+
     
     context = {'state': state}
 
-    return render(request, 'general/roasters.html', context)
+    # Redirect using url name to roaster list
+    return redirect('myroasterlist')
+    # return render(request, 'general/roasters.html', context)
 
 class CoffeeListView(ListView):
     """View to get a paginated list of all coffees.
