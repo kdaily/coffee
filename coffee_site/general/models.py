@@ -186,17 +186,15 @@ class UserRoaster(models.Model):
     Has relationships to a user and roaster
     """
     
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    roaster = models.ForeignKey(Roaster)
+    
     rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
 
     notes = models.TextField(blank=True, null=True)    
-
-    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    roaster = models.ForeignKey(Roaster)
     
-
     class Meta:
         permissions = (('view_user_coffee_roaster', "View user's roaster"),)
-
 
 class UserStore(models.Model):
     """DB model for a user's stores.
