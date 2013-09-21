@@ -26,32 +26,32 @@ media_root = getattr(settings, 'MEDIA_ROOT', '/media')
 
 urlpatterns = patterns('',
                        # Examples:
-                         
-                    #url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
-                    #url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
-                    #url(r'^password_change/$', 'django.contrib.auth.views.password_change', name='password_change'),
-                    #url(r'^password_change/done/$', 'django.contrib.auth.views.password_change_done', name='password_change_done'),
-                    #url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', name='password_reset'),
-                    #url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', name='password_reset_done'),
-                    #url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$','django.contrib.auth.views.password_reset_confirm',name='password_reset_confirm'),
-                    #url(r'^reset/done/$', 'django.contrib.auth.views.password_reset_complete', name='password_reset_complete'),  
-                                           
-                     # Main page
-                     url(r'^$', 'general.views.home', name='home'),
+                           
+                       #url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+                       #url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
+                       #url(r'^password_change/$', 'django.contrib.auth.views.password_change', name='password_change'),
+                       #url(r'^password_change/done/$', 'django.contrib.auth.views.password_change_done', name='password_change_done'),
+                       #url(r'^password_reset/$', 'django.contrib.auth.views.password_reset', name='password_reset'),
+                       #url(r'^password_reset/done/$', 'django.contrib.auth.views.password_reset_done', name='password_reset_done'),
+                       #url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$','django.contrib.auth.views.password_reset_confirm',name='password_reset_confirm'),
+                       #url(r'^reset/done/$', 'django.contrib.auth.views.password_reset_complete', name='password_reset_complete'),  
                        
-                     # Main page when logged in
-                    url(r'login/$', 'general.views.login_user'),
-                    url(r'logout/$', 'general.views.logout'),
-                    
-                    url('^register/$', CreateView.as_view(template_name='signup.html', form_class=UserCreationForm, success_url='/')),
-                    
-                    url(r'^media/(?P<path>.*)$','django.views.static.serve', {'document_root': media_root}),
-                    
-                     # View a list of roasters
+                       # Main page
+                       url(r'^$', 'general.views.home', name='home'),
+                       
+                       # Main page when logged in
+                       url(r'login/$', 'general.views.login_user'),
+                       url(r'logout/$', 'general.views.logout'),
+                       
+                       url('^register/$', CreateView.as_view(template_name='signup.html', form_class=UserCreationForm, success_url='/')),
+                       
+                       url(r'^media/(?P<path>.*)$','django.views.static.serve', {'document_root': media_root}),
+                       
+                       # View a list of roasters
                        url(r'^roasters/$', 
                            view=RoasterListView.as_view(),
                            name="roasterlist"),
-
+                       
                        # View details for roaster by primary key
                        url(r'^roaster/(?P<pk>\d+)/$', 
                            view=RoasterDetailView.as_view(),
@@ -62,20 +62,21 @@ urlpatterns = patterns('',
                            view=UserRoasterListView.as_view(),
                            name="roasterlist"),
                        
-                       # View a list of roasters for a user
-                       url(r'^addtomine/$','general.views.addRoasterToMine'),
-                       
-    
-                    # View detail for a coffee
+                       # Add a roaster to current user's roaster list
+                       url(r'^adduserroaster/(?P<pk>\d+)/$', 
+                           view='general.views.add_user_roaster',
+                           name="add_user_roaster"),
+                                              
+                       # View detail for a coffee
                        url(r'^coffee/(?P<pk>\d+)/$', 
                            view=CoffeeDetailView.as_view(),
                            name="coffeedetail"),
-
+                       
                        # View detail for a coffee bag
                        url(r'^coffeebag/(?P<pk>\d+)/$', 
                            view=CoffeeBagDetailView.as_view(),
                            name="coffeebagdetail"),
-
+                       
                        # View detail for a purchased coffee bag
                        url(r'^purchcoffeebag/(?P<pk>\d+)/$', 
                            view=PurchasedCoffeeBagDetailView.as_view(),
