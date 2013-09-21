@@ -39,10 +39,10 @@ def home(request):
 
 def login_user(request):
     """User login.
-Handles successful/unsuccessful logins.
-This was meant to be specific to the coffee journal portion
-of the app, but probably could be used site-wide (coffee ratio too)
-"""
+    Handles successful/unsuccessful logins.
+    This was meant to be specific to the coffee journal portion
+    of the app, but probably could be used site-wide (coffee ratio too)
+    """
 
     state = "Please log in below..."
     username = ''
@@ -112,23 +112,27 @@ class UserRoasterListView(ListView):
     paginate_by = 6
     
     context_object_name = 'roaster_list'
-    
-def addRoasterToMine(request):
+
+@login_required    
+def add_user_roaster(request, pk, *args, **kwargs):
     """Add a roaster from Roaster to UserRoaster.
     
     """
-    state = "TEST..."
-    
-    roaster= Roaster()
-    user = User
 
-    if 'addIn' in request.POST:            
-       state = "You're successfully logged in!"
-    else:
-        state = "None"
-    
-    return state
 
+    state = "add a UserRoaster"
+
+    curruser = User.objects.get(pk=request.user.id)
+    roaster = Roaster.objects.get(pk=pk)
+
+    try:
+        user_roaster = UserRoaster(user=curruser, roaster=roaster)
+        user_roaster.save()
+        state = 'success'
+        
+    context = {'state': state}
+
+    return render(request, 'general/roasters.html', context)
 
 class CoffeeListView(ListView):
     """View to get a paginated list of all coffees.
