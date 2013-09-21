@@ -60,7 +60,7 @@ urlpatterns = patterns('',
                        # View a list of roasters for a user
                        url(r'^myroasters/$', 
                            view=UserRoasterListView.as_view(),
-                           name="roasterlist"),
+                           name="myroasterlist"),
                        
                        # Add a roaster to current user's roaster list
                        url(r'^adduserroaster/(?P<pk>\d+)/$', 
