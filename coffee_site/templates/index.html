@@ -2,13 +2,52 @@
 
 {% block title %}Hello{% endblock %}
 
-{% block content %}
+{% block meta %}
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+{% endblock %}
 
+{% block style %}
+
+<style>
+  #map_canvas { width : 400px; height : 350px; }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
 
 <div class="hero-unit">
   <h1>Hello</h1>
   State: {{ state }}<br />
-  Username: {{ username }}
+ 
+    <div id="map_canvas"></div>
+  
 </div>
+ 
+{% endblock %}
+	
+{% block script %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdGLwlfxNPtUBeggNIaPw3zTMW05FyR-M&sensor=false"></script>
+<script type="text/javascript">
+var map;
+
+jQuery(function($) {
+    $(document).ready(function() {
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var myOptions = {
+            zoom: 8,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        console.dir(map);
+        google.maps.event.trigger(map, 'resize');
+
+        
+    });
+});
+</script>
+
 
 {% endblock %}
