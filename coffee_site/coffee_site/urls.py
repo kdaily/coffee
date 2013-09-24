@@ -3,7 +3,7 @@ from django.contrib.auth import logout
 
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.decorators import login_required
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -18,7 +18,7 @@ from coffee_bag.views import UserPurchasedCoffeeBagListView
 from coffee_bag.views import PurchasedCoffeeBagCreateView
 from general.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
 from general.views import CoffeeBagListView, CoffeeBagDetailView
-from general.views import RoasterListView, RoasterDetailView, UserRoasterListView
+from general.views import roaster_list_view, RoasterDetailView, UserRoasterListView
 
 
 media_root = getattr(settings, 'MEDIA_ROOT', '/media')    
@@ -48,9 +48,7 @@ urlpatterns = patterns('',
                        url(r'^media/(?P<path>.*)$','django.views.static.serve', {'document_root': media_root}),
                        
                        # View a list of roasters
-                       url(r'^roasters/$', 
-                           view=RoasterListView.as_view(),
-                           name="roasterlist"),
+                       url(r'^roasters/$', 'general.views.roaster_list_view', name="roaster_list_view"),
                        
                        # View details for roaster by primary key
                        url(r'^roaster/(?P<pk>\d+)/$', 
@@ -59,13 +57,18 @@ urlpatterns = patterns('',
                        
                        # View a list of roasters for a user
                        url(r'^myroasters/$', 
-                           view=UserRoasterListView.as_view(),
+                           login_required(UserRoasterListView.as_view()),
                            name="myroasterlist"),
                        
-                       # Add a roaster to current user's roaster list
-                       url(r'^adduserroaster/(?P<pk>\d+)/$', 
+                       # Add a roaster to current user's roaster list                     
+                       url(r'^adduserroaster/$', 
                            view='general.views.add_user_roaster',
                            name="add_user_roaster"),
+                       
+                        # Remove a roaster to current user's roaster list                     
+                       url(r'^removeuserroaster/$', 
+                           view='general.views.remove_user_roaster',
+                           name="remove_user_roaster"),
                                               
                        # View detail for a coffee
                        url(r'^coffee/(?P<pk>\d+)/$', 
