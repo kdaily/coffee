@@ -19,6 +19,8 @@ from .models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
 from .models import Roaster, UserRoaster
 from profile.models import CoffeeUser
 
+from django.utils import simplejson
+
 
 def home(request):
     """Display the home (index) page.
@@ -84,62 +86,113 @@ def logout(request):
     return HttpResponseRedirect('/')
 
     
-class RoasterListView(ListView):
+def roaster_list_view(request, *args, **kwargs):
     """View to get a paginated list of all roasters.
     """
     
-    model = Roaster
+    if request.user.is_authenticated():
+        user_roaster_list = UserRoaster.objects.filter(user=request.user.id)
+        urlist = [uroaster.roaster for uroaster in user_roaster_list]
     
-    template_name = 'general/roasters.html'
-    paginate_by = 6
+    else:
+        urlist = []
     
-    context_object_name = 'roaster_list'
+    return render_to_response('general/roasters.html', 
+                              {'roaster_list': Roaster.objects.all(), 
+                               'uroaster_list': urlist, 
+                               'paginate_by': 6},
+                              context_instance=RequestContext(request))
 
+    
 class RoasterDetailView(DetailView):
     """View to get the detailed view for a roaster.
     """
     
     model = Roaster
     template_name = 'general/roaster_detail.html'
-    
+   
+
 class UserRoasterListView(ListView):
     """View to get a paginated list of all roasters.
     """
-    
-    model = UserRoaster
+
+    def get_queryset(self, *args, **kwargs):
+        """Override get_querset so we can filter on request.user """
+        return UserRoaster.objects.filter(user=self.request.user.id)      
     
     template_name = 'general/roasters.html'
     paginate_by = 6
-    
     context_object_name = 'roaster_list'
+    
 
 @login_required    
-def add_user_roaster(request, pk, *args, **kwargs):
-    """Add a roaster from Roaster to UserRoaster.
+def add_user_roaster(request, *args, **kwargs):
 
-    Needs better error handling.
+    json_vars = {}
+    
+    print "I'm here"
+    
+    if request.method == 'POST':
+
+        state = "add a UserRoaster"
+    
+        # curruser = request.user
+        curruser = CoffeeUser.objects.get(pk=request.user.id)
+        roaster = Roaster.objects.get(pk=request.POST.get('roaster_pk', None))
+        
+        print curruser, roaster
+        
+        try:
+            user_roaster = UserRoaster(user=curruser, roaster=roaster)
+            user_roaster.save()
+            state = 'success'
+        except:
+            state = "Already added that roaster"
+
+        json_vars['state'] = state
+    
+    return HttpResponse(simplejson.dumps(json_vars),
+                        mimetype='application/javascript')
+    
+    
+@login_required    
+def remove_user_roaster(request, *args, **kwargs):
+    """Remove a user roaster object from the db.
+    
+    Need to check to make sure a single value is removed.
+    
+    Also, user shouldn't be able to navigate to this URL directly;
+    must be a mechanism to limit this.
     
     """
-
-
-    state = "add a UserRoaster"
-
-    curruser = CoffeeUser.objects.get(pk=request.user.id)
-    roaster = Roaster.objects.get(pk=pk)
-
-    try:
-        user_roaster = UserRoaster(user=curruser, roaster=roaster)
-        user_roaster.save()
-        state = 'success'
-    except:
-        state = "Already added that roaster"
-
     
-    context = {'state': state}
+    json_vars = {}
+    
+    print "I'm here"
+    
+    if request.method == 'POST':
 
-    # Redirect using url name to roaster list
-    return redirect('myroasterlist')
-
+        state = "remove a UserRoaster"
+        
+        roaster_pk = request.POST.get('roaster_pk', None)
+        
+        if roaster_pk:
+            try:
+                user_roaster = UserRoaster.objects.get(user=request.user.id, roaster=roaster_pk)
+                user_roaster.delete()
+                state = 'success'
+            except:
+                state = "Already removed that roaster"
+            
+            json_vars['state'] = state
+            
+            return HttpResponse(simplejson.dumps(json_vars),
+                        mimetype='application/javascript')
+        else:
+            return redirect("roaster_list_view")
+    else:
+        return redirect("roaster_list_view")
+        
 class CoffeeListView(ListView):
     """View to get a paginated list of all coffees.
     """
