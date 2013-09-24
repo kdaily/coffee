@@ -67,6 +67,11 @@ DISQUS_WEBSITE_SHORTNAME = 'foobar'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
+
+#Easy map setup
+EASY_MAPS_CENTER = (-41.3, 32)
+
+
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
@@ -153,7 +158,7 @@ INSTALLED_APPS = (
     'guardian',
     'localflavor',
     'django_countries',
-    
+    'easy_maps',
     
     # # Not compatible with Django 1.5 (doesn't work with custom user class)
     # # Pull request in github repo has been made to add this functionality,
