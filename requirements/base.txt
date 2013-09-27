@@ -12,5 +12,5 @@ ipython==0.13.2
 sorl-thumbnail==11.12
 virtualenv==1.9.1
 wsgiref==0.1.2
-geopy >= 0.95
+geopy == 0.95
 django-easy-maps == 0.8.4
