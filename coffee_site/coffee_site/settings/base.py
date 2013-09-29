@@ -163,7 +163,7 @@ INSTALLED_APPS = (
     # # Not compatible with Django 1.5 (doesn't work with custom user class)
     # # Pull request in github repo has been made to add this functionality,
     # # but has not been merged (see https://github.com/kdaily/coffee/issues/10)
-    # 'djangoratings',
+    'djangoratings',
 
     'sorl.thumbnail',
     'braces',
@@ -176,26 +176,48 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+            },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+            },
+        },
+    
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
+            }
+        },
+    
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
+            },
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter': 'simple'
+            },   
+        },
+
     'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'DEBUG',
+            },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
+            },
+        }
     }
-}
 
 
 # For django-guardian
