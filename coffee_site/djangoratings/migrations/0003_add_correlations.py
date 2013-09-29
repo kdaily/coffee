@@ -4,6 +4,9 @@ from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
 
+from djangoratings.compat import user_model_label
+
+
 class Migration(SchemaMigration):
     
     def forwards(self, orm):
@@ -40,8 +43,8 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'auth.user': {
-            'Meta': {'object_name': 'User'},
+        user_model_label: {
+            'Meta': {'object_name': user_model_label.split('.')[-1]},
             '_battlenet_profiles': ('django.db.models.fields.TextField', [], {'null': 'True', 'db_column': "'battlenet_profiles'", 'blank': 'True'}),
             'avatar': ('django.db.models.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'bio': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
@@ -103,7 +106,7 @@ class Migration(SchemaMigration):
             'key': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'score': ('django.db.models.fields.IntegerField', [], {}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'votes'", 'null': 'True', 'to': "orm['auth.User']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'votes'", 'null': 'True', 'to': "orm['%s']" % user_model_label})
         }
     }
     
