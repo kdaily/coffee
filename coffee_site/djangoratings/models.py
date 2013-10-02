@@ -3,7 +3,10 @@ from datetime import datetime
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-from django.contrib.auth.models import User
+
+# support for custom User models in Django 1.5+
+from djangoratings.compat import user_model_label
+User = user_model_label
 
 try:
     from django.utils.timezone import now

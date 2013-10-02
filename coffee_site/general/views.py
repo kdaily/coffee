@@ -1,4 +1,6 @@
 # Create your views here.
+import logging
+
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response, redirect
@@ -21,6 +23,7 @@ from profile.models import CoffeeUser
 
 from django.utils import simplejson
 
+logger = logging.getLogger('views')
 
 def home(request):
     """Display the home (index) page.
@@ -100,6 +103,7 @@ def roaster_list_view(request, *args, **kwargs):
     return render_to_response('general/roasters.html', 
                               {'roaster_list': Roaster.objects.all(), 
                                'uroaster_list': urlist, 
+                               'num_vote_stars': [5,4,3,2,1],
                                'paginate_by': 6},
                               context_instance=RequestContext(request))
 
@@ -124,13 +128,42 @@ class UserRoasterListView(ListView):
     paginate_by = 6
     context_object_name = 'roaster_list'
     
+@login_required    
+def rate_user_roaster(request, *args, **kwargs):
+    json_vars = {}
+    
+    logger.debug("In rate_user_roaster")
+    logger.debug("request POST: %s" % (request.POST, ))
+    
+    if request.method == 'POST':
+
+        rating = int(request.POST.get('rating', None))
+        roaster_pk = request.POST.get('roaster_pk', None)
+
+        curruser = request.user
+        roaster = Roaster.objects.get(pk=roaster_pk)
+
+        logger.debug("Trying to update: %s added %i to %s" % (curruser, rating, roaster))
+
+        try:
+            roaster.rating.delete(request.user, request.META['REMOTE_ADDR'])
+            roaster.rating.add(score=rating, user=request.user, ip_address=request.META['REMOTE_ADDR'])
+            roaster.save()
+            logger.debug("%s added %i to %s" % (curruser, rating, roaster))
+            state = 'success'
+        except Exception as e:
+            logger.error("%s" % e)
+            state = "Already added that roaster"
+
+        json_vars['state'] = state
+    
+    return HttpResponse(simplejson.dumps(json_vars),
+                        mimetype='application/javascript')
 
 @login_required    
 def add_user_roaster(request, *args, **kwargs):
 
     json_vars = {}
-    
-    print "I'm here"
     
     if request.method == 'POST':
 

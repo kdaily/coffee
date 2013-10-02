@@ -4,6 +4,8 @@ from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
 
+from djangoratings.compat import user_model_label
+
 class Migration(SchemaMigration):
     
     def forwards(self, orm):
@@ -13,11 +15,11 @@ class Migration(SchemaMigration):
 
         # Adding model 'SimilarUser'
         db.create_table('djangoratings_similaruser', (
-            ('to_user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='similar_users_from', to=orm['auth.User'])),
+            ('to_user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='similar_users_from', to=orm[user_model_label])),
             ('agrees', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('disagrees', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('from_user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='similar_users', to=orm['auth.User'])),
+            ('from_user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='similar_users', to=orm[user_model_label])),
         ))
         db.send_create_signal('djangoratings', ['SimilarUser'])
 
@@ -65,8 +67,8 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'auth.user': {
-            'Meta': {'object_name': 'User'},
+        user_model_label: {
+            'Meta': {'object_name': user_model_label.split('.')[-1]},
             '_battlenet_profiles': ('django.db.models.fields.TextField', [], {'null': 'True', 'db_column': "'battlenet_profiles'", 'blank': 'True'}),
             'avatar': ('django.db.models.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'bio': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
@@ -111,9 +113,9 @@ class Migration(SchemaMigration):
             'Meta': {'unique_together': "(('from_user', 'to_user'),)", 'object_name': 'SimilarUser'},
             'agrees': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'disagrees': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
-            'from_user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'similar_users'", 'to': "orm['auth.User']"}),
+            'from_user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'similar_users'", 'to': "orm['%s']" % user_model_label}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'to_user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'similar_users_from'", 'to': "orm['auth.User']"})
+            'to_user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'similar_users_from'", 'to': "orm['%s']" % user_model_label})
         },
         'djangoratings.vote': {
             'Meta': {'unique_together': "(('content_type', 'object_id', 'key', 'user', 'ip_address'),)", 'object_name': 'Vote'},
@@ -125,7 +127,7 @@ class Migration(SchemaMigration):
             'key': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'score': ('django.db.models.fields.IntegerField', [], {}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'votes'", 'null': 'True', 'to': "orm['auth.User']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'votes'", 'null': 'True', 'to': "orm['%s']" % user_model_label})
         }
     }
     

@@ -3,6 +3,9 @@ from south.db import db
 from django.db import models
 from djangoratings.models import *
 
+from djangoratings.compat import user_model_label
+
+
 class Migration:
     
     def forwards(self, orm):
@@ -69,7 +72,7 @@ class Migration:
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'auth.user': {
+        user_model_label: {
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
@@ -110,7 +113,7 @@ class Migration:
             'key': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'score': ('django.db.models.fields.IntegerField', [], {}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'votes'", 'null': 'True', 'to': "orm['auth.User']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'votes'", 'null': 'True', 'to': "orm['%s']" % user_model_label})
         }
     }
     
