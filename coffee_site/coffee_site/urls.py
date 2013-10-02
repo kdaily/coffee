@@ -48,7 +48,9 @@ urlpatterns = patterns('',
                        url(r'^media/(?P<path>.*)$','django.views.static.serve', {'document_root': media_root}),
                        
                        # View a list of roasters
-                       url(r'^roasters/$', 'general.views.roaster_list_view', name="roaster_list_view"),
+                       url(r'^roasters/$', 
+                           'general.views.roaster_list_view', 
+                           name="roaster_list_view"),
                        
                        # View details for roaster by primary key
                        url(r'^roaster/(?P<pk>\d+)/$', 
@@ -65,10 +67,16 @@ urlpatterns = patterns('',
                            view='general.views.add_user_roaster',
                            name="add_user_roaster"),
                        
-                        # Remove a roaster to current user's roaster list                     
+                       # Remove a roaster to current user's roaster list                     
                        url(r'^removeuserroaster/$', 
                            view='general.views.remove_user_roaster',
                            name="remove_user_roaster"),
+
+                       # Remove a roaster to current user's roaster list                     
+                       url(r'^rateuserroaster/$', 
+                           view='general.views.rate_user_roaster',
+                           name="rate_user_roaster"),
+
                                               
                        # View detail for a coffee
                        url(r'^coffee/(?P<pk>\d+)/$', 
