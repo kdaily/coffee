@@ -5,6 +5,7 @@
 {% block content %}
 
 {% load thumbnail %}
+{% load ratings %}
 
 {% if roaster_list %}
 <div class="hero-unit">
@@ -60,24 +61,21 @@
 	{% endif %}
         
         <div class="span4">
-	  <fieldset class="rating" name="{{ roaster.id }}">
+	  {% rating_by_request request on roaster.rating as users_rating %}
 
-	    
-	    <input type="radio" class="auto-submit-star" id="star5-{{ roaster.id }}" name="{{ roaster.id }}" value="5" />
-	    <label for="star5-{{ roaster.id }}" title="5 stars">5 stars</label>
-	    
-	    <input type="radio" class="auto-submit-star" id="star4-{{ roaster.id }}" name="{{ roaster.id }}" value="4" />
-	    <label for="star4-{{ roaster.id }}" title="4 stars">4 stars</label>
-	    
-	    <input type="radio" class="auto-submit-star" id="star3-{{ roaster.id }}" name="{{ roaster.id }}" value="3" />
-	    <label for="star3-{{ roaster.id }}" title="3 stars">3 stars</label>
-	    
-	    <input type="radio" class="auto-submit-star" id="star2-{{ roaster.id }}" name="{{ roaster.id }}" value="2" />
-	    <label for="star2-{{ roaster.id }}" title="2 stars">2 stars</label>
-	    
-	    <input type="radio" class="auto-submit-star" id="star1-{{ roaster.id }}" name="{{ roaster.id }}" value="1" />
-	    <label for="star1-{{ roaster.id }}" title="1 stars">1 star</label>
-	  </fieldset>		  
+	  Vote: {{ users_rating }}
+	  <fieldset class="rating" name="{{ roaster.id }}">
+	    {% for starnum in num_vote_stars %}
+
+	    {% if starnum == users_rating %}
+	    <input type="radio" class="auto-submit-star" id="star{{ starnum }}-{{ roaster.id }}" name="{{ roaster.id }}" value="{{ starnum }}" checked/>
+	    {% else %}
+	    <input type="radio" class="auto-submit-star" id="star{{ starnum }}-{{ roaster.id }}" name="{{ roaster.id }}" value="{{ starnum }}"/>
+	    {% endif %}
+	    <label for="star{{ starnum }}-{{ roaster.id }}" title="{{ starnum }} stars">{{ starnum }} stars</label>
+	    {% endfor %}
+	  </fieldset>
+
 	</div>
         </div>
     </div>
@@ -150,20 +148,21 @@ jQuery(function($){
     });
 
     $('.auto-submit-star').click(function(){
-        alert("The value selected was '" + $(this).attr('value') + "' for name '" + $(this).attr('name') + "'");
+        <!-- alert("The value selected was '" + $(this).attr('value') + "' for name '" + $(this).attr('name') + "'"); -->
 
-            $.ajax({type: "POST",
-                    url: "{% url 'rate_user_roaster' %}",
-                    data: {'roaster_pk': $(this).attr('name'), 
-                           'rating': $(this).attr('value'),
-                           'csrfmiddlewaretoken': '{{csrf_token}}'},
-                    dataType: "text",
-                    success: function(response) {},
-                    error: function(rs, e) {
-                        alert(rs.responseText);
-                    }
-            });
+        $.ajax({type: "POST",
+                url: "{% url 'rate_user_roaster' %}",
+                data: {'roaster_pk': $(this).attr('name'), 
+                       'rating': $(this).attr('value'),
+                       'csrfmiddlewaretoken': '{{csrf_token}}'},
+                dataType: "text",
+                success: function(response) {},
+                <!-- error: function(rs, e) { -->
+                <!--     alert(rs.responseText); -->
+                <!--     } -->
+                });
 
+	$(this).attr('checked', 'checked');
 
         // To submit the form automatically:
         //this.form.submit();
