@@ -1,5 +1,5 @@
 jQuery(function($){
-    // using jQuery
+    // use jQuery to get specific cookie
     function getCookie(name) {
 	var cookieValue = null;
 	if (document.cookie && document.cookie != '') {
@@ -56,10 +56,8 @@ jQuery(function($){
 	}
 	
     });
-    
+
     $('.auto-submit-star').click(function(){
-            <!-- alert("The value selected was '" + $(this).attr('value') + "' for name '" + $(this).attr('name') + "'"); -->
-	    
         $.ajax({type: "POST",
                 url: "/rateuserroaster/",
                 data: {'roaster_pk': $(this).attr('name'), 
@@ -67,9 +65,7 @@ jQuery(function($){
                        'csrfmiddlewaretoken': csrftoken},
                 dataType: "text",
                 success: function(response) {},
-                <!-- error: function(rs, e) { -->
-					      <!--     alert(rs.responseText); -->
-					      <!--     } -->
+                error: function(rs, e) {}
                });
 	
 	$(this).attr('checked', 'checked');
