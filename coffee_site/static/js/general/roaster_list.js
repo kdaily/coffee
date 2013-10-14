@@ -1,4 +1,9 @@
 jQuery(function($){
+
+    var rateuserroaster_url = "/rateuserroaster/"
+    var adduserroaster_url = "/adduserroaster/"
+    var removeuserroaster_url = "/removeuserroaster/"
+
     // use jQuery to get specific cookie
     function getCookie(name) {
 	var cookieValue = null;
@@ -26,7 +31,7 @@ jQuery(function($){
 
 	if ($(this).hasClass('icon-plus')){
 	    $.ajax({type: "POST",
-                    url: "/adduserroaster/",
+                    url: adduserroaster_url,
                	    // data: {'roaster_pk': $(this).attr('name'), 'csrfmiddlewaretoken': '{{csrf_token}}'},
                	    data: {'roaster_pk': $(this).attr('name'), 'csrfmiddlewaretoken': csrftoken},
                	    dataType: "text",
@@ -41,7 +46,7 @@ jQuery(function($){
 	} 
         else if ($(this).hasClass('icon-minus')) {
             $.ajax({type: "POST",
-                    url: "/removeuserroaster/",
+                    url: removeuserroaster_url,
                     data: {'roaster_pk': $(this).attr('name'), 'csrfmiddlewaretoken': csrftoken},
 		// data: {'roaster_pk': $(this).attr('name'), 'csrfmiddlewaretoken': '{{csrf_token}}'},
                     dataType: "text",
@@ -59,7 +64,7 @@ jQuery(function($){
 
     $('.auto-submit-star').click(function(){
         $.ajax({type: "POST",
-                url: "/rateuserroaster/",
+                url: rateuserroaster_url,
                 data: {'roaster_pk': $(this).attr('name'), 
                        'rating': $(this).attr('value'),
                        'csrfmiddlewaretoken': csrftoken},
