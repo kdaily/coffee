@@ -18,64 +18,7 @@ from djangoratings.fields import RatingField
 def upload_to_roaster(instance):
     return '%s/coffees' % (instance.roaster.name)
 
-class Roaster(models.Model):
-    """Model for a roaster.
-    
-    """
-    
-    name = models.CharField(max_length=500)
-    address = models.CharField(max_length=500, blank=True, null=True)
-    city = models.CharField(max_length=500, blank=True, null=True)
-    state = USStateField(choices = US_STATES, blank=True)
-    zipcode = models.IntegerField(null=True, blank=True)
-    country = CountryField(blank=True)
-    
-    website = models.CharField(max_length=500, blank=True, null=True)
-    phone = PhoneNumberField(null=True, blank=True)
-    
-    fbook  = models.CharField(max_length=500, blank=True, null=True)
-    twitter  = models.CharField(max_length=500, blank=True, null=True)
-    gplus  = models.CharField(max_length=500, blank=True, null=True)
-     
-    #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='roasters/', blank=True)
-    
-    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
 
-    def __unicode__(self):
-        return "%s" % (self.name)
-
-    class Meta:
-        # the columns that make unique records
-        unique_together = ('name', 'city', 'state')
-
-class Store(models.Model):
-    """Model for a store.
-    
-    """
-    
-    name = models.CharField(max_length=500)
-    address = models.CharField(max_length=500, blank=True, null=True)
-    city = models.CharField(max_length=500, blank=True, null=True)
-    state = USStateField(choices = US_STATES, blank=True)
-    zipcode = models.IntegerField(blank=True, null=True)
-    country = CountryField(blank=True)
-    website = models.CharField(max_length=500, blank=True, null=True)
-    phone = PhoneNumberField(null=True, blank=True)
-
-    fbook  = models.CharField(max_length=500, blank=True, null=True)
-    twitter  = models.CharField(max_length=500, blank=True, null=True)
-    gplus  = models.CharField(max_length=500, blank=True, null=True)
-    
-    #To use ImageFields, you need to install the Python Imaging Library
-    thumb = models.ImageField(upload_to='stores/', blank=True)
-    
-    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
-    
-    def __unicode__(self):
-        return "%s (%s, %s)" % (self.name, self.city, self.state)
-
-# Create your models here.
 class Coffee(models.Model):
     """DB model for coffee.
 
@@ -94,7 +37,7 @@ class Coffee(models.Model):
     
     notes = models.TextField(blank=True, null=True)
        
-    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
+    rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
 
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.finca)
@@ -102,7 +45,106 @@ class Coffee(models.Model):
     class Meta:
         # the columns that make unique records
         unique_together = ("name", "grower", "finca")
-           
+        
+        
+class Roaster(models.Model):
+    """Model for a roaster.
+    
+    """
+    
+    name = models.CharField(max_length=500)
+    address = models.CharField(max_length=500, blank=True, null=True)
+    city = models.CharField(max_length=500, blank=True, null=True)
+    state = USStateField(choices = US_STATES, blank=True)
+    zipcode = models.IntegerField(null=True, blank=True)
+    country = CountryField(blank=True)
+    lgt = models.FloatField(null=True, blank=True) 
+    lat = models.FloatField(null=True, blank=True)
+    
+    website = models.CharField(max_length=500, blank=True, null=True)
+    phone = PhoneNumberField(null=True, blank=True)
+    
+    fbook  = models.CharField(max_length=500, blank=True, null=True)
+    twitter  = models.CharField(max_length=500, blank=True, null=True)
+    gplus  = models.CharField(max_length=500, blank=True, null=True)
+         
+    thumb = models.ImageField(upload_to='roasters/', null=True, blank=True)
+    
+    rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
+
+    def __unicode__(self):
+        return "%s" % (self.name)
+
+    class Meta:
+        # the columns that make unique records
+        unique_together = ('name', 'city', 'state')
+
+
+class UserRoaster(models.Model):
+    """DB model for a user's roasters.
+    
+    Has relationships to a user and a roaster
+    """
+    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    roaster = models.ForeignKey(Roaster)
+    
+    rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
+
+    notes = models.TextField(blank=True, null=True)    
+    
+    class Meta:
+        permissions = (('view_user_coffee_roaster', "View user's roaster"),)
+        unique_together = ('user', 'roaster')
+
+
+class Store(models.Model):
+    """Model for a store.
+    
+    """
+    
+    name = models.CharField(max_length=500)
+    address = models.CharField(max_length=500, blank=True, null=True)
+    city = models.CharField(max_length=500, blank=True, null=True)
+    state = USStateField(choices = US_STATES, blank=True)
+    zipcode = models.IntegerField(blank=True, null=True)
+    country = CountryField(blank=True)
+    website = models.CharField(max_length=500, blank=True, null=True)
+    phone = PhoneNumberField(null=True, blank=True)
+    
+    lgt = models.FloatField(null=True, blank=True) 
+    lat = models.FloatField(null=True, blank=True)
+
+    fbook  = models.CharField(max_length=500, blank=True, null=True)
+    twitter  = models.CharField(max_length=500, blank=True, null=True)
+    gplus  = models.CharField(max_length=500, blank=True, null=True)
+    
+    #To use ImageFields, you need to install the Python Imaging Library
+    thumb = models.ImageField(upload_to='stores/', blank=True, null=True)
+    
+    rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
+    
+    def __unicode__(self):
+        return "%s (%s, %s)" % (self.name, self.city, self.state)
+
+
+class UserStore(models.Model):
+    """DB model for user's stores.
+    
+    Has relationships to a user and store
+    """
+    
+    rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
+
+    notes = models.TextField(blank=True, null=True)    
+
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    store = models.ForeignKey(Store)
+
+    class Meta:
+        permissions = (('view_user_store', "View user's stores"),)
+
+
 class CoffeeBagImage(models.Model):
     """DB model for coffee bag images (to allow multiple images).
 
@@ -124,20 +166,22 @@ class CoffeeBagImage(models.Model):
         
     class Meta:
         permissions = (('view_coffee_bag_image', "View coffee bag image"),)
-           
-class RoastedCoffeeBag(models.Model):
-    """DB model for a bag of roasted coffee.
-
-    This has a roaster and a coffee as relationships.
+                           
+                           
+class CoffeeBag(models.Model):
+    """DB model for a specific coffee bag - a bag per roast date.
 
     """
+    amount = models.FloatField(blank=True, null=True)
+    
     roast_type = models.CharField(max_length=200, blank=True, null=True)
     
-    thumb = models.ForeignKey(CoffeeBagImage)
+    thumb = models.ForeignKey(CoffeeBagImage, null=True, blank=True)
+       
+    rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
+    
     roaster = models.ForeignKey(Roaster)
     coffee = models.ForeignKey(Coffee)
-
-    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
     
     def __unicode__(self):
         return "%s, %s (%s)" % (self.coffee.name, self.roaster.name)
@@ -145,29 +189,25 @@ class RoastedCoffeeBag(models.Model):
     class Meta:
         # the columns that make unique records
         unique_together = ('roaster', 'coffee')
-                   
-class CoffeeBag(models.Model):
-    """DB model for a specific coffee bag - a bag per roast date.
-
+        
+        
+class CoffeeBagStore(models.Model):
+    """DB model for coffees available at a particular store.
+    
+    Has relationships to a store and a coffee bag
     """
     
-    #Maybe we should only have a year?
-    date_roast = models.DateField('Roast Date', blank=True, null=True)
+    #Maybe we should only have a year?        
     
-    amount = models.FloatField(blank=True, null=True)
     price = models.FloatField(blank=True, null=True)
     
-    roasted_coffee_bag = models.ForeignKey(RoastedCoffeeBag)
+    rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
+    notes = models.TextField(blank=True, null=True)    
 
-    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
+    store = models.ManyToManyField(Store)
+    coffee_bag = models.ForeignKey(CoffeeBag)
     
-    def __unicode__(self):
-        return "%s, %s (%s)" % (self.roasted_coffee_bag.coffee, self.roasted_coffee_bag.roaster, self.date_roast)
-
-    class Meta:
-        # the columns that make unique records
-        unique_together = ('roasted_coffee_bag', 'date_roast')
-        
+           
 class AromaTaste(models.Model):
     """Model for a aroma/taste wheel
     
@@ -180,53 +220,8 @@ class AromaTaste(models.Model):
     def __unicode__(self):
         return "%s" % (self.name)
     
-class UserRoaster(models.Model):
-    """DB model for a user's roasters.
     
-    Has relationships to a user and roaster
-    """
-    
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    roaster = models.ForeignKey(Roaster)
-    
-    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
-
-    notes = models.TextField(blank=True, null=True)    
-    
-    class Meta:
-        permissions = (('view_user_coffee_roaster', "View user's roaster"),)
-        unique_together = ('user', 'roaster')
-
-class UserStore(models.Model):
-    """DB model for a user's stores.
-    
-    Has relationships to a user and store
-    """
-    
-    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
-
-    notes = models.TextField(blank=True, null=True)    
-
-    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    store = models.ForeignKey(Store)
-
-    class Meta:
-        permissions = (('view_user_store', "View user's stores"),)
-
-class RoasterStore(models.Model):
-    """DB model for a user's roasters.
-    
-    Has relationships to a user and roaster
-    """
-    
-    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
-    notes = models.TextField(blank=True, null=True)    
-
-    store = models.ManyToManyField(Store)
-    roaster = models.ForeignKey(Roaster)
-    roasted_coffee_bag = models.ForeignKey(RoastedCoffeeBag)
-    
-class news_info(models.Model):
+class NewsInfo(models.Model):
     """news for the first page.
     
     """
@@ -235,11 +230,24 @@ class news_info(models.Model):
     text = models.TextField(blank=True, null=True)   
     source = models.CharField(max_length=500, blank=True, null=True)
     website = models.CharField(max_length=500, blank=True, null=True)
-    thumb = models.ImageField(upload_to='news/', blank=True)
+    thumb = models.ImageField(upload_to='news/', blank=True, null=True)
     posted_by = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
     
-            
+class LocationTable(models.Model):
+    """ contains longitude and latitude for all cities in the world
+    
+    """
+    
+    country = models.CharField(max_length=2)
+    city = models.CharField(max_length=500)
+    accent_city = models.CharField(max_length=500)
+    region = models.CharField(max_length=4)
+    population = models.IntegerField(blank=True, null=True)
+    latitute = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
+    
+           
 def make_custom_datefield(f):
     """Change the format of the date in form fields.
     
