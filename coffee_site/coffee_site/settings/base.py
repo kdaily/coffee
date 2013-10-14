@@ -160,6 +160,7 @@ INSTALLED_APPS = (
     'localflavor',
     'django_countries',
     'easy_maps',
+    'south',
     
     # # Not compatible with Django 1.5 (doesn't work with custom user class)
     # # Pull request in github repo has been made to add this functionality,
