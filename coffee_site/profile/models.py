@@ -19,9 +19,12 @@ class CoffeeUser(AbstractUser):
     twitter  = models.CharField(max_length=500, blank=True, null=True)
     gplus  = models.CharField(max_length=500, blank=True, null=True)
 
-    skill_level = models.CharField(max_length=500, blank=True, null=True)
+    skill_level = models.CharField(max_length=1, choices=(('B', 'Beginner'), ('I', 'Intermediate'), ('A', 'Advanced'), ('I', 'Professional')), null=True, blank=True)
 
-    avatar = ImageField(upload_to=upload_to_user)
+    avatar = ImageField(upload_to=upload_to_user, blank=True, null=True)
+    
+    date_birth = models.DateField('Date of birth', blank=True, null=True)    
+    sex = models.CharField(max_length=1, choices=(('M', 'Male'), ('F', 'Female')), null=True, blank=True)
     
     # Encoding for sharing fields
     NOSHARE = 0
@@ -41,8 +44,8 @@ class CoffeeUser(AbstractUser):
     ratio_sharing = models.SmallIntegerField(choices=SHARE_CHOICES,
                                              default=NOSHARE)
 
-    friends = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    
+    friends = models.ManyToManyField(settings.AUTH_USER_MODEL)                
+        
     def save(self, *args, **kwargs):
         if not self.pk:
         #super(CoffeeUser, self).save(*args, **kwargs)  
