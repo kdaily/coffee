@@ -17,11 +17,15 @@ class PurchasedCoffeeBag(models.Model):
     """
     
     date_purch = models.DateField('Purchase Date', blank=True)
-    rating = RatingField(range=5, weight=5,can_change_vote = True,allow_delete = True,allow_anonymous = True)
+    date_roast = models.DateField('Roast Date', blank=True, null=True)
+    
+    price = models.FloatField(blank=True, null=True)
+    
+    rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
 
     notes = models.TextField(blank=True, null=True)    
 
-    thumb = models.ForeignKey(CoffeeBagImage)
+    thumb = models.ForeignKey(CoffeeBagImage, blank=True, null=True)
 
     # Better way to specify the user than the User object
     user = models.ManyToManyField(settings.AUTH_USER_MODEL)
