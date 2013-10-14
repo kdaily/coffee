@@ -21,7 +21,7 @@
   <h1>Hello</h1>
   State: {{ state }}<br />
  
-    <div id="map_canvas"></div>
+  <div id="map_canvas"></div>
   
 </div>
  
@@ -30,23 +30,58 @@
 {% block script %}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdGLwlfxNPtUBeggNIaPw3zTMW05FyR-M&sensor=false"></script>
 <script type="text/javascript">
+google.maps.visualRefresh = true;
+
 var map;
 
 jQuery(function($) {
     $(document).ready(function() {
-        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var latlng = new google.maps.LatLng(0, 0);
+        var isIn = 0;                
+        
+        if(navigator.geolocation) {              	        	
+        	navigator.geolocation.getCurrentPosition(function(position){        		
+        	  latlng = new google.maps.LatLng(position.coords.latitude,
+                                               position.coords.longitude);
+        	  
+        	  isIn = 1;
+
+              var infowindow = new google.maps.InfoWindow({
+                map: map,
+                position: latlng,
+                content: 'You are here!'
+              });
+              
+        	});
+        } 
+                            
+        if (isIn == 0){        	
+        	$.get('http://freegeoip.net/json/', function(data)
+                	{        		
+                		latlng = new google.maps.LatLng(data.latitude,
+                				data.longitude); 
+                		
+                		var infowindow = new google.maps.InfoWindow({
+                            map: map,
+                            position: latlng,
+                            content: 'You are here!'
+                          });     
+                		
+                	}, 'jsonp');
+        }        	
+        
         var myOptions = {
             zoom: 8,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
+        
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         console.dir(map);
-        google.maps.event.trigger(map, 'resize');
-
-        
+        google.maps.event.trigger(map, 'resize');        
     });
 });
+
 </script>
 
 
