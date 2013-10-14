@@ -23,6 +23,7 @@ from profile.models import CoffeeUser
 
 from django.utils import simplejson
 
+
 logger = logging.getLogger('views')
 
 def home(request):
@@ -86,8 +87,7 @@ def logout(request):
     
     auth.logout(request)
 
-    return HttpResponseRedirect('/')
-
+    return HttpResponseRedirect('/')   
     
 def roaster_list_view(request, *args, **kwargs):
     """View to get a paginated list of all roasters.
