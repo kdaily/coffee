@@ -121,7 +121,7 @@ class UserRoasterListView(ListView):
     """
 
     def get_queryset(self, *args, **kwargs):
-        """Override get_querset so we can filter on request.user """
+        """Override get_queryset so we can filter on request.user """
         return UserRoaster.objects.filter(user=self.request.user.id)      
     
     template_name = 'general/roasters.html'
@@ -143,11 +143,18 @@ def rate_user_roaster(request, *args, **kwargs):
         curruser = request.user
         roaster = Roaster.objects.get(pk=roaster_pk)
 
-        logger.debug("Trying to update: %s added %i to %s" % (curruser, rating, roaster))
+        logger.debug("Trying to update: %s added %i to %s" % (curruser, 
+                                                              rating, 
+                                                              roaster))
 
         try:
             roaster.rating.delete(request.user, request.META['REMOTE_ADDR'])
-            roaster.rating.add(score=rating, user=request.user, ip_address=request.META['REMOTE_ADDR'])
+        except Exception as e:
+            logger.error("Can't delete: %s" % e)
+
+        try:
+            roaster.rating.add(score=rating, user=request.user, 
+                               ip_address=request.META['REMOTE_ADDR'])
             roaster.save()
             logger.debug("%s added %i to %s" % (curruser, rating, roaster))
             state = 'success'
@@ -176,7 +183,8 @@ def add_user_roaster(request, *args, **kwargs):
         print curruser, roaster
         
         try:
-            user_roaster = UserRoaster(user=curruser, roaster=roaster)
+            user_roaster = UserRoaster(user=curruser,
+                                       roaster=roaster)
             user_roaster.save()
             state = 'success'
         except:
@@ -211,7 +219,8 @@ def remove_user_roaster(request, *args, **kwargs):
         
         if roaster_pk:
             try:
-                user_roaster = UserRoaster.objects.get(user=request.user.id, roaster=roaster_pk)
+                user_roaster = UserRoaster.objects.get(user=request.user.id,
+                                                       roaster=roaster_pk)
                 user_roaster.delete()
                 state = 'success'
             except:
