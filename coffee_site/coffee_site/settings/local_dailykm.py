@@ -29,11 +29,4 @@ DATABASES = {
     }
 }
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', # default
-    'guardian.backends.ObjectPermissionBackend',
-)
-
-# For django-guardian
-ANONYMOUS_USER_ID = -1
 
