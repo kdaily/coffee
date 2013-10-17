@@ -29,11 +29,11 @@ class PurchasedCoffeeBag(models.Model):
 
     # Better way to specify the user than the User object
     user = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    store = models.ForeignKey(UserStore)
-    coffeebag = models.ForeignKey(CoffeeBag)
+    userstore = models.ForeignKey(UserStore, blank=False, null=False)
+    coffeebag = models.ForeignKey(CoffeeBag, blank=False, null=False)
     
     def __unicode__(self):
-        return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.store.store.name)
+        return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.userstore.store.name)
 
     class Meta:
         # Default ordering - chronological by purchase date
