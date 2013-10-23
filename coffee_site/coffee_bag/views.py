@@ -103,7 +103,7 @@ class PurchasedCoffeeBagCreateView(LoginRequiredMixin, CreateView):
         
         """
         
-        curruser = User.objects.get(pk=request.user.id)
+        curruser = request.user
         form = self.form_class(initial={'id_user': curruser})
         
         return render(request, self.template_name, {'form': form})
