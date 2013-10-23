@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.views.generic import DetailView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 
 from braces.views import LoginRequiredMixin
 
@@ -52,7 +53,7 @@ class UserPurchasedCoffeeBagListView(LoginRequiredMixin, ListView):
         """
         
         # Get the current user, or return a 404 error
-        self.user = get_object_or_404(User, username=self.args[0])
+        self.user = get_object_or_404(settings.AUTH_USER_MODEL, username=self.args[0])
         
         return PurchasedCoffeeBag.objects.filter(user__id=self.user.id).order_by('-date_purch')
 
