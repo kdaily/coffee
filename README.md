@@ -46,3 +46,10 @@ The layout is mostly based on concepts from the "Two Scoops" Django book.
 - `coffee_ratio` has models and views for coffee preparation methods.
 - `templates` holds all HTML templates that are rendered by views.
 - `static` holds all static content - Twitter Bootstrap, JQuery, CSS stylesheets, static (non-user) images, etc.
+
+Database
+------
+
+To support all features of django-south, we are using Postgresql 9.2.
+
+See http://www.if-not-true-then-false.com/2012/install-postgresql-on-fedora-centos-red-hat-rhel/ for installation details.
