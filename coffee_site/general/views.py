@@ -14,6 +14,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext, Context, loader
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.conf import settings
 
 from braces.views import LoginRequiredMixin
 
@@ -177,7 +178,7 @@ def add_user_roaster(request, *args, **kwargs):
         state = "add a UserRoaster"
     
         # curruser = request.user
-        curruser = CoffeeUser.objects.get(pk=request.user.id)
+        curruser = request.user
         roaster = Roaster.objects.get(pk=request.POST.get('roaster_pk', None))
         
         print curruser, roaster
@@ -291,7 +292,7 @@ class CoffeeCreateView(LoginRequiredMixin, CreateView):
 
         """
         
-        curruser = User.objects.get(pk=request.user.id)
+        curruser = request.user
         form = self.form_class(initial={'user': curruser})
         return render(request, self.template_name, {'form': form})
 
