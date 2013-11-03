@@ -138,7 +138,7 @@ class UserStore(models.Model):
 
     notes = models.TextField(blank=True, null=True)    
 
-    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     store = models.ForeignKey(Store)
 
     class Meta:
@@ -155,7 +155,7 @@ class CoffeeBagImage(models.Model):
     
     roaster = models.ForeignKey(Roaster)
     coffee = models.ForeignKey(Coffee)
-    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
         
     def save(self, *args, **kwargs):
         if not self.id:  
@@ -204,7 +204,7 @@ class CoffeeBagStore(models.Model):
     rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
     notes = models.TextField(blank=True, null=True)    
 
-    store = models.ManyToManyField(Store)
+    store = models.ForeignKey(Store)
     coffee_bag = models.ForeignKey(CoffeeBag)
     
            
@@ -282,4 +282,5 @@ class CoffeeBagForm(forms.ModelForm):
     
     class Meta:
         model = CoffeeBag
-    
+        
+        exclude = ('thumb',)
