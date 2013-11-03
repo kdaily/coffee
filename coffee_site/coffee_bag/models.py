@@ -6,7 +6,7 @@ from sorl.thumbnail import ImageField
 
 from djangoratings.fields import RatingField
 
-from general.models import UserStore, CoffeeBag, CoffeeBagImage
+from general.models import UserStore, CoffeeBagStore, CoffeeBagImage
 
     
 class PurchasedCoffeeBag(models.Model):
@@ -17,10 +17,7 @@ class PurchasedCoffeeBag(models.Model):
     """
     
     date_purch = models.DateField('Purchase Date', blank=True)
-    date_roast = models.DateField('Roast Date', blank=True, null=True)
-    
-    price = models.FloatField(blank=True, null=True)
-    
+        
     rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
 
     notes = models.TextField(blank=True, null=True)    
@@ -29,11 +26,13 @@ class PurchasedCoffeeBag(models.Model):
 
     # Better way to specify the user than the User object
     user = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    userstore = models.ForeignKey(UserStore, blank=False, null=False)
-    coffeebag = models.ForeignKey(CoffeeBag, blank=False, null=False)
+    # userstore = models.ForeignKey(UserStore, blank=False, null=False)
+    coffeebagstore = models.ForeignKey(CoffeeBagStore, blank=False, null=False)
     
     def __unicode__(self):
-        return "%s, %s, %s" % (self.coffeebag.coffee.name, self.coffeebag.roaster.name, self.userstore.store.name)
+        return "%s, %s, %s" % (self.coffeebagstore.coffee_bag.coffee.name, 
+                               self.coffeebagstore.coffee_bag.roaster.name,
+                               self.coffeebagstore.store.name)
 
     class Meta:
         # Default ordering - chronological by purchase date
@@ -67,4 +66,4 @@ class PurchasedCoffeeBagForm(forms.ModelForm):
         
         # Logged in user will add a purchased coffee bag
         # so in form the user field should not be displayed.
-        exclude = ('user',)
+        exclude = ('user', 'coffeebag')
