@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from guardian.admin import GuardedModelAdmin
 
-from .models import Coffee, CoffeeBag, CoffeeBag
+from .models import Coffee, CoffeeBag, CoffeeBagStore
 from .models import Roaster, UserRoaster
 from .models import Store, UserStore
 from .models import CoffeeBagImage
@@ -29,4 +29,5 @@ admin.site.register(UserRoaster, UserRoasterAdmin)
 admin.site.register(Store)
 admin.site.register(UserStore, UserStoreAdmin)
 admin.site.register(CoffeeBag)
+admin.site.register(CoffeeBagStore)
 admin.site.register(CoffeeBagImage)
