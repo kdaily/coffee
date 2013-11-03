@@ -40,7 +40,7 @@ class Coffee(models.Model):
     rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
 
     def __unicode__(self):
-        return "%s (%s)" % (self.name, self.finca)
+        return "%s:%s" % (self.name, self.country)
 
     class Meta:
         # the columns that make unique records
@@ -125,7 +125,7 @@ class Store(models.Model):
     rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
     
     def __unicode__(self):
-        return "%s (%s, %s)" % (self.name, self.city, self.state)
+        return "%s: %s, %s" % (self.name, self.city, self.state)
 
 
 class UserStore(models.Model):
@@ -177,35 +177,20 @@ class CoffeeBag(models.Model):
     roast_type = models.CharField(max_length=200, blank=True, null=True)
     
     thumb = models.ForeignKey(CoffeeBagImage, null=True, blank=True)
-       
+    
     rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
     
     roaster = models.ForeignKey(Roaster)
     coffee = models.ForeignKey(Coffee)
     
     def __unicode__(self):
-        return "%s, (%s)" % (self.coffee.name, self.roaster.name)
+        return "%s:%s" % (self.coffee.name, self.roaster.name)
     
     class Meta:
         # the columns that make unique records
         unique_together = ('roaster', 'coffee')
         
         
-class CoffeeBagStore(models.Model):
-    """DB model for coffees available at a particular store.
-    
-    Has relationships to a store and a coffee bag
-    """
-    
-    #Maybe we should only have a year?        
-    
-    price = models.FloatField(blank=True, null=True)
-    
-    rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
-    notes = models.TextField(blank=True, null=True)    
-
-    store = models.ForeignKey(Store)
-    coffee_bag = models.ForeignKey(CoffeeBag)
     
            
 class AromaTaste(models.Model):
@@ -285,13 +270,18 @@ class CoffeeBagForm(forms.ModelForm):
         
         exclude = ('thumb',)
 
-class CoffeeBagStoreForm(forms.ModelForm):
-    """Form model for adding new coffees.
+class StoreForm(forms.ModelForm):
+    """Form model for adding new stores.
     
     """
-    
-    # change the format of the date fields
-    formfield_callback = make_custom_datefield
-    
+        
     class Meta:
-        model = CoffeeBagStore
+        model = Store
+
+class RoasterForm(forms.ModelForm):
+    """Form model for adding new stores.
+    
+    """
+        
+    class Meta:
+        model = Roaster
