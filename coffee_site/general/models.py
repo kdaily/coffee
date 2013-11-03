@@ -284,3 +284,14 @@ class CoffeeBagForm(forms.ModelForm):
         model = CoffeeBag
         
         exclude = ('thumb',)
+
+class CoffeeBagStoreForm(forms.ModelForm):
+    """Form model for adding new coffees.
+    
+    """
+    
+    # change the format of the date fields
+    formfield_callback = make_custom_datefield
+    
+    class Meta:
+        model = CoffeeBagStore
