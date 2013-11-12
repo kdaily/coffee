@@ -1,3 +1,5 @@
+import logging
+
 from django.template import RequestContext, Context, loader
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.shortcuts import render_to_response, get_object_or_404, redirect, render
@@ -11,11 +13,16 @@ from django.conf import settings
 
 from braces.views import LoginRequiredMixin
 
-from general.models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
-from coffee_bag.models import PurchasedCoffeeBag, PurchasedCoffeeBagForm
+from general.models import Coffee, CoffeeBag
+from general.forms import CoffeeForm, CoffeeBagForm, StoreForm, RoasterForm
+from general.models import Store, Roaster
+
+from .models import PurchasedCoffeeBag
+from .forms import PurchasedCoffeeBagForm
 
 # Create your views here.
 
+logger = logging.getLogger('views')
 
 
 class PurchasedCoffeeBagDetailView(DetailView):
@@ -82,7 +89,32 @@ class SearchPurchasedCoffeeBagListView(ListView):
         q = self.request.GET.get("q")
         
         return queryset.filter(varietal__icontains=q)
+
+def purchased_coffee_bag_create_view(request):
+    """View to add new purchased coffee bags.
     
+    """
+
+    if request.method == "POST":
+        logger.debug("coffee bag = %s" % request.POST.get('coffee_bag'))
+        logger.debug("roaster = %s" % request.POST.get('roaster'))
+        
+        purchased_coffee_bag_form = PurchasedCoffeeBagForm(request.POST)
+        
+        if purchased_coffee_bag_form.is_valid():
+            new_purch_coffee_bag = purchased_coffee_bag_form.save(commit=False)
+            new_purch_coffee_bag.save()
+            return HttpResponseRedirect('/purchased_coffees/')
+
+    else:
+        purchased_coffee_bag_form = PurchasedCoffeeBagForm()
+
+        render_dict = {'purchcoffeebagform': purchased_coffee_bag_form}
+    
+    return render_to_response('coffee_journal/coffee/purchasedcoffeebag_create.html',
+                              render_dict,
+                              context_instance=RequestContext(request))
+
 class PurchasedCoffeeBagCreateView(LoginRequiredMixin, CreateView):
     """View to add new purchased coffee bags.
     
