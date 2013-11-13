@@ -90,71 +90,82 @@ class SearchPurchasedCoffeeBagListView(ListView):
         
         return queryset.filter(varietal__icontains=q)
 
+@login_required    
 def purchased_coffee_bag_create_view(request):
     """View to add new purchased coffee bags.
     
     """
 
-    if request.method == "POST":
-        logger.debug("coffee bag = %s" % request.POST.get('coffee_bag'))
-        logger.debug("roaster = %s" % request.POST.get('roaster'))
+    if request.user.is_authenticated():
+
+        if request.method == "POST":
+            logger.debug("coffee bag = %s" % request.POST.get('coffee_bag'))
+            logger.debug("roaster = %s" % request.POST.get('roaster'))
+            logger.debug("user = %s" % request.POST.get('user'))
         
-        purchased_coffee_bag_form = PurchasedCoffeeBagForm(request.POST)
-        
-        if purchased_coffee_bag_form.is_valid():
-            new_purch_coffee_bag = purchased_coffee_bag_form.save(commit=False)
-            new_purch_coffee_bag.save()
-            return HttpResponseRedirect('/purchased_coffees/')
+            purchased_coffee_bag_form = PurchasedCoffeeBagForm(request.POST)
+            
+            if purchased_coffee_bag_form.is_valid():
+                new_purch_coffee_bag = purchased_coffee_bag_form.save(commit=False)
+                new_purch_coffee_bag.save()
+                logger.debug("After first save, user = %s" % new_purch_coffee_bag.user)
+                new_purch_coffee_bag.user.add(request.user)
+                new_purch_coffee_bag.save()
+
+                return HttpResponseRedirect('/purchased_coffees/')
+
+        else:
+            purchased_coffee_bag_form = PurchasedCoffeeBagForm(initial={'id_user': request.user})
+            render_dict = {'purchcoffeebagform': purchased_coffee_bag_form}
+    
+        return render_to_response('coffee_journal/coffee/purchasedcoffeebag_create.html',
+                                  render_dict,
+                                  context_instance=RequestContext(request))
 
     else:
-        purchased_coffee_bag_form = PurchasedCoffeeBagForm()
+        response = render_to_response('index.html',
+                                      context_instance=RequestContext(request))
 
-        render_dict = {'purchcoffeebagform': purchased_coffee_bag_form}
+# class PurchasedCoffeeBagCreateView(LoginRequiredMixin, CreateView):
+#     """View to add new purchased coffee bags.
     
-    return render_to_response('coffee_journal/coffee/purchasedcoffeebag_create.html',
-                              render_dict,
-                              context_instance=RequestContext(request))
+#     """
 
-class PurchasedCoffeeBagCreateView(LoginRequiredMixin, CreateView):
-    """View to add new purchased coffee bags.
-    
-    """
+#     model = PurchasedCoffeeBag
+#     form_class = PurchasedCoffeeBagForm
 
-    model = PurchasedCoffeeBag
-    form_class = PurchasedCoffeeBagForm
+#     template_name = 'coffee_journal/coffee/purchasedcoffeebag_create.html'
 
-    template_name = 'coffee_journal/coffee/purchasedcoffeebag_create.html'
+#     context_object_name = 'purch_coffee_create'
 
-    context_object_name = 'purch_coffee_create'
+#     def get(self, request, *args, **kwargs):
+#         """Handle GET requests.
+        
+#         Display the form; initializes the user variable to the currently logged
+#         in user.
+        
+#         """
+        
+#         curruser = request.user
+#         form = self.form_class(initial={'id_user': curruser})
+        
+#         return render(request, self.template_name, {'form': form})
 
-    def get(self, request, *args, **kwargs):
-        """Handle GET requests.
+#     def post(self, request, *args, **kwargs):
+#         """Handle POST requests.
         
-        Display the form; initializes the user variable to the currently logged
-        in user.
+#         Process the form. Currently uses default validation, could probably
+#         use some custom validation.
         
-        """
+#         """
         
-        curruser = request.user
-        form = self.form_class(initial={'id_user': curruser})
+#         form = self.form_class(request.POST)
         
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        """Handle POST requests.
+#         if form.is_valid():
+#             cmodel = form.save()
+#             #This is where you might chooose to do stuff.
+#             #cmodel.name = 'test1'
+#             cmodel.save()
+#             return redirect('purchcoffeebagdetail', pk=cmodel.pk)
         
-        Process the form. Currently uses default validation, could probably
-        use some custom validation.
-        
-        """
-        
-        form = self.form_class(request.POST)
-        
-        if form.is_valid():
-            cmodel = form.save()
-            #This is where you might chooose to do stuff.
-            #cmodel.name = 'test1'
-            cmodel.save()
-            return redirect('purchcoffeebagdetail', pk=cmodel.pk)
-        
-        return render(request, self.template_name, {'form': form})
+#         return render(request, self.template_name, {'form': form})
