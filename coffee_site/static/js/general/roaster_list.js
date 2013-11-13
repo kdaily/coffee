@@ -1,5 +1,7 @@
 jQuery(function($){
 
+    $( ".datePicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    
     var rateuserroaster_url = "/rateuserroaster/"
     var adduserroaster_url = "/adduserroaster/"
     var removeuserroaster_url = "/removeuserroaster/"
