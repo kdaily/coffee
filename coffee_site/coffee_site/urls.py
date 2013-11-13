@@ -15,7 +15,6 @@ admin.autodiscover()
 from coffee_bag.views import PurchasedCoffeeBagDetailView
 from coffee_bag.views import PurchasedCoffeeBagListView
 from coffee_bag.views import UserPurchasedCoffeeBagListView
-from coffee_bag.views import PurchasedCoffeeBagCreateView
 from general.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
 from general.views import CoffeeBagListView, CoffeeBagDetailView
 from general.views import roaster_list_view, RoasterDetailView, UserRoasterListView
