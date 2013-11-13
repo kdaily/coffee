@@ -51,6 +51,11 @@ urlpatterns = patterns('',
                        url(r'^roasters/$', 
                            'general.views.roaster_list_view', 
                            name="roaster_list_view"),
+
+                       # View a list of roasters
+                       url(r'^coffeebag_by_roaster_json/$', 
+                           'general.views.coffeebag_by_roaster_view_json', 
+                           name="coffeebag_by_roaster_view_json"),
                        
                        # View details for roaster by primary key
                        url(r'^roaster/(?P<pk>\d+)/$', 
@@ -105,9 +110,9 @@ urlpatterns = patterns('',
 
                        # Create a new purchased coffee bags
                        url(r'^addpurchcoffeebag/$', 
-                           view=PurchasedCoffeeBagCreateView.as_view(),
+                           view='coffee_bag.views.purchased_coffee_bag_create_view',
                            name="purchcoffeebagcreate"),
-
+                       
                        # Create a new coffee 
                        url(r'^addcoffee/$', 
                            view=CoffeeCreateView.as_view(),

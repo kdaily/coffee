@@ -3,7 +3,8 @@ from django.db import models
 
 import selectable.forms
 
-from .models import Coffee, CoffeeBag, Store, Roaster, PurchasedCoffeeBag
+from general.models import Coffee, CoffeeBag, Store, Roaster
+from .models import PurchasedCoffeeBag
 
 def make_custom_datefield(f):
     """Change the format of the date in form fields.

@@ -108,6 +108,27 @@ def roaster_list_view(request, *args, **kwargs):
                                'paginate_by': 6},
                               context_instance=RequestContext(request))
 
+def coffeebag_by_roaster_view_json(request):
+    """View to get a paginated list of all roasters.
+    """
+
+    if request.user.is_authenticated():
+    
+        roaster = request.GET.get('roaster')
+
+        ret = []
+
+        if roaster:
+            for coffeebag in CoffeeBag.objects.filter(roaster__id=roaster):
+                ret.append(dict(id=coffeebag.id, value=unicode(coffeebag)))
+
+        if len(ret) != 1:
+            ret.insert(0, dict(id='', value='---'))
+    
+    return HttpResponse(simplejson.dumps(ret), 
+                        content_type='application/json')
+
+
     
 class RoasterDetailView(DetailView):
     """View to get the detailed view for a roaster.

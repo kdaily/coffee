@@ -6,7 +6,7 @@ from sorl.thumbnail import ImageField
 
 from djangoratings.fields import RatingField
 
-from general.models import UserStore, CoffeeBagStore, CoffeeBagImage
+from general.models import Store, CoffeeBag, CoffeeBagImage
 
     
 class PurchasedCoffeeBag(models.Model):
@@ -26,13 +26,13 @@ class PurchasedCoffeeBag(models.Model):
 
     # Better way to specify the user than the User object
     user = models.ManyToManyField(settings.AUTH_USER_MODEL)
-    # userstore = models.ForeignKey(UserStore, blank=False, null=False)
-    coffeebagstore = models.ForeignKey(CoffeeBagStore, blank=False, null=False)
+    store = models.ForeignKey(Store, blank=False, null=False)
+    coffeebag = models.ForeignKey(CoffeeBag, blank=False, null=False)
     
     def __unicode__(self):
-        return "%s, %s, %s" % (self.coffeebagstore.coffee_bag.coffee.name, 
-                               self.coffeebagstore.coffee_bag.roaster.name,
-                               self.coffeebagstore.store.name)
+        return "%s, %s, %s" % (self.coffee_bag.coffee.name, 
+                               self.coffee_bag.roaster.name,
+                               self.store.name)
 
     class Meta:
         # Default ordering - chronological by purchase date
