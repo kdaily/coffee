@@ -125,8 +125,8 @@ def coffeebag_by_roaster_view_json(request):
         if len(ret) != 1:
             ret.insert(0, dict(id='', value='---'))
     
-    return HttpResponse(simplejson.dumps(ret), 
-                        content_type='application/json')
+        return HttpResponse(simplejson.dumps(ret), 
+                            content_type='application/json')
 
 
     
