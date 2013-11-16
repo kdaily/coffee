@@ -274,9 +274,14 @@ class UserRoasterListView(ListView):
         """Override get_queryset so we can filter on request.user """
         return UserRoaster.objects.filter(user=self.request.user.id)      
     
-    template_name = 'general/roasters.html'
+    template_name = 'general/my_roasters.html'
     paginate_by = 6
     context_object_name = 'roaster_list'
+    
+    def get_context_data(self, **kwargs):
+        context = super(UserRoasterListView, self).get_context_data(**kwargs)
+        context['num_vote_stars'] = [5,4,3,2,1]
+        return context
 
 class StoreDetailView(DetailView):
     """View to get the detailed view for a store.
@@ -297,6 +302,11 @@ class UserStoreListView(ListView):
     paginate_by = 6
     context_object_name = 'store_list'
     
+    def get_context_data(self, **kwargs):
+        context = super(UserStoreListView, self).get_context_data(**kwargs)
+        context['num_vote_stars'] = [5,4,3,2,1]
+        return context
+
 @login_required    
 def rate_user_roaster(request, *args, **kwargs):
     json_vars = {}
