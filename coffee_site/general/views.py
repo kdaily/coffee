@@ -20,6 +20,7 @@ from braces.views import LoginRequiredMixin
 
 from .models import Coffee, CoffeeBag, CoffeeForm, CoffeeBagForm
 from .models import Roaster, UserRoaster
+from .models import Store, UserStore
 from profile.models import CoffeeUser
 
 from django.utils import simplejson
@@ -108,6 +109,133 @@ def roaster_list_view(request, *args, **kwargs):
                                'paginate_by': 6},
                               context_instance=RequestContext(request))
 
+def store_list_view(request, *args, **kwargs):
+    """View to get a paginated list of all stores.
+    """
+    
+
+    if request.user.is_authenticated():
+        user_store_list = [ustore.store for ustore in UserStore.objects.filter(user=request.user.id)]
+        logger.debug("Got user store list of %i stores" % (len(user_store_list), ))
+    else:
+        user_store_list = []
+        
+    return render_to_response('general/stores.html', 
+                              {'store_list': Store.objects.all(), 
+                               'user_store_list': user_store_list, 
+                               'num_vote_stars': [5,4,3,2,1],
+                               'paginate_by': 6},
+                              context_instance=RequestContext(request))
+
+@login_required    
+def rate_user_store(request, *args, **kwargs):
+    json_vars = {}
+    
+    logger.debug("In rate_user_store")
+    logger.debug("request POST: %s" % (request.POST, ))
+    
+    if request.method == 'POST':
+
+        rating = int(request.POST.get('rating', None))
+        store_pk = request.POST.get('store_pk', None)
+
+        curruser = request.user
+        store = Store.objects.get(pk=store_pk)
+
+        logger.debug("Trying to update: %s added %i to %s" % (curruser, 
+                                                              rating, 
+                                                              store))
+
+        try:
+            store.rating.delete(request.user, request.META['REMOTE_ADDR'])
+        except Exception as e:
+            logger.error("Can't delete: %s" % e)
+
+        try:
+            store.rating.add(score=rating, user=request.user, 
+                               ip_address=request.META['REMOTE_ADDR'])
+            store.save()
+            logger.debug("%s added %i to %s" % (curruser, rating, store))
+            state = 'success'
+        except Exception as e:
+            logger.error("%s" % e)
+            state = "Already added that store"
+
+        json_vars['state'] = state
+    
+    return HttpResponse(simplejson.dumps(json_vars),
+                        mimetype='application/javascript')
+
+@login_required    
+def add_user_store(request, *args, **kwargs):
+
+    json_vars = {}
+    
+    if request.method == 'POST':
+
+        state = "add a UserStore"
+    
+        # curruser = request.user
+        curruser = request.user
+        store = Store.objects.get(pk=request.POST.get('store_pk', None))
+        
+        logger.debug("Adding Store: user = %s, store = %s" % (curruser, store))
+        
+        try:
+            user_store = UserStore(user=curruser,
+                                       store=store)
+            user_store.save()
+            state = 'success'
+        except:
+            state = "Already added that store"
+
+        json_vars['state'] = state
+    
+    return HttpResponse(simplejson.dumps(json_vars),
+                        mimetype='application/javascript')
+    
+    
+@login_required    
+def remove_user_store(request, *args, **kwargs):
+    """Remove a user store object from the db.
+    
+    Need to check to make sure a single value is removed.
+    
+    Also, user shouldn't be able to navigate to this URL directly;
+    must be a mechanism to limit this.
+    
+    """
+    
+    json_vars = {}
+    
+    
+    if request.method == 'POST':
+
+        state = "remove a UserStore"
+        
+        store_pk = request.POST.get('store_pk', None)
+        
+        if store_pk:
+            try:
+                user_store = UserStore.objects.get(user=request.user.id,
+                                                   store=store_pk)
+                user_store.delete()
+                state = 'success'
+
+                logger.debug("Removed Store: user = %s, store = %s" % (request.user, user_store.store))
+
+            except:
+                state = "Already removed that store"
+            
+            json_vars['state'] = state
+            
+            return HttpResponse(simplejson.dumps(json_vars),
+                        mimetype='application/javascript')
+        else:
+            return redirect("store_list_view")
+    else:
+        return redirect("store_list_view")
+
 def coffeebag_by_roaster_view_json(request):
     """View to get a paginated list of all roasters.
     """
@@ -149,6 +277,25 @@ class UserRoasterListView(ListView):
     template_name = 'general/roasters.html'
     paginate_by = 6
     context_object_name = 'roaster_list'
+
+class StoreDetailView(DetailView):
+    """View to get the detailed view for a store.
+    """
+    
+    model = Store
+    template_name = 'general/store_detail.html'
+
+class UserStoreListView(ListView):
+    """View to get a paginated list of all stores.
+    """
+
+    def get_queryset(self, *args, **kwargs):
+        """Override get_queryset so we can filter on request.user """
+        return UserStore.objects.filter(user=self.request.user.id)      
+    
+    template_name = 'general/stores.html'
+    paginate_by = 6
+    context_object_name = 'store_list'
     
 @login_required    
 def rate_user_roaster(request, *args, **kwargs):
