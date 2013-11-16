@@ -113,6 +113,14 @@
 {% endblock %}
 
 {% block script %}
+<script src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>  
+<script src="{{ STATIC_URL }}js/jquery-ui-1.10.3.js"></script>  
+<script>
+var btn = $.fn.button.noConflict() // reverts $.fn.button to jqueryui btn
+$.fn.btn = btn // assigns bootstrap button functionality to $.fn.btn
+</script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>  
+
 <script src="{{ STATIC_URL }}js/general/roaster_list.js"></script>
 
 {% endblock %}
