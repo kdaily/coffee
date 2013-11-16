@@ -298,7 +298,7 @@ class UserStoreListView(ListView):
         """Override get_queryset so we can filter on request.user """
         return UserStore.objects.filter(user=self.request.user.id)      
     
-    template_name = 'general/mystores.html'
+    template_name = 'general/my_stores.html'
     paginate_by = 6
     context_object_name = 'store_list'
     
