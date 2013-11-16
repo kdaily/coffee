@@ -18,6 +18,7 @@ from coffee_bag.views import UserPurchasedCoffeeBagListView
 from general.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
 from general.views import CoffeeBagListView, CoffeeBagDetailView
 from general.views import roaster_list_view, RoasterDetailView, UserRoasterListView
+from general.views import store_list_view, StoreDetailView, UserStoreListView
 
 
 media_root = getattr(settings, 'MEDIA_ROOT', '/media')    
@@ -76,10 +77,43 @@ urlpatterns = patterns('',
                            view='general.views.remove_user_roaster',
                            name="remove_user_roaster"),
 
-                       # Remove a roaster to current user's roaster list                     
+                       # Rate a roaster to current user's roaster list
                        url(r'^rateuserroaster/$', 
                            view='general.views.rate_user_roaster',
                            name="rate_user_roaster"),
+
+
+
+                       # View a list of stores
+                       url(r'^stores/$', 
+                           'general.views.store_list_view', 
+                           name="store_list_view"),
+                       
+                       # View details for store by primary key
+                       url(r'^store/(?P<pk>\d+)/$', 
+                           view=StoreDetailView.as_view(),
+                           name="storedetail"),
+                       
+                       # View a list of stores for a user
+                       url(r'^mystores/$', 
+                           login_required(UserStoreListView.as_view()),
+                           name="mystorelist"),
+                       
+                       # Add a store to current user's store list                     
+                       url(r'^adduserstore/$', 
+                           view='general.views.add_user_store',
+                           name="add_user_store"),
+                       
+                       # Remove a store to current user's store list                     
+                       url(r'^removeuserstore/$', 
+                           view='general.views.remove_user_store',
+                           name="remove_user_store"),
+
+                       # Rate a store to current user's store list
+                       url(r'^rateuserstore/$', 
+                           view='general.views.rate_user_store',
+                           name="rate_user_store"),
+
 
                                               
                        # View detail for a coffee
