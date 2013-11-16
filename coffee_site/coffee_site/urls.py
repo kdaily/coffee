@@ -81,9 +81,7 @@ urlpatterns = patterns('',
                        url(r'^rateuserroaster/$', 
                            view='general.views.rate_user_roaster',
                            name="rate_user_roaster"),
-
-
-
+                       
                        # View a list of stores
                        url(r'^stores/$', 
                            'general.views.store_list_view', 
@@ -113,9 +111,7 @@ urlpatterns = patterns('',
                        url(r'^rateuserstore/$', 
                            view='general.views.rate_user_store',
                            name="rate_user_store"),
-
-
-                                              
+                       
                        # View detail for a coffee
                        url(r'^coffee/(?P<pk>\d+)/$', 
                            view=CoffeeDetailView.as_view(),
