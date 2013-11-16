@@ -26,8 +26,10 @@
 </div>
  
 {% endblock %}
-	
+
 {% block script %}
+<script src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>  
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>  
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdGLwlfxNPtUBeggNIaPw3zTMW05FyR-M&sensor=false"></script>
 <script type="text/javascript">
 google.maps.visualRefresh = true;
