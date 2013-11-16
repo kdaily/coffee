@@ -46,7 +46,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               
-              <a class="brand" href="/">Coffee Ratios</a>
+              <a class="brand" href="{% url 'home' %}">Coffee Ratios</a>
               
               <li class="dropdown">
             	<a data-toggle="dropdown" class="dropdown-toggle" href="#">About <b class="caret"></b></a> <!--  add/use <b class="caret"></b> to display arrow down -->
@@ -68,9 +68,8 @@
             	  <li><a href="#">Flavors</a></li>
             	  <li><a href="#">Roasting</a></li>
             	  <li class="divider"></li> 
-            	  <li><a href="/roasters/">Roasters</a></li>
-            	  <li><a href="/purchased_coffees/">Purchased Coffees</a></li>
-                  <li><a href="/stores/">Stores</a></li> 
+            	  <li><a href="{% url 'roaster_list_view' %}">Roasters</a></li>
+                  <li><a href="{% url 'store_list_view' %}">Stores</a></li> 
          	  
           	</ul><!-- .dropdown-menu -->
               </li><!-- .dropdown-Coffee -->
@@ -100,12 +99,12 @@
             	<ul class="dropdown-menu">            	
             	  <li><a href="#">My coffees</a></li>	
             	  <li class="divider"></li>
-            	  <li><a href="/purchased_coffees/">My methods</a></li>
+            	  <li><a href="{% url 'purchcoffeebaglist' %}">My methods</a></li>
             	  <li class="divider"></li>
             	  <li><a href="#">My equipment</a></li>
             	  <li class="divider"></li>
-                  <li><a href="/myroasters/">My roasters</a></li>
-                  <li><a href="/mystores/">My stores</a></li>                	                	               
+                  <li><a href="{% url 'myroasterlist' %}">My roasters</a></li>
+                  <li><a href="{% url 'mystorelist' %}">My stores</a></li>
                   <li class="divider"></li>
                   <li><a href="#">My favorites</a></li>
           	</ul><!-- .dropdown-menu -->
