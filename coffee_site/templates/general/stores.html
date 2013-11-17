@@ -7,12 +7,10 @@
 {% load thumbnail %}
 {% load ratings %}
 
-{% if store_list %}
 <div class="hero-unit">
-  <div class="row-fluid">	    
-    <div class="span12 spacerTop">  
+  <!-- <div class="row-fluid">	     -->
+  <!--   <div class="span12 spacerTop">   -->
       <h2>Stores</h2>
-      State: {{state}}  
       <form id="custom-search-form" class="form-search form-horizontal form-inline">
 	<div class="input-append">
 	  <input type="text" class="search-query" placeholder="Store by location search">
@@ -25,8 +23,13 @@
 	  <button type="submit" class="btn"><i class="icon-search"></i></button>
 	</div>
       </form>
-    </div> 
+  <!--   </div>  -->
+  <!-- </div> -->
+</div>
+
+{% if store_list %}
     
+<div class="container-fluid">
     {% for store in store_list %}
 
     {% if forloop.counter0|divisibleby:"3" %}
