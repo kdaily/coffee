@@ -9,8 +9,8 @@
 
 {% if roaster_list %}
 <div class="hero-unit">
-  <div class="row-fluid">	    
-    <div class="span12 spacerTop">  
+  <!-- <div class="row-fluid">	     -->
+  <!--   <div class="span12 spacerTop">   -->
       <h2>Coffee roasters</h2>
       State: {{state}}  
       <form id="custom-search-form" class="form-search form-horizontal form-inline">
@@ -25,18 +25,21 @@
 	  <button type="submit" class="btn"><i class="icon-search"></i></button>
 	</div>
       </form>
-    </div> 
-    
-    {% for roaster in roaster_list %}
+  <!--   </div>  -->
+  <!-- </div> -->
+</div>
 
+<div class="container-fluid"> 
+    {% for roaster in roaster_list %}
+    
     {% if forloop.counter0|divisibleby:"3" %}
     <div class="row-fluid spacer">
-    {% endif %}  
-
-    <div class="span4 span4Mod">  	
-      <div style="padding:4px">		
-	{% thumbnail roaster.thumb "150x200" as im  %}
-	<img src = "{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ roaster.name }}" align="middle"> 
+      {% endif %}  
+      
+      <div class="span4 span4Mod">  	
+	<div style="padding:4px">		
+	  {% thumbnail roaster.thumb "150x200" as im  %}
+	  <img src = "{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ roaster.name }}" align="middle"> 
 	{% endthumbnail %}
       </div>
       <div class="caption">
@@ -75,14 +78,14 @@
 	    <label for="star{{ starnum }}-{{ roaster.id }}" title="{{ starnum }} stars">{{ starnum }} stars</label>
 	    {% endfor %}
 	  </fieldset>
-
+	  
 	</div>
-        </div>
-    </div>
+</div>
+</div>
 
 	      
     {% if forloop.counter|divisibleby:"3" %}
-    </div>
+</div>
     {% endif %}
 
     {% endfor %}
