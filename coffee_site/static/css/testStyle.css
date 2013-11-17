@@ -280,6 +280,10 @@ input[type="color"],
 }
 .hero-unit {
    background-color: #643B0F;
+  padding-top: 5px;
+  border-top: 1px solid #2C2416;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #2C2416;
 }
 
 .span4Mod {
@@ -288,13 +292,13 @@ input[type="color"],
   padding-left: 20px;
   border-left: 1px solid #2C2416;
   
-  padding-top: 20px;
+  padding-top: 5px;
   border-top: 1px solid #2C2416;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
   border-bottom: 1px solid #2C2416;
   
   background-color:#C0A172;  
-  height:425px;
+  height: 300px;
  }
  
 .spacer {
