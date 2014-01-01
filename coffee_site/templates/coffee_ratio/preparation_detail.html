@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
+{% block title %}
+<title>Preparation Detail: {{ preparation.date }}</title>
+{% endblock %}
+
 {% block otherstyles %}
 <link rel="stylesheet" href="{{ STATIC_URL }}/css/rating.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}/css/coffeebag.css" />
 
 {% endblock %}
 
-{% block title %}Preparation Detail: {{ preparation.date }} {% endblock %}
 
 {% block loggedinstatus %}Logged in as <a href="#" class="navbar-link">{{ user.username }}</a> (<a href="/logout/" class="navbar-link">Logout</a>){% endblock %}
 
@@ -21,31 +24,30 @@
   </div>
   
   <div class="row-fluid">
-    
-    <div class="span4">
-      <div class="item">
-	<div class="item_head">
-	  <h2>Coffee</h2>
-	</div>
-	<ul>
-	  <li>Coffee: {{ preparation.coffeebag }}</li>
-	</ul>
-      </div>
-    </div>
-    
+        
     <div class="span4">
       <div class="item">
 	<div class="item_head">
 	  <h2>Method</h2>
 	</div>	
 	<ul>
-	  <li>Method: {{ preparation.method }}</li>
-	  <li>{{ preparation.coffee_amt }}g / {{ preparation.water_amt }} ml
+	  <li>{{ preparation.method }}</li>
+	  <li>{{ preparation.coffee_amt }}g coffee / {{ preparation.water_amt }} ml water
 	  <li>Grind: {{ preparation.grinder }}, setting {{ preparation.grind }}</li>
 	  <li>{{ preparation.time_amt }} seconds</li>
 	</ul>
       </div>
     </div>
+
+    <div class="span4">
+      <div class="item">
+	<div class="item_head">
+	  <h2>Coffee</h2>
+	</div>
+	{{ preparation.coffeebag }}	
+      </div>
+    </div>
+  
   </div>
   
   <div class="row-fluid">
