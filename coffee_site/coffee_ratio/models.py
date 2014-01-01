@@ -32,8 +32,10 @@ class Method(models.Model):
     rec_temp = models.FloatField(blank=True, null=True) 
     
     thumb = ImageField(upload_to='method/', blank=True, null=True)
-          
-        
+
+    def __unicode__(self):
+        return self.name
+
 class CoffeeMaker(models.Model):
     """DB model for a generic type of coffee maker.
     
@@ -107,6 +109,9 @@ class CoffeeGrinder(models.Model):
     model = models.CharField(max_length=500)
     description = models.TextField(blank=True, null=True)    
     rating = RatingField(range=5, weight=5, can_change_vote=True, allow_delete=True, allow_anonymous=False)
+
+    def __unicode__(self):
+        return self.name
     
    
 class CoffeeGrinderImage(models.Model):
@@ -146,6 +151,9 @@ class PurchasedCoffeeGrinder(models.Model):
     notes = models.TextField(blank=True, null=True)
     
     thumb = models.ForeignKey(CoffeeGrinderImage, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.coffeegrinder.name
     
     class Meta:
         # Default ordering - chronological by purchase date
@@ -187,7 +195,6 @@ class Preparation(models.Model):
 
     date = models.DateField('Preparation Date', blank=True)
 
-    grinder = models.CharField(max_length=100, blank=True, null=True)
     grind = models.CharField(max_length=100, blank=True, null=True)
     water_amt = models.IntegerField(blank=True, null=True)
     coffee_amt = models.IntegerField(blank=True, null=True)
@@ -204,13 +211,16 @@ class Preparation(models.Model):
     rating_aroma = RatingField(range=5, weight=5, can_change_vote = True, allow_delete = True, allow_anonymous = False)
     rating_tactile = RatingField(range=5, weight=5, can_change_vote = True, allow_delete = True, allow_anonymous = False)
 
-    method = models.ForeignKey(PurchasedCoffeeMaker)
+    method = models.ForeignKey(Method)
     grinder = models.ForeignKey(PurchasedCoffeeGrinder, null=True, blank=True)
     coffeebag = models.ForeignKey(PurchasedCoffeeBag)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     
     thumb = models.ForeignKey(CoffeePrepImage, null=True, blank=True)
     
+    def __unicode__(self):
+	    return "%s, %s on %s by %s" % (self.coffeebag.coffeebag.coffee.name, self.method, self.date, self.user)
+
     class Meta:
         # Default ordering - chronological by purchase date
         ordering = ["-date"]
