@@ -2,14 +2,12 @@
 
 {% block title %}<title>Add a Preparation</title>{% endblock %}
 
-{% block loggedinstatus %}Logged in as <a href="#" class="navbar-link">{{ user.username }}</a> (<a href="/logout/" class="navbar-link">Logout</a>){% endblock %}
-
 {% block content %}
 
 <h1>Add A Preparation</h1>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="/addpreparation/" method="post">{% csrf_token %}
+<form action="{% url 'preparationcreateview' %}" method="post">{% csrf_token %}
   {{ form.roaster.label }}  {{ form.roaster }} <br />
   {{ form.coffeebag.label }}  {{ form.coffeebag }} <br />
 
