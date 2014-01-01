@@ -12,14 +12,17 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
-from coffee_bag.views import PurchasedCoffeeBagDetailView
-from coffee_bag.views import PurchasedCoffeeBagListView
-from coffee_bag.views import UserPurchasedCoffeeBagListView
 from general.views import CoffeeListView, CoffeeCreateView, CoffeeDetailView
 from general.views import CoffeeBagListView, CoffeeBagDetailView
 from general.views import roaster_list_view, RoasterDetailView, UserRoasterListView
 from general.views import store_list_view, StoreDetailView, UserStoreListView
 
+from coffee_bag.views import PurchasedCoffeeBagDetailView
+from coffee_bag.views import PurchasedCoffeeBagListView
+from coffee_bag.views import UserPurchasedCoffeeBagListView
+
+from coffee_ratio.views import PreparationListView, MyPreparationListView
+from coffee_ratio.views import PreparationDetailView
 
 media_root = getattr(settings, 'MEDIA_ROOT', '/media')    
 
@@ -157,7 +160,25 @@ urlpatterns = patterns('',
                            view=CoffeeBagListView.as_view(),
                            name="coffeebaglist"),
 
+                       # View a list of preparations
+                       url(r'^preparations/$', 
+                           view=PreparationListView.as_view(),
+                           name="preparationlist"),
+
+                       # View a list of preparations
+                       url(r'^mypreparations/$', 
+                           view=MyPreparationListView.as_view(),
+                           name="mypreparationlist"),
                       
+                       # Create a new purchased coffee bags
+                       url(r'^addpreparation/$', 
+                           view='coffee_ratio.views.preparation_create_view',
+                           name="preparationcreateview"),
+
+                       # View detail for a preparation
+                       url(r'^preparation/(?P<pk>\d+)/$', 
+                           view=PreparationDetailView.as_view(),
+                           name="preparationdetail"),
                        
                        # Uncomment the admin/doc line below to enable admin documentation:
                        # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
