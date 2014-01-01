@@ -90,7 +90,7 @@ class SearchPurchasedCoffeeBagListView(ListView):
         
         return queryset.filter(varietal__icontains=q)
 
-@login_required    
+@login_required
 def purchased_coffee_bag_create_view(request):
     """View to add new purchased coffee bags.
     
