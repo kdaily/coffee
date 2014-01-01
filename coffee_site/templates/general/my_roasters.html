@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Coffee Roasters{% endblock %}
+
+{% block content %}
+
+{% load thumbnail %}
+{% load ratings %}
+
+{% if roaster_list %}
+<div class="hero-unit">
+  <div class="row-fluid">	    
+    <div class="span12 spacerTop">  
+      <h2>Coffee roasters</h2>
+      State: {{state}}  
+      <form id="custom-search-form" class="form-search form-horizontal form-inline">
+	<div class="input-append">
+	  <input type="text" class="search-query" placeholder="Roaster by location search">
+	  <button type="submit" class="btn"><i class="icon-search"></i></button>
+	</div>
+      </form>
+      <form id="custom-search-form" class="form-search form-horizontal form-inline">
+	<div class="input-append">
+	  <input type="text" class="search-query" placeholder="Roaster name search">
+	  <button type="submit" class="btn"><i class="icon-search"></i></button>
+	</div>
+      </form>
+    </div> 
+    
+    {% for ur in roaster_list %}
+
+    {% if forloop.counter0|divisibleby:"3" %}
+    <div class="row-fluid spacer">
+    {% endif %}  
+
+    <div class="span4 span4Mod">  	
+      <div style="padding:4px">		
+	{% thumbnail ur.roaster.thumb "150x200" as im  %}
+	<img src = "{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ ur.roaster.name }}" align="middle"> 
+	{% endthumbnail %}
+      </div>
+      <div class="caption">
+	<h3>{{ ur.roaster.name }}</h3>
+	<a href="{{ ur.roaster.website }}" >{{ ur.roaster.website }}</a>
+	<p><i class="icon icon-map-marker"></i> {{ ur.roaster.city }}, {{ ur.roaster.state }}, {{ ur.roaster.rating.votes}}</p>		
+      </div>
+      
+      <div class="row-fluid">
+	<div class="span4"><a class="btn btn-mini" href="{% url 'roasterdetail' ur.roaster.id %}">Details</a></div>
+	{% if user.is_authenticated %}
+	
+  	<div class="span4"><a class="btn btn-mini"><i class="icon-user icon-minus addremoveuserroaster" name="{{ ur.roaster.id }}"></i></a></div>
+	
+	{% else %}
+	<div class="span4"><a class="btn disabled btn-mini" <i class="icon-user icon-plus"></i></a></div>
+	{% endif %}
+        
+        <div class="span4">
+	  {% rating_by_request request on ur.rating as users_rating %}
+
+	  Vote: {{ users_rating }}
+	  <fieldset class="rating" name="{{ ur.roaster.id }}">
+	    {% for starnum in num_vote_stars %}
+
+	    {% if starnum == users_rating %}
+	    <input type="radio" class="auto-submit-star" id="star{{ starnum }}-{{ ur.roaster.id }}" name="{{ ur.roaster.id }}" value="{{ starnum }}" checked/>
+	    {% else %}
+	    <input type="radio" class="auto-submit-star" id="star{{ starnum }}-{{ ur.roaster.id }}" name="{{ ur.roaster.id }}" value="{{ starnum }}"/>
+	    {% endif %}
+	    <label for="star{{ starnum }}-{{ ur.roaster.id }}" title="{{ starnum }} stars">{{ starnum }} stars</label>
+	    {% endfor %}
+	  </fieldset>
+	  
+	</div>
+</div>
+</div>
+
+	      
+    {% if forloop.counter|divisibleby:"3" %}
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
+</div>
+</div>
+
+{% if is_paginated %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+    
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    {% endif %}
+  </span>
+	</div>
+
+{% endif %}
+{% endif %}
+
+{% endblock %}
+
+{% block script %}
+<script src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>  
+<script src="{{ STATIC_URL }}js/jquery-ui-1.10.3.js"></script>  
+<script>
+var btn = $.fn.button.noConflict() // reverts $.fn.button to jqueryui btn
+$.fn.btn = btn // assigns bootstrap button functionality to $.fn.btn
+</script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>  
+
+<script src="{{ STATIC_URL }}js/general/roaster_list.js"></script>
+
+{% endblock %}
