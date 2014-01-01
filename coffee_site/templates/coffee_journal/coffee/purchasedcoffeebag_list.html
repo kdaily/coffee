@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Coffee's in Journal{% endblock %}
+{% block title %}<title>My Coffee Journal</title>{% endblock %}
 
 {% block otherstyles %}
 <link rel="stylesheet" href="{{ STATIC_URL }}/css/rating.css" />
@@ -11,7 +11,7 @@
 
 {% block content %}
 
-<h1>{{ user.first_name }} {{ user.last_name }}'s Coffees</h1>
+<h1>{{ user.username }}'s coffees</h1>
 
 {% if purchasedcoffeebag_list %}
 
@@ -27,9 +27,10 @@
     <div class="span3">
       <div class="item">
 	<div class="item_head">
-	  <h2>[{{ coffee.date_purch }}]</h2>
 	</div>
-	{{ coffee.coffeebag.coffee.name }}<a class="btn" href="/purchcoffeebag/{{ coffee.id }}/">View details &raquo;</a>
+	{{ coffee.coffeebag.coffee.name }} from {{ coffee.coffeebag.roaster.name  }}<br />
+	Purchased on {{ coffee.date_purch }}.<br />
+	<a href="{% url 'purchcoffeebagdetail' coffee.id %}"> View details &raquo;</a>	
       </div><!--/span-->
     </div>
   

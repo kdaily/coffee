@@ -2,14 +2,12 @@
 
 {% block title %}Add a Coffee{% endblock %}
 
-{% block loggedinstatus %}Logged in as <a href="#" class="navbar-link">{{ user.username }}</a> (<a href="/logout/" class="navbar-link">Logout</a>){% endblock %}
-
 {% block content %}
 
 <h1>Add A Coffee</h1>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="/addpurchcoffeebag/" method="post">{% csrf_token %}
+<form action="{% url 'purchcoffeebagcreate' %}" method="post">{% csrf_token %}
   {{ purchcoffeebagform.as_p }}
   <input type="submit" value="Save" />
 </form>      
@@ -17,7 +15,8 @@
 {% endblock %}
 
 {% block script %}
-<!-- <script src="{{ STATIC_URL }}/js/jquery-1.9.1.js"></script> -->
+<script src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>  
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>  
 <script src="{{ STATIC_URL }}/js/jquery-ui-1.10.3.js"></script>
 <script src="{{ STATIC_URL }}/js/general/roaster_lookup.js"></script>
 
