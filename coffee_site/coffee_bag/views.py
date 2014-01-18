@@ -104,6 +104,7 @@ def purchased_coffee_bag_create_view(request):
             logger.debug("user = %s" % request.POST.get('user'))
         
             purchased_coffee_bag_form = PurchasedCoffeeBagForm(request.POST)
+            logger.debug("After construct via request.POST")
             
             if purchased_coffee_bag_form.is_valid():
                 new_purch_coffee_bag = purchased_coffee_bag_form.save(commit=False)
@@ -113,7 +114,9 @@ def purchased_coffee_bag_create_view(request):
                 new_purch_coffee_bag.save()
 
                 return HttpResponseRedirect('/purchased_coffees/')
-
+            else:
+                render_dict = {'purchcoffeebagform': purchased_coffee_bag_form}
+            
         else:
             purchased_coffee_bag_form = PurchasedCoffeeBagForm(initial={'id_user': request.user})
             render_dict = {'purchcoffeebagform': purchased_coffee_bag_form}
