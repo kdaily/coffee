@@ -23,6 +23,7 @@ class PurchasedCoffeeBagForm(forms.ModelForm):
 
     roaster = forms.ModelChoiceField(queryset=Roaster.objects.all())
     coffeebag = forms.ModelChoiceField(queryset=CoffeeBag.objects.none(), required=False)
+    notes = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, 'cols':150}))
 
     # change the format of the date fields
     formfield_callback = make_custom_datefield
@@ -50,7 +51,8 @@ class PurchasedCoffeeBagForm(forms.ModelForm):
 
     class Meta:
         model = PurchasedCoffeeBag
-
-        fields = ('date_purch', 'roaster', 'coffeebag', 'store', 'thumb', 'notes')
+        
+        fields = ('date_purch', 'roaster', 'coffeebag', 'store', 'notes')
 
         exclude = ('user', )
+
