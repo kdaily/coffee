@@ -1,72 +1,87 @@
 [
-    {
-        "pk": 1, 
-        "model": "general.coffee", 
-        "fields": {
-            "name": "Sumatra Royal Badak", 
-            "notes": null, 
-            "country": "IDN", 
-            "region": null, 
-            "varietal": null, 
-            "finca": "Small farms at Badak Gede Village", 
-            "altitude": 1524, 
-            "grower": "Gayonese People at Badak Gede Village"
-        }
+    {"pk": 1, 
+     "model": "general.coffee", 
+     "fields": {"name": "Sumatra Royal Badak", 
+		"notes": null, 
+		"country": "ID", 
+		"region": null, 
+		"rating_votes": 0, 
+		"rating_score": 0, 
+		"varietal": null, 
+		"finca": "Small farms at Badak Gede Village", 
+		"altitude": 1524, 
+		"grower": "Gayonese People at Badak Gede Village"
+	       }
     }, 
-    {
-        "pk": 2, 
-        "model": "general.coffee", 
-        "fields": {
-            "name": "Kenya Thunguri AA", 
-            "notes": null, 
-            "country": "KEN", 
-            "region": null, 
-            "varietal": "SL-28,SL-34", 
-            "finca": null, 
-            "altitude": null, 
-            "grower": null
-        }
+    {"pk": 2, 
+     "model": "general.coffee", 
+     "fields": {"name": "Kenya Thunguri AA", 
+		"notes": null, 
+		"country": "KEN", 
+		"region": null, 
+		"varietal": "SL-28,SL-34", 
+		"finca": null, 
+		"altitude": null, 
+		"grower": null, 
+		"rating_votes": 0, 
+		"rating_score": 0, 
+	       }
     }, 
-    {
-        "pk": 3, 
-        "model": "general.coffee", 
-        "fields": {
-            "name": "Sidamo Ardi", 
-            "notes": "Natural processing", 
-            "country": "ETH", 
-            "region": null, 
-            "varietal": "Heirloom", 
-            "finca": null, 
-            "altitude": 1800, 
-            "grower": "Guji region farmers"
-        }
+    {"pk": 3, 
+     "model": "general.coffee", 
+     "fields": {"name": "Sidamo Ardi", 
+		"notes": "Natural processing", 
+		"country": "ET", 
+		"region": null, 
+		"varietal": "Heirloom", 
+		"finca": null, 
+		"altitude": 1800, 
+		"grower": "Guji region farmers",
+		"rating_votes": 0, 
+		"rating_score": 0, 
+	       }
     }, 
-    {
-        "pk": 4, 
-        "model": "general.coffee", 
-        "fields": {
-            "name": "Finca La Bolsa", 
-            "notes": null, 
-            "country": null, 
-            "region": "La Libertad, Huehuetanango", 
-            "varietal": "Bourbon, Caturra", 
-            "finca": "Finca La Bolsa", 
-            "altitude": null, 
-            "grower": "Maria Elena Vides de Ovalle"
-        }
+    {"pk": 4, 
+     "model": "general.coffee", 
+     "fields": {"name": "Finca La Bolsa", 
+		"notes": null, 
+		"country": "GT", 
+		"region": "La Libertad, Huehuetanango", 
+		"varietal": "Bourbon, Caturra", 
+		"finca": "Finca La Bolsa", 
+		"altitude": null, 
+		"grower": "Maria Elena Vides de Ovalle",
+		"rating_votes": 0, 
+		"rating_score": 0, 
+	       }
     }, 
-    {
-        "pk": 5, 
-        "model": "general.coffee", 
-        "fields": {
-            "name": "Kochere Yirgacheffe", 
-            "notes": "Fully washed, raised-bed dried", 
-            "country": "ETH", 
-            "region": "Chalalacktu Village, Kochere District, Borena Zone, South Oromia Region, Yirgacheffe Town", 
-            "varietal": "Heirloom", 
-            "finca": "Small holder farms", 
-            "altitude": 1800, 
-            "grower": "Farms part of the Kochere Cooperative"
-        }
-    }
+    {"pk": 5, 
+     "model": "general.coffee", 
+     "fields": {"name": "Kochere Yirgacheffe", 
+		"notes": "Fully washed, raised-bed dried", 
+		"country": "ET", 
+		"region": "Chalalacktu Village, Kochere District, Borena Zone, South Oromia Region, Yirgacheffe Town", 
+		"varietal": "Heirloom", 
+		"finca": "Small holder farms", 
+		"altitude": 1800, 
+		"grower": "Farms part of the Kochere Cooperative",
+		"rating_votes": 0, 
+		"rating_score": 0
+	       }
+    },
+    
+    {"pk": 6, 
+     "model": "general.coffee", 
+     "fields": {"name": "Guatemala El Injerto", 
+		"notes": "", 
+		"country": "GT", 
+		"region": "", 
+		"varietal": "", 
+		"rating_votes": 0, 
+		"finca": "El Injerto", 
+		"rating_score": 0, 
+		"altitude": null, 
+		"grower": ""
+	       }
+    },
 ]

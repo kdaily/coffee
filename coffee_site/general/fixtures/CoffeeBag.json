@@ -1,14 +1,31 @@
-[
-    {
-        "pk": 1, 
-        "model": "general.coffeebag", 
-        "fields": {
-            "roaster": 2, 
-            "coffee": 1, 
-            "thumb": "", 
-            "price": null, 
-            "date_roast": "2013-06-18", 
-            "amount": 225.0
-        }
-    }
+[{"pk": 1, 
+  "model": "general.coffeebag", 
+  "fields": {"roaster": 2, 
+	     "coffee": 1, 
+	     "thumb": "", 
+	     "amount": null,
+	     "rating_score": 0, 
+	     "roast_type": "", 
+	     "rating_votes": 0}
+ },
+ {"pk": 2, 
+  "model": "general.coffeebag", 
+  "fields": {"roaster": 14, 
+	     "coffee": 1, 
+	     "thumb": null, 
+	     "amount": null, 
+	     "rating_score": 0, 
+	     "roast_type": "", 
+	     "rating_votes": 0}
+ }, 
+ {"pk": 3, 
+  "model": "general.coffeebag", 
+  "fields": {"roaster": 24, 
+	     "coffee": 3,
+	     "thumb": null,
+	     "amount": null,
+	     "rating_score": 0,
+	     "roast_type": "",
+	     "rating_votes": 0}
+ }
 ]
